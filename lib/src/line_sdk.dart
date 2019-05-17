@@ -10,11 +10,11 @@ class LineSDK {
     _channel.setMethodCallHandler(_callHandler);
   }
 
-  Future<void> setup(String channelID, String universalLink) async {
+  Future<void> setup(String channelId, String universalLink) async {
     _channel.invokeMethod(
       'setup',
       <String, String>{
-        'channelID': channelID, 
+        'channelId': channelId, 
         'universalLink': universalLink
       }
     );
