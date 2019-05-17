@@ -20,6 +20,36 @@ public class SwiftFlutterLineSdkPlugin: NSObject, FlutterPlugin {
         .map { URL(string: $0) } ?? nil
       LoginManager.shared.setup(channelID: channelId, universalLinkURL: universalLinkURL)
       result(nil)
+    case "login":
+      let args = call.arguments as! [String: Any]
+      let scopes = (args["scopes"] as? [String])?.map { LoginPermission(rawValue: $0) } ?? [.profile]
+      let onlyWebLogin = (args["onlyWebLogin"] as? Bool) ?? false
+
+      var options: LoginManagerOptions = []
+      if onlyWebLogin {
+        options = .onlyWebLogin
+      }
+
+      if let botPrompt = args["botPrompt"] as? String {
+        switch botPrompt {
+        case "aggressive": options.insert(.botPromptAggressive)
+        case "normal": options.insert(.botPromptNormal)
+        default: break
+        }
+      }
+
+      LoginManager.shared.login(
+        permissions: Set(scopes),
+        in: nil,
+        options: options) { r in
+          switch r {
+          case .success(let value):
+            let s = try! JSONEncoder().encode(value)
+            result(String(data: s, encoding: .utf8))
+          case .failure(let error):
+            result(error.flutterError)
+          }
+      }
     default:
       result(FlutterMethodNotImplemented)
     }
@@ -40,4 +70,12 @@ public class SwiftFlutterLineSdkPlugin: NSObject, FlutterPlugin {
   {
     return LoginManager.shared.application(application, open: userActivity.webpageURL)
   }
+}
+
+extension LineSDKError {
+  var flutterError: FlutterError {
+    return FlutterError(code: String(errorCode), message: errorDescription, details: errorUserInfo)
+  }
+
+
 }

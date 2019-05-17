@@ -10,14 +10,30 @@ class LineSDK {
     _channel.setMethodCallHandler(_callHandler);
   }
 
-  Future<void> setup(String channelId, String universalLink) async {
-    _channel.invokeMethod(
+  Future<void> setup(String channelId, {String universalLink}) async {
+    await _channel.invokeMethod(
       'setup',
       <String, String>{
         'channelId': channelId, 
         'universalLink': universalLink
       }
     );
+  }
+
+  Future<LoginResult> login(
+    { List<String> scopes = const ["profile"], 
+      LoginOption option
+    }) async 
+  { 
+    String result = await _channel.invokeMethod(
+      'login',
+      <String, dynamic>{
+        'scopes': scopes,
+        'onlyWebLogin': option?.onlyWebLogin,
+        'botPrompt': option?.botPrompt
+      }
+    );
+    return LoginResult._(json.decode(result));
   }
 
   static Future<String> get platformVersion async {

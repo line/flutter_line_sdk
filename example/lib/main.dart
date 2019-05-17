@@ -4,6 +4,8 @@ import 'dart:async';
 import 'package:flutter/services.dart';
 import 'package:flutter_line_sdk/flutter_line_sdk.dart';
 
+import 'dart:convert';
+
 void main() => runApp(MyApp());
 
 class MyApp extends StatefulWidget {
@@ -25,10 +27,17 @@ class _MyAppState extends State<MyApp> {
     String platformVersion;
     // Platform messages may fail, so we use a try/catch PlatformException.
     try {
-      await LineSDK.instance.setup("123", null);
+      await LineSDK.instance.setup("1620019587");
       platformVersion = "GOOD";
     } on PlatformException {
       platformVersion = 'ERROR!!!';
+    }
+
+    try {
+      final result = await LineSDK.instance.login();
+      platformVersion = result.userProfile.displayName;
+    } on PlatformException catch (e) {
+      platformVersion = json.encode(e.message);
     }
 
     // If the widget was removed from the tree while the asynchronous platform
