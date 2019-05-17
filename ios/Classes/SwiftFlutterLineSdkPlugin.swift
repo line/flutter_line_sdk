@@ -12,7 +12,17 @@ public class SwiftFlutterLineSdkPlugin: NSObject, FlutterPlugin {
   }
 
   public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
-    result("LINE SDK Version " + LineSDK.Constant.SDKVersion)
+    switch call.method {
+    case "setup":
+      let args = call.arguments as! [String: Any]
+      let channelId = args["channelId"] as! String
+      let universalLinkURL = (args["universalLink"] as? String)
+        .map { URL(string: $0) } ?? nil
+      LoginManager.shared.setup(channelID: channelId, universalLinkURL: universalLinkURL)
+      result(nil)
+    default:
+      result(FlutterMethodNotImplemented)
+    }
   }
 
   public func application(

@@ -25,9 +25,10 @@ class _MyAppState extends State<MyApp> {
     String platformVersion;
     // Platform messages may fail, so we use a try/catch PlatformException.
     try {
-      platformVersion = await LineSDK.platformVersion;
+      await LineSDK.instance.setup("123", null);
+      platformVersion = "GOOD";
     } on PlatformException {
-      platformVersion = 'Failed to get platform version.';
+      platformVersion = 'ERROR!!!';
     }
 
     // If the widget was removed from the tree while the asynchronous platform
