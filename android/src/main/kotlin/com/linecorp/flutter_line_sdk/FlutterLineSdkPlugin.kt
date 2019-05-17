@@ -10,7 +10,7 @@ class FlutterLineSdkPlugin: MethodCallHandler {
   companion object {
     @JvmStatic
     fun registerWith(registrar: Registrar) {
-      val channel = MethodChannel(registrar.messenger(), "flutter_line_sdk")
+      val channel = MethodChannel(registrar.messenger(), "com.linecorp/flutter_line_sdk")
       channel.setMethodCallHandler(FlutterLineSdkPlugin())
     }
   }

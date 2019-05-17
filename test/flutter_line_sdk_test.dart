@@ -3,7 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_line_sdk/flutter_line_sdk.dart';
 
 void main() {
-  const MethodChannel channel = MethodChannel('flutter_line_sdk');
+  const MethodChannel channel = MethodChannel('com.linecorp/flutter_line_sdk');
 
   setUp(() {
     channel.setMockMethodCallHandler((MethodCall methodCall) async {
@@ -16,6 +16,6 @@ void main() {
   });
 
   test('getPlatformVersion', () async {
-    expect(await FlutterLineSdk.platformVersion, '42');
+    expect(await LineSDK.platformVersion, '42');
   });
 }

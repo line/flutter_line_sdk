@@ -3,7 +3,7 @@ import UIKit
 
 public class SwiftFlutterLineSdkPlugin: NSObject, FlutterPlugin {
   public static func register(with registrar: FlutterPluginRegistrar) {
-    let channel = FlutterMethodChannel(name: "flutter_line_sdk", binaryMessenger: registrar.messenger())
+    let channel = FlutterMethodChannel(name: "com.linecorp/flutter_line_sdk", binaryMessenger: registrar.messenger())
     let instance = SwiftFlutterLineSdkPlugin()
     registrar.addMethodCallDelegate(instance, channel: channel)
   }
