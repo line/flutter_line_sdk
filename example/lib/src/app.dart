@@ -4,14 +4,31 @@ import 'screen/home_page.dart';
 class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Plugin example app'),
+      theme: ThemeData(primaryColor: Colors.green),
+      home: DefaultTabController(
+        length: 2,
+        child: Scaffold(
+          appBar: AppBar(
+            title: const Text('LINE SDK'),
+            bottom: TabBar(
+              tabs: [
+                Tab(text: "User"),
+                Tab(text: "API"),
+              ]
+            ),
+          ),
+          body: TabBarView(
+            children: [
+              Center(
+                child: HomePage()
+              ),
+              Center(
+                child: Text("API"),
+              )
+            ],
+          )
         ),
-        body: Center(
-          child: HomePage(),
-        ),
-      ),
+      )
     );
   }
 }

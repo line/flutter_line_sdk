@@ -6,13 +6,16 @@ class UserInfoWidget extends StatelessWidget {
   const UserInfoWidget({
     Key key,
     this.userProfile,
+    this.onSignOutPressed
   }) : super(key: key);
 
   final UserProfile userProfile;
+  final Function onSignOutPressed;
 
   @override
   Widget build(BuildContext context) {
     return Container(
+      margin: EdgeInsets.only(bottom: 200),
       height: 400,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -29,6 +32,12 @@ class UserInfoWidget extends StatelessWidget {
           Text(
             userProfile.statusMessage
           ),
+          Container(
+            child: RaisedButton(
+              child: Text("Sign Out"),
+              onPressed: onSignOutPressed,
+              ),
+          )
         ],
       )
     );

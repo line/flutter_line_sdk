@@ -13,7 +13,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   
   UserProfile _userProfile;
-  StoredAccessToken _accessToken;
+  String _accessToken;
 
   @override
   void initState() {
@@ -25,11 +25,12 @@ class _HomePageState extends State<HomePage> {
   Future<void> initPlatformState() async {
     
     UserProfile userProfile;
-    StoredAccessToken accessToken;
+    String accessToken;
 
     try {
-      accessToken = await LineSDK.instance.currentAccessToken;
-      if (accessToken != null) {
+      final token = await LineSDK.instance.currentAccessToken;
+      accessToken = token?.value;
+      if (token != null) {
         userProfile = await LineSDK.instance.getProfile();
       }
     } on PlatformException catch (e) {
@@ -52,9 +53,40 @@ class _HomePageState extends State<HomePage> {
 
   Widget _containerWidget() {
     if (_userProfile == null) {
-      return Text("Login");
+      return RaisedButton(
+          onPressed: _signIn,
+          child: Text(
+            'Sign In'
+          ),
+        );
     } else {
-      return UserInfoWidget(userProfile: _userProfile);
+      return UserInfoWidget(
+        userProfile: _userProfile, 
+        onSignOutPressed: _signOut);
+    }
+  }
+
+  void _signIn() async {
+    try {
+      final result = await LineSDK.instance.login();
+      setState(() {
+        _userProfile = result.userProfile;
+        _accessToken = result.accessToken.value;
+      });
+    } on PlatformException catch (e) {
+      
+    }
+  }
+
+  void _signOut() async {
+    try {
+      await LineSDK.instance.logout();
+      setState(() {
+        _userProfile = null;
+        _accessToken = null;
+      });
+    } on PlatformException catch (e) {
+      
     }
   }
 }
