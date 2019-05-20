@@ -5,6 +5,8 @@ class AccessToken {
   
   final Map<String, dynamic> _data;
 
+  Map<String, dynamic> get data => _data;
+
   String get value => _data['access_token'];
   num get expiresIn => _data['expires_in'];
   String get idTokenRaw => _data['id_token'];

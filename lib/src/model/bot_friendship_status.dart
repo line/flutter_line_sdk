@@ -5,5 +5,7 @@ class BotFriendshipStatus {
 
   final Map<String, dynamic> _data;
 
+  Map<String, dynamic> get data => _data;
+
   bool get isFriend => _data['friendFlag'];
 }

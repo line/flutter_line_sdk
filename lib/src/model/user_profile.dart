@@ -5,6 +5,8 @@ class UserProfile {
 
   final Map<String, dynamic> _data;
 
+  Map<String, dynamic> get data => _data;
+
   String get displayName => _data['displayName'];
   String get userId => _data['userId'];
   String get statusMessage => _data['statusMessage'];

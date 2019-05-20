@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+
+import 'screen/api_page.dart';
 import 'screen/home_page.dart';
 
 class App extends StatelessWidget {
@@ -23,7 +25,7 @@ class App extends StatelessWidget {
                 child: HomePage()
               ),
               Center(
-                child: Text("API"),
+                child: APIPage()
               )
             ],
           )

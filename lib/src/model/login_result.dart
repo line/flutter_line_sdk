@@ -7,6 +7,8 @@ class LoginResult {
   }
 
   final Map<String, dynamic> _data;
+
+  Map<String, dynamic> get data => _data;
   
   AccessToken _accessToken;
   UserProfile _userProfile;
