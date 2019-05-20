@@ -15,6 +15,7 @@ import com.linecorp.linesdk.auth.LineLoginApi
 import com.linecorp.linesdk.unitywrapper.model.AccessToken
 import com.linecorp.linesdk.unitywrapper.model.BotFriendshipStatus
 import com.linecorp.linesdk.unitywrapper.model.LoginResultForFlutter
+import com.linecorp.linesdk.unitywrapper.model.VerifyAccessTokenResult
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.Result
 import kotlinx.coroutines.GlobalScope
@@ -88,8 +89,11 @@ class LineSdkWrapper(
         if (requestCode != loginRequestCode) return false
 
         if (resultCode != Activity.RESULT_OK || intent == null) {
-            //val errorForUnity = Error(-1, "login error")
-            //CallbackPayload(identifier, gson.toJson(errorForUnity)).sendMessageError()
+            loginResult?.error(
+                resultCode.toString(),
+                "login failed",
+                null
+            )
         }
 
         val result = LineLoginApi.getLoginResultFromIntent(intent)
@@ -102,21 +106,22 @@ class LineSdkWrapper(
                 loginResult = null
             }
             LineApiResponseCode.CANCEL -> {
-                Log.d(TAG, "login canceled")
-                channel.invokeMethod("loginFail", mapOf(
-                    "responseCode" to result.responseCode.name,
-                    "errorMessage" to result.errorData.message.orEmpty()
-                ))
+                loginResult?.error(
+                    result.responseCode.name,
+                    result.errorData.message,
+                    null
+                )
             }
             else -> {
-                Log.d(TAG, "login error")
-                channel.invokeMethod("loginFail", mapOf(
-                    "responseCode" to result.responseCode.name,
-                    "errorMessage" to result.errorData.message.orEmpty()
-                ))
+                loginResult?.error(
+                    result.responseCode.name,
+                    result.errorData.message,
+                    null
+                )
             }
         }
 
+        loginResult = null
         return true
     }
 
@@ -136,38 +141,86 @@ class LineSdkWrapper(
     }
 
     fun getCurrentAccessToken(result: Result) {
-        val lineApiResponse = lineApiClient.currentAccessToken
-        if (lineApiResponse.isSuccess) {
-            result.success(
-                gson.toJson(
-                    AccessToken(
-                        lineApiResponse.responseData.tokenString,
-                        lineApiResponse.responseData.expiresInMillis
+        GlobalScope.launch {
+            val lineApiResponse = lineApiClient.currentAccessToken
+            if (lineApiResponse.isSuccess) {
+                result.success(
+                    gson.toJson(
+                        AccessToken(
+                            lineApiResponse.responseData.tokenString,
+                            lineApiResponse.responseData.expiresInMillis
+                        )
                     )
                 )
-            )
-        } else {
-            result.error(
-                lineApiResponse.responseCode.name,
-                lineApiResponse.errorData.message,
-                null
-            )
+            } else {
+                result.error(
+                    lineApiResponse.responseCode.name,
+                    lineApiResponse.errorData.message,
+                    null
+                )
+            }
         }
-
     }
 
     fun getBotFriendshipStatus(result: Result) {
-        val lineApiResponse = lineApiClient.friendshipStatus
-        if(lineApiResponse.isSuccess) {
-            result.success(
-                gson.toJson(BotFriendshipStatus(lineApiResponse.responseData.isFriend))
-            )
-        } else {
-            result.error(
-                lineApiResponse.responseCode.name,
-                lineApiResponse.errorData.message,
-                null
-            )
+        GlobalScope.launch {
+            val lineApiResponse = lineApiClient.friendshipStatus
+            if (lineApiResponse.isSuccess) {
+                result.success(
+                    gson.toJson(BotFriendshipStatus(lineApiResponse.responseData.isFriend))
+                )
+            } else {
+                result.error(
+                    lineApiResponse.responseCode.name,
+                    lineApiResponse.errorData.message,
+                    null
+                )
+            }
+        }
+    }
+
+    fun refreshToken(result: Result) {
+        GlobalScope.launch {
+            val lineApiResponse = lineApiClient.refreshAccessToken()
+            if (lineApiResponse.isSuccess) {
+                result.success(
+                    gson.toJson(
+                        AccessToken(
+                            lineApiResponse.responseData.tokenString,
+                            lineApiResponse.responseData.expiresInMillis
+                        )
+                    )
+                )
+            } else {
+                result.error(
+                    lineApiResponse.responseCode.name,
+                    lineApiResponse.errorData.message,
+                    null
+                )
+            }
+        }
+    }
+
+    fun verifyAccessToken(result: Result) {
+        GlobalScope.launch {
+            val lineApiResponse = lineApiClient.verifyToken()
+            if (lineApiResponse.isSuccess) {
+                result.success(
+                    gson.toJson(
+                        VerifyAccessTokenResult(
+                            channelId,
+                            lineApiResponse.responseData.scopes.toString(),
+                            lineApiResponse.responseData.accessToken.expiresInMillis
+                        )
+                    )
+                )
+            } else {
+                result.error(
+                    lineApiResponse.responseCode.name,
+                    lineApiResponse.errorData.message,
+                    null
+                )
+            }
         }
     }
 }
