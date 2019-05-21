@@ -6,6 +6,7 @@ import android.content.Intent
 import android.util.Log
 import com.google.gson.Gson
 import com.linecorp.flutter_line_sdk.model.UserProfile
+import com.linecorp.flutter_line_sdk.util.runIfDebugBuild
 import com.linecorp.linesdk.LineApiResponseCode
 import com.linecorp.linesdk.Scope
 import com.linecorp.linesdk.api.LineApiClient
@@ -31,7 +32,7 @@ class LineSdkWrapper(
     private var loginRequestCode: Int = 0
 
     fun setupSdk(channelId: String) {
-        Log.d(TAG, "setupSdk")
+        runIfDebugBuild {  Log.d(TAG, "setupSdk") }
 
         this.channelId = channelId
         lineApiClient = LineApiClientBuilder(activity.applicationContext, channelId).build()
@@ -42,23 +43,35 @@ class LineSdkWrapper(
 
     fun login(
         loginRequestCode: Int,
-        scope: String = "",
+        scopes: List<String> = listOf("profile"),
         onlyWebLogin: Boolean = false,
-        botPrompt: String? = null,
+        botPromptString: String = "normal",
         result: Result
     ) {
-        if (BuildConfig.DEBUG) {
+        runIfDebugBuild {
             Log.d(TAG, "login")
             Log.d(TAG, "channelId:$channelId")
-            Log.d(TAG, "scope:$scope")
+            Log.d(TAG, "scopes: $scopes")
         }
 
         this.loginRequestCode = loginRequestCode
 
         val lineAuthenticationParams = LineAuthenticationParams.Builder()
-            .scopes(listOf(Scope.OC_EMAIL, Scope.OPENID_CONNECT, Scope.PROFILE))
+            .scopes(Scope.convertToScopeList(scopes))
+            .apply {
+                botPromptString?.let {
+                    botPrompt(LineAuthenticationParams.BotPrompt.valueOf(botPromptString))
+                }
+            }
             .build()
-        val loginIntent = LineLoginApi.getLoginIntent(activity, channelId, lineAuthenticationParams)
+
+        val loginIntent = if (onlyWebLogin) {
+            LineLoginApi.getLoginIntentWithoutLineAppAuth(
+                activity, channelId, lineAuthenticationParams)
+        } else {
+            LineLoginApi.getLoginIntent(activity, channelId, lineAuthenticationParams)
+        }
+
         activity.startActivityForResult(loginIntent, loginRequestCode)
         loginResult = result
     }

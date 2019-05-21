@@ -16,6 +16,9 @@ class _HomePageState extends State<HomePage> {
   UserProfile _userProfile;
   String _accessToken;
   String _logs = "";
+  bool _isOnlyWebLogin = false;
+
+  final Set<String> _selectedScopes = Set.from({"profile"});
 
   @override
   void initState() {
@@ -60,6 +63,20 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            Row(
+              children: <Widget>[
+                Checkbox(
+                  value: _isOnlyWebLogin,
+                  onChanged: (bool value) {
+                    setState(() {
+                      _isOnlyWebLogin = !_isOnlyWebLogin;
+                    });
+                  },
+                ),
+                Text("only Web Login")
+              ],
+            ),
+            _scopeListUI(),
             RaisedButton(
               textColor: textColor,
               color: accentColor,
@@ -77,9 +94,38 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
+  Widget _scopeListUI() {
+    var widgetList = <Widget>[(Text("Scopes: "))];
+    widgetList.addAll(
+        _scopes.map<Widget>((String scope) {
+          return Padding(
+            padding: const EdgeInsets.only(left: 4.0, right: 4.0),
+            child: FilterChip(
+              label: Text(scope, style: TextStyle(color: textColor),),
+              selectedColor: accentColor,
+              selected: _selectedScopes.contains(scope),
+              onSelected: (bool value) {
+                setState(() {
+                  (!_selectedScopes.contains(scope)) ?
+                  _selectedScopes.add(scope) :
+                  _selectedScopes.remove(scope);
+                });
+              },
+            ),
+          );
+        }).toList()
+    );
+
+    return Row(children: widgetList);
+  }
+
   void _signIn() async {
     try {
-      final result = await LineSDK.instance.login();
+      final result = await LineSDK.instance.login(
+        scopes: _selectedScopes.toList(),
+        option: LoginOption(_isOnlyWebLogin, "normal")
+      );
+
       setState(() {
         _userProfile = result.userProfile;
         _accessToken = result.accessToken.value;
@@ -103,3 +149,9 @@ class _HomePageState extends State<HomePage> {
     }
   }
 }
+
+const List<String> _scopes = <String>[
+  "profile",
+  "openid",
+  "email",
+];
