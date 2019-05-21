@@ -11,13 +11,16 @@ class HomePage extends StatefulWidget {
   _HomePageState createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin {
   
   UserProfile _userProfile;
   String _accessToken;
   bool _isOnlyWebLogin = false;
 
   final Set<String> _selectedScopes = Set.from({"profile"});
+
+  @override
+  bool get wantKeepAlive => true;
 
   @override
   void initState() {
@@ -61,21 +64,34 @@ class _HomePageState extends State<HomePage> {
         padding: const EdgeInsets.all(8.0),
         child: Column(
           children: <Widget>[
-            _scopeListUI(),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Checkbox(
-                  activeColor: accentColor,
-                  value: _isOnlyWebLogin,
-                  onChanged: (bool value) {
-                    setState(() {
-                      _isOnlyWebLogin = !_isOnlyWebLogin;
-                    });
-                  },
-                ),
-                Text("only Web Login"),
-              ],
+            Card(
+              child: Column (
+                  children: <Widget>[
+                    Padding(
+                      padding: EdgeInsets.all(15.0),
+                      child: Text("Configurations",
+                        style: Theme.of(context).textTheme.title,),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(left: 15.0),
+                      child: _scopeListUI(),
+                    ),
+                    Row(
+                      children: <Widget>[
+                        Checkbox(
+                          activeColor: accentColor,
+                          value: _isOnlyWebLogin,
+                          onChanged: (bool value) {
+                            setState(() {
+                              _isOnlyWebLogin = !_isOnlyWebLogin;
+                            });
+                          },
+                        ),
+                        Text("only Web Login"),
+                      ],
+                    )
+                  ]
+              ),
             ),
             Expanded(
                 child: Center(
@@ -122,9 +138,7 @@ class _HomePageState extends State<HomePage> {
         }).toList()
     );
 
-    return Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: widgetList);
+    return Row(children: widgetList);
   }
 
   void _signIn() async {
