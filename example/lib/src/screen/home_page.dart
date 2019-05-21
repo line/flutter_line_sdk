@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_line_sdk/flutter_line_sdk.dart';
 
+import '../theme.dart';
 import '../widget/user_info_widget.dart';
 
 class HomePage extends StatefulWidget {
@@ -14,6 +15,7 @@ class _HomePageState extends State<HomePage> {
   
   UserProfile _userProfile;
   String _accessToken;
+  String _logs = "";
 
   @override
   void initState() {
@@ -53,12 +55,21 @@ class _HomePageState extends State<HomePage> {
 
   Widget _containerWidget() {
     if (_userProfile == null) {
-      return RaisedButton(
-          onPressed: _signIn,
-          child: Text(
-            'Sign In'
-          ),
-        );
+      return Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            RaisedButton(
+              textColor: textColor,
+              color: accentColor,
+              onPressed: _signIn,
+              child: Text('Sign In'),
+            ),
+            Text(_logs),
+          ],
+        ),
+      );
     } else {
       return UserInfoWidget(
         userProfile: _userProfile, 
@@ -74,7 +85,9 @@ class _HomePageState extends State<HomePage> {
         _accessToken = result.accessToken.value;
       });
     } on PlatformException catch (e) {
-      
+      setState(() {
+        _logs = e.toString();
+      });
     }
   }
 
