@@ -65,6 +65,7 @@ class _HomePageState extends State<HomePage> {
             Row(
               children: <Widget>[
                 Checkbox(
+                  activeColor: accentColor,
                   value: _isOnlyWebLogin,
                   onChanged: (bool value) {
                     setState(() {
@@ -98,17 +99,20 @@ class _HomePageState extends State<HomePage> {
         _scopes.map<Widget>((String scope) {
           return Padding(
             padding: const EdgeInsets.only(left: 4.0, right: 4.0),
-            child: FilterChip(
-              label: Text(scope, style: TextStyle(color: textColor),),
-              selectedColor: accentColor,
-              selected: _selectedScopes.contains(scope),
-              onSelected: (bool value) {
-                setState(() {
-                  (!_selectedScopes.contains(scope)) ?
-                  _selectedScopes.add(scope) :
-                  _selectedScopes.remove(scope);
-                });
-              },
+            child: ChipTheme(
+              data: ChipTheme.of(context).copyWith(brightness: Brightness.dark),
+              child: FilterChip(
+                label: Text(scope, style: TextStyle(color: textColor),),
+                selectedColor: accentColor,
+                selected: _selectedScopes.contains(scope),
+                onSelected: (bool value) {
+                  setState(() {
+                    (!_selectedScopes.contains(scope)) ?
+                    _selectedScopes.add(scope) :
+                    _selectedScopes.remove(scope);
+                  });
+                },
+              ),
             ),
           );
         }).toList()
