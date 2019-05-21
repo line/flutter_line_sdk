@@ -15,7 +15,6 @@ class _HomePageState extends State<HomePage> {
   
   UserProfile _userProfile;
   String _accessToken;
-  String _logs = "";
   bool _isOnlyWebLogin = false;
 
   final Set<String> _selectedScopes = Set.from({"profile"});
@@ -83,7 +82,6 @@ class _HomePageState extends State<HomePage> {
               onPressed: _signIn,
               child: Text('Sign In'),
             ),
-            Text(_logs),
           ],
         ),
       );
@@ -131,9 +129,7 @@ class _HomePageState extends State<HomePage> {
         _accessToken = result.accessToken.value;
       });
     } on PlatformException catch (e) {
-      setState(() {
-        _logs = e.toString();
-      });
+        _showDialog(context, e.toString());
     }
   }
 
@@ -147,6 +143,16 @@ class _HomePageState extends State<HomePage> {
     } on PlatformException catch (e) {
       
     }
+  }
+
+  void _showDialog(BuildContext context, String text) {
+    showDialog(context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          content: Text(text),
+        );
+      }
+    );
   }
 }
 
