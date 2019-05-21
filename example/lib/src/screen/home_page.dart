@@ -60,8 +60,8 @@ class _HomePageState extends State<HomePage> {
       return Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            _scopeListUI(),
             Row(
               children: <Widget>[
                 Checkbox(
@@ -73,15 +73,17 @@ class _HomePageState extends State<HomePage> {
                     });
                   },
                 ),
-                Text("only Web Login")
+                Text("only Web Login"),
+                Padding(
+                  padding: const EdgeInsets.only(left: 8.0),
+                  child: RaisedButton(
+                    textColor: textColor,
+                    color: accentColor,
+                    onPressed: _signIn,
+                    child: Text('Sign In'),
+                  ),
+                ),
               ],
-            ),
-            _scopeListUI(),
-            RaisedButton(
-              textColor: textColor,
-              color: accentColor,
-              onPressed: _signIn,
-              child: Text('Sign In'),
             ),
           ],
         ),
