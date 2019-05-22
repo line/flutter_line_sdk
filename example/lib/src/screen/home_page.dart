@@ -169,6 +169,12 @@ class _HomePageState extends State<HomePage>
         builder: (BuildContext context) {
           return AlertDialog(
             content: Text(text),
+            actions: <Widget>[
+            FlatButton(
+              child: Text('Close'),
+              onPressed: () { Navigator.of(context).pop(); },
+            ),
+          ],
           );
         });
   }
