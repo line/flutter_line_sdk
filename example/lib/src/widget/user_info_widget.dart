@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_line_sdk/flutter_line_sdk.dart';
 
+import '../theme.dart';
+
 class UserInfoWidget extends StatelessWidget {
   const UserInfoWidget({
     Key key,
@@ -34,9 +36,11 @@ class UserInfoWidget extends StatelessWidget {
           ),
           Container(
             child: RaisedButton(
+              textColor: textColor,
+              color: accentColor,
               child: Text("Sign Out"),
               onPressed: onSignOutPressed,
-              ),
+            ),
           )
         ],
       )

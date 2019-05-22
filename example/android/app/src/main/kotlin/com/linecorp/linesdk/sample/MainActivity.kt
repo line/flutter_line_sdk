@@ -1,4 +1,4 @@
-package com.linecorp.flutter_line_sdk_example
+package com.linecorp.linesdk.sample
 
 import android.os.Bundle
 

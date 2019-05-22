@@ -84,6 +84,14 @@ class _APIPageState extends State<APIPage> {
           _setState(null, e);
         }
       }),
+      _APIItem("Get Current AccessToken", () async {
+        try {
+          final result = await LineSDK.instance.currentAccessToken;
+          _setState(result.data, null);
+        } on PlatformException catch (e) {
+          _setState(null, e);
+        }
+      }),
       _APIItem("Refresh Token", () async {
         try {
           final result = await LineSDK.instance.refreshToken();
