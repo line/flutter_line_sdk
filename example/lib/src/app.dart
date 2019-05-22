@@ -6,7 +6,10 @@ import 'screen/home_page.dart';
 class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData(primaryColor: Colors.green),
+      theme: ThemeData(
+        primaryColor: Colors.green, 
+        indicatorColor: Colors.white
+      ),
       home: DefaultTabController(
         length: 2,
         child: Scaffold(
@@ -16,7 +19,8 @@ class App extends StatelessWidget {
               tabs: [
                 Tab(text: "User"),
                 Tab(text: "API"),
-              ]
+              ],
+              indicatorColor: null,
             ),
           ),
           body: TabBarView(

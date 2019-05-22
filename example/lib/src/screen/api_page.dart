@@ -46,7 +46,7 @@ class _APIPageState extends State<APIPage> {
         Expanded(
           flex: 1,
           child: Container(
-            padding: EdgeInsets.all(20),
+            padding: EdgeInsets.all(16),
             child: SingleChildScrollView(
               child: Text(
                 isError ? _error : _result,
@@ -60,7 +60,8 @@ class _APIPageState extends State<APIPage> {
       ]
       ), 
       Expanded(
-        child: ListView.builder(
+        child: ListView.separated(
+          separatorBuilder: (BuildContext context, int index) => Divider(),
           itemCount: apis.length,
           itemBuilder: (context, index) {
             return ListTile(

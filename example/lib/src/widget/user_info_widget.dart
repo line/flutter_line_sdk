@@ -29,7 +29,7 @@ class UserInfoWidget extends StatelessWidget {
           ),
           Text(
             userProfile.displayName, 
-            style: TextStyle(fontSize: 25)
+            style: Theme.of(context).textTheme.headline
           ),
           Text(
             userProfile.statusMessage
