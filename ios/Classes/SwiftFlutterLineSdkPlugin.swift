@@ -70,6 +70,10 @@ enum LineChannelMethod: String {
   case getBotFriendshipStatus
   case currentAccessToken
 
+  #if LINE_FLUTTER_BETA_ENV_COMPATIBLE
+  case toBeta
+  #endif
+
   func call(arguments: [String: Any]?, result: @escaping FlutterResult) {
 
     let runner: (_ arguments: [String: Any]?, _ result: @escaping FlutterResult) -> Void
@@ -83,6 +87,10 @@ enum LineChannelMethod: String {
     case .verifyAccessToken:      runner = verifyAccessToken
     case .getBotFriendshipStatus: runner = getBotFriendshipStatus
     case .currentAccessToken:     runner = currentAccessToken
+
+    #if LINE_FLUTTER_BETA_ENV_COMPATIBLE
+    case .toBeta:                 runner = toBeta
+    #endif
     }
 
     runner(arguments, result)
@@ -187,6 +195,13 @@ extension LineChannelMethod {
   func currentAccessToken(arguments: [String: Any]?, result: @escaping FlutterResult) {
     result(AccessTokenStore.shared.current?.json)
   }
+
+  #if LINE_FLUTTER_BETA_ENV_COMPATIBLE
+  func toBeta(arguments: [String: Any]?, result: @escaping FlutterResult) {
+    LineSDK.Constant.toBeta()
+    result(nil)
+  }
+  #endif
 }
 
 private let encoder: JSONEncoder = {
