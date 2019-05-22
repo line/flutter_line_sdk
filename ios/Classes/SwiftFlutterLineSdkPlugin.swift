@@ -189,7 +189,12 @@ extension LineChannelMethod {
   }
 }
 
-private let encoder = JSONEncoder()
+private let encoder: JSONEncoder = {
+    let encoder = JSONEncoder()
+    encoder.dateEncodingStrategy = .secondsSince1970
+    return encoder
+}()
+
 extension Encodable {
   var json: String {
     let data = try! encoder.encode(self)
