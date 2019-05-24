@@ -11,13 +11,15 @@ import com.linecorp.linesdk.LineApiResponseCode
 import com.linecorp.linesdk.Scope
 import com.linecorp.linesdk.api.LineApiClient
 import com.linecorp.linesdk.api.LineApiClientBuilder
+import com.linecorp.linesdk.api.LineApiClientFactory
+import com.linecorp.linesdk.auth.LineAuthenticationConfig
+import com.linecorp.linesdk.auth.LineAuthenticationConfigFactory
 import com.linecorp.linesdk.auth.LineAuthenticationParams
 import com.linecorp.linesdk.auth.LineLoginApi
 import com.linecorp.linesdk.unitywrapper.model.AccessToken
 import com.linecorp.linesdk.unitywrapper.model.BotFriendshipStatus
 import com.linecorp.linesdk.unitywrapper.model.LoginResultForFlutter
 import com.linecorp.linesdk.unitywrapper.model.VerifyAccessTokenResult
-import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.Result
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -30,13 +32,16 @@ class LineSdkWrapper(
     private lateinit var channelId: String
     private val gson = Gson()
     private var loginRequestCode: Int = 0
+    private var betaConfig: BetaConfig? = null
 
     fun setupSdk(channelId: String) {
         runIfDebugBuild {  Log.d(TAG, "setupSdk") }
 
-        this.channelId = channelId
-        lineApiClient = LineApiClientBuilder(activity.applicationContext, channelId).build()
+        if (!this::channelId.isInitialized) {
+            this.channelId = channelId
+        }
 
+        lineApiClient = createLineApiClient(channelId)
     }
 
     var loginResult: Result? = null
@@ -65,18 +70,28 @@ class LineSdkWrapper(
             }
             .build()
 
-        val loginIntent = if (onlyWebLogin) {
-            LineLoginApi.getLoginIntentWithoutLineAppAuth(
-                activity, channelId, lineAuthenticationParams)
-        } else {
-            LineLoginApi.getLoginIntent(activity, channelId, lineAuthenticationParams)
-        }
+        val lineAuthenticationConfig: LineAuthenticationConfig? =
+            createLineAuthenticationConfig(channelId, onlyWebLogin)
+
+        val loginIntent =
+            when {
+                lineAuthenticationConfig != null -> LineLoginApi.getLoginIntent(
+                    activity,
+                    lineAuthenticationConfig,
+                    lineAuthenticationParams
+                )
+                onlyWebLogin -> LineLoginApi.getLoginIntentWithoutLineAppAuth(
+                    activity, channelId, lineAuthenticationParams)
+                else -> LineLoginApi.getLoginIntent(activity, channelId, lineAuthenticationParams)
+            }
 
         activity.startActivityForResult(loginIntent, loginRequestCode)
         loginResult = result
     }
 
     fun getProfile(result: Result) {
+        runIfDebugBuild {  Log.d(TAG, "getProfile") }
+
         GlobalScope.launch {
             val lineApiResponse = lineApiClient.profile
             if (!lineApiResponse.isSuccess) {
@@ -91,14 +106,12 @@ class LineSdkWrapper(
                 val jsonString = gson.toJson(userProfile)
                 result.success(jsonString)
 
-                if (BuildConfig.DEBUG) {
-                    Log.d(TAG, "getProfile: $jsonString")
-                }
+                runIfDebugBuild { Log.d(TAG, "getProfile: $jsonString") }
             }
         }
     }
 
-    fun handleActivityResult(channel: MethodChannel, requestCode: Int, resultCode: Int, intent: Intent?): Boolean {
+    fun handleActivityResult(requestCode: Int, resultCode: Int, intent: Intent?): Boolean {
         if (requestCode != loginRequestCode) return false
 
         if (resultCode != Activity.RESULT_OK || intent == null) {
@@ -110,11 +123,11 @@ class LineSdkWrapper(
         }
 
         val result = LineLoginApi.getLoginResultFromIntent(intent)
-        Log.d(TAG, "login result:$result")
+        runIfDebugBuild { Log.d(TAG, "login result:$result") }
 
         when(result.responseCode) {
             LineApiResponseCode.SUCCESS -> {
-                Log.d(TAG, "login success")
+                runIfDebugBuild { Log.d(TAG, "login success") }
                 loginResult?.success(gson.toJson(LoginResultForFlutter.convertLineResult(result)))
                 loginResult = null
             }
@@ -139,6 +152,8 @@ class LineSdkWrapper(
     }
 
     fun logout(result: Result) {
+        runIfDebugBuild {  Log.d(TAG, "logout") }
+
         GlobalScope.launch {
             val lineApiResponse = lineApiClient.logout()
             if(!lineApiResponse.isSuccess) {
@@ -176,6 +191,8 @@ class LineSdkWrapper(
     }
 
     fun getBotFriendshipStatus(result: Result) {
+        runIfDebugBuild {  Log.d(TAG, "getBotFriendshipStatus") }
+
         GlobalScope.launch {
             val lineApiResponse = lineApiClient.friendshipStatus
             if (lineApiResponse.isSuccess) {
@@ -193,6 +210,8 @@ class LineSdkWrapper(
     }
 
     fun refreshToken(result: Result) {
+        runIfDebugBuild {  Log.d(TAG, "refreshToken") }
+
         GlobalScope.launch {
             val lineApiResponse = lineApiClient.refreshAccessToken()
             if (lineApiResponse.isSuccess) {
@@ -215,6 +234,8 @@ class LineSdkWrapper(
     }
 
     fun verifyAccessToken(result: Result) {
+        runIfDebugBuild {  Log.d(TAG, "verifyAccessToken") }
+
         GlobalScope.launch {
             val lineApiResponse = lineApiClient.verifyToken()
             if (lineApiResponse.isSuccess) {
@@ -222,7 +243,7 @@ class LineSdkWrapper(
                     gson.toJson(
                         VerifyAccessTokenResult(
                             channelId,
-                            lineApiResponse.responseData.scopes.toString(),
+                            Scope.join(lineApiResponse.responseData.scopes),
                             lineApiResponse.responseData.accessToken.expiresInMillis
                         )
                     )
@@ -236,4 +257,45 @@ class LineSdkWrapper(
             }
         }
     }
+
+    fun setupBetaConfig(
+        channelId: String,
+        openDiscoveryIdDocumentUrl: String,
+        apiServerBaseUrl: String,
+        webLoginPageUrl: String
+    ) {
+        this.channelId = channelId
+        betaConfig = BetaConfig(openDiscoveryIdDocumentUrl, apiServerBaseUrl, webLoginPageUrl)
+    }
+
+    private fun createLineAuthenticationConfig(
+        channelId: String,
+        onlyWebLogin: Boolean
+    ): LineAuthenticationConfig? {
+        val betaConfig = this.betaConfig ?: return null
+        return LineAuthenticationConfigFactory.createConfig(
+            channelId,
+            betaConfig.openDiscoveryIdDocumentUrl,
+            betaConfig.apiServerBaseUrl,
+            betaConfig.webLoginPageUrl,
+            onlyWebLogin
+        )
+    }
+
+    private fun createLineApiClient(channelId: String): LineApiClient =
+        if (betaConfig == null) {
+            LineApiClientBuilder(activity.applicationContext, channelId).build()
+        } else {
+            LineApiClientFactory.createLineApiClient(
+                activity.applicationContext,
+                channelId,
+                betaConfig!!.apiServerBaseUrl
+            )
+        }
 }
+
+data class BetaConfig(
+    val openDiscoveryIdDocumentUrl: String,
+    val apiServerBaseUrl: String,
+    val webLoginPageUrl: String
+)

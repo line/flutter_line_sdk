@@ -14,6 +14,19 @@ class FlutterLineSdkPlugin(
     private var loginRequestCode: Int = 0
 
     override fun onMethodCall(call: MethodCall, result: Result) = when (call.method) {
+        "toBeta" -> run {
+            val channelId: String = call.argument("channelId") ?: ""
+            val openDiscoveryIdDocumentUrl: String = call.argument("openDiscoveryIdDocumentUrl") ?: ""
+            val apiServerBaseUrl: String = call.argument("apiServerBaseUrl") ?: ""
+            val webLoginPageUrl: String = call.argument("webLoginPageUrl") ?: ""
+            lineSdkWrapper.setupBetaConfig(
+                channelId,
+                openDiscoveryIdDocumentUrl,
+                apiServerBaseUrl,
+                webLoginPageUrl
+            )
+            result.success(null)
+        }
         "setup" -> {
             val channelId: String = call.argument<String?>("channelId").orEmpty()
             loginRequestCode = (call.argument("loginRequestCode") ?: "0").toInt()
@@ -43,7 +56,7 @@ class FlutterLineSdkPlugin(
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, intent: Intent?): Boolean =
-        lineSdkWrapper.handleActivityResult(channel, requestCode, resultCode, intent)
+        lineSdkWrapper.handleActivityResult(requestCode, resultCode, intent)
 
     companion object {
         private const val CHANNEL_NAME = "com.linecorp/flutter_line_sdk"

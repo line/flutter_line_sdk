@@ -16,17 +16,16 @@ class UserInfoWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.only(bottom: 200),
-      height: 400,
+    return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
+          (userProfile.pictureUrl.isNotEmpty) ?
           Image.network(
             userProfile.pictureUrl, 
             width: 200, 
             height: 200
-          ),
+          ) : Icon(Icons.person),
           Text(
             userProfile.displayName, 
             style: Theme.of(context).textTheme.headline
