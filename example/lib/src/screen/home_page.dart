@@ -13,10 +13,10 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage>
     with AutomaticKeepAliveClientMixin {
   UserProfile _userProfile;
-  String _accessToken;
+  StoredAccessToken _accessToken;
   bool _isOnlyWebLogin = false;
 
-  final Set<String> _selectedScopes = Set.from({"profile"});
+  final Set<String> _selectedScopes = Set.from(["profile"]);
 
   @override
   bool get wantKeepAlive => true;
@@ -27,24 +27,19 @@ class _HomePageState extends State<HomePage>
     initPlatformState();
   }
 
-  // Platform messages are asynchronous, so we initialize in an async method.
   Future<void> initPlatformState() async {
     UserProfile userProfile;
-    String accessToken;
+    StoredAccessToken accessToken;
 
     try {
-      final token = await LineSDK.instance.currentAccessToken;
-      accessToken = token?.value;
-      if (token != null) {
+      accessToken = await LineSDK.instance.currentAccessToken;
+      if (accessToken != null) {
         userProfile = await LineSDK.instance.getProfile();
       }
     } on PlatformException catch (e) {
       print(e.message);
     }
-
-    // If the widget was removed from the tree while the asynchronous platform
-    // message was in flight, we want to discard the reply rather than calling
-    // setState to update our non-existent appearance.
+    
     if (!mounted) return;
 
     setState(() {
@@ -54,43 +49,14 @@ class _HomePageState extends State<HomePage>
   }
 
   @override
-  Widget build(BuildContext context) => _containerWidget();
-
-  Widget _containerWidget() {
+  Widget build(BuildContext context) {
+    super.build(context);
     if (_userProfile == null) {
       return Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
           children: <Widget>[
-            Card(
-              child: Column(children: <Widget>[
-                Padding(
-                  padding: EdgeInsets.all(15.0),
-                  child: Text(
-                    "Configurations",
-                    style: Theme.of(context).textTheme.title,
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(left: 15.0),
-                  child: _scopeListUI(),
-                ),
-                Row(
-                  children: <Widget>[
-                    Checkbox(
-                      activeColor: accentColor,
-                      value: _isOnlyWebLogin,
-                      onChanged: (bool value) {
-                        setState(() {
-                          _isOnlyWebLogin = !_isOnlyWebLogin;
-                        });
-                      },
-                    ),
-                    Text("only Web Login"),
-                  ],
-                )
-              ]),
-            ),
+            _configCard(),
             Expanded(
                 child: Center(
               child: RaisedButton(
@@ -105,8 +71,40 @@ class _HomePageState extends State<HomePage>
       );
     } else {
       return UserInfoWidget(
-          userProfile: _userProfile, onSignOutPressed: _signOut);
+          userProfile: _userProfile, accessToken: _accessToken, onSignOutPressed: _signOut);
     }
+  }
+
+  Widget _configCard() {
+    return Card(
+        child: Column(children: <Widget>[
+          Padding(
+            padding: EdgeInsets.all(15.0),
+            child: Text(
+              "Configurations",
+              style: Theme.of(context).textTheme.title,
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.only(left: 15.0),
+            child: _scopeListUI(),
+          ),
+          Row(
+            children: <Widget>[
+              Checkbox(
+                activeColor: accentColor,
+                value: _isOnlyWebLogin,
+                onChanged: (bool value) {
+                  setState(() {
+                    _isOnlyWebLogin = !_isOnlyWebLogin;
+                  });
+                },
+              ),
+              Text("only Web Login"),
+            ],
+          )
+        ]),
+      );
   }
 
   Widget _scopeListUI() {
@@ -143,10 +141,11 @@ class _HomePageState extends State<HomePage>
       final result = await LineSDK.instance.login(
           scopes: _selectedScopes.toList(),
           option: LoginOption(_isOnlyWebLogin, "normal"));
+      final accessToken = await LineSDK.instance.currentAccessToken;
 
       setState(() {
         _userProfile = result.userProfile;
-        _accessToken = result.accessToken.value;
+        _accessToken = accessToken;
       });
     } on PlatformException catch (e) {
       _showDialog(context, e.toString());
@@ -160,7 +159,9 @@ class _HomePageState extends State<HomePage>
         _userProfile = null;
         _accessToken = null;
       });
-    } on PlatformException catch (e) {}
+    } on PlatformException catch (e) {
+      print(e.message);
+    }
   }
 
   void _showDialog(BuildContext context, String text) {

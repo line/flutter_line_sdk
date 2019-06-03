@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
-
 import 'package:flutter_line_sdk/flutter_line_sdk.dart';
-
 import '../theme.dart';
 
 class UserInfoWidget extends StatelessWidget {
   const UserInfoWidget({
     Key key,
     this.userProfile,
+    this.accessToken,
     this.onSignOutPressed
   }) : super(key: key);
 
   final UserProfile userProfile;
+  final StoredAccessToken accessToken;
   final Function onSignOutPressed;
 
   @override
