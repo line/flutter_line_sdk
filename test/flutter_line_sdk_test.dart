@@ -85,7 +85,7 @@ void main() {
 
   test('verify access token', () async {
     final v = await LineSDK.instance.verifyAccessToken();
-    expect(v.clientId, "1440057261");
+    expect(v.channelId, "1440057261");
   });
 
   test('get bot friendship status', () async {
