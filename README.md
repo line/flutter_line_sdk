@@ -153,7 +153,7 @@ final result = await LineSDK.instance.login(
 try {
   await LineSDK.instance.logout();
 } on PlatformException catch (e) {
-    print(e.message);
+  print(e.message);
 }
 ```
 
@@ -161,26 +161,57 @@ try {
 
 ```dart
 try {
-    final result = await LineSDK.instance.getProfile();
-    // user id -> result.userId
-    // user name -> result.displayName
-    // user avatar -> result.pictureUrl
+  final result = await LineSDK.instance.getProfile();
+  // user id -> result.userId
+  // user name -> result.displayName
+  // user avatar -> result.pictureUrl
 } on PlatformException catch (e) {
-    print(e.message);
+  print(e.message);
 }
 ```
 
-### Refresh current access token
+#### Get current stored access token
 
 ```dart
 try {
-    final result = await LineSDK.instance.refreshToken();
-    // acceess token -> result.value
-    // expires duration -> result.expiresIn
+  final result = await LineSDK.instance.currentAccessToken;
+  // acceess token -> result.value
 } on PlatformException catch (e) {
-    print(e.message);
+  print(e.message);
 }
 ```
+
+#### Verify access token with LINE server
+
+```dart
+try {
+  final result = await LineSDK.instance.verifyAccessToken();
+  // result.data is accessible if the token is valid.
+} on PlatformException catch (e) {
+  print(e.message);
+  // token is not valid, or any other error.
+}
+```
+
+#### Refresh current access token
+
+```dart
+try {
+  final result = await LineSDK.instance.refreshToken();
+  // acceess token -> result.value
+  // expires duration -> result.expiresIn
+} on PlatformException catch (e) {
+  print(e.message);
+}
+```
+
+> Normally, you do not need to refresh the access token manually because any API call in LINE SDK will attempt to 
+> refresh the access token automatically if necessary. It is **not recommended** to refresh the access tokens by yourself. 
+> Automatic access token management by the LINE SDK is usually easier and safer for future upgrading.
+
+### Error handling
+
+All APIs may throw a `PlatformException` with error `code` and a `message`. Use these information to identify an error happens inside the native SDK. Please note that the code and message of an error might varies on iOS and Android. We encourage you to read the error definition on [iOS](https://developers.line.biz/en/reference/ios-sdk-swift/Enums/LineSDKError.html) and [Android](https://developers.line.biz/en/reference/android-sdk/reference/com/linecorp/linesdk/LineApiError.html) to provide better error recovery and user experience on different platforms.
 
 ## Contributing
 
