@@ -14,6 +14,9 @@ A Flutter plugin for allowing users to use the native LINE SDKs with Dart in Flu
   s.dependency 'Flutter'
   s.dependency 'LineSDKSwift', '~> 5.0'
 
+  s.swift_version         = "4.2"
+  s.swift_versions        = ['4.2', '5.0']
+
   s.ios.deployment_target = '10.0'
 end
 
