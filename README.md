@@ -100,6 +100,8 @@ target 'Runner' do
 
 #### Android
 
+No specific settings are required.
+
 ### Importing and using
 
 Importing `flutter_line_sdk` to any place you want to use it in your project:
