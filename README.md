@@ -104,18 +104,22 @@ No specific settings are required.
 
 ### Importing and using
 
+#### Setup
+
 Importing `flutter_line_sdk` to any place you want to use it in your project:
 
 ```dart
 import 'package:flutter_line_sdk/flutter_line_sdk.dart';
 ```
 
-You need to setup your channel information first. A recommended place is in the `main` function:
+You need to setup your channel ID first. For example, you can call `setup` in the `main` function:
 
 ```diff
 - void main() => runApp(MyApp());
-+ void main() async {
-+   await LineSDK.instance.setup("your_channel_id");
++ void main() {
++   LineSDK.instance.setup("1620019587").then((_) {
++     print("LineSDK Prepared");
++   });
 +   runApp(App());
 + }
 ```
