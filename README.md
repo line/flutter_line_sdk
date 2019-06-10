@@ -70,26 +70,24 @@ Now, the dart part of `flutter_line_sdk` should be installed. Following, you nee
 
 Open the `ios/Runner/Info.plist` file in your app project with a text editor, insert the following snippet just before the last `</dict>` tag:
 
-```diff
-+  <key>CFBundleURLTypes</key>
-+  <array>
-+    <dict>
-+      <key>CFBundleTypeRole</key>
-+      <string>Editor</string>
-+      <key>CFBundleURLSchemes</key>
-+      <array>
-+        <!-- Specify URL scheme to use when returning from LINE to your app. -->
-+        <string>line3rdp.$(PRODUCT_BUNDLE_IDENTIFIER)</string>
-+      </array>
-+    </dict>
-+  </array>
-+  <key>LSApplicationQueriesSchemes</key>
-+  <array>
-+    <!-- Specify URL scheme to use when launching LINE from your app. -->
-+    <string>lineauth2</string>
-+  </array>
-</dict>
-</plist>
+```xml
+<key>CFBundleURLTypes</key>
+<array>
+  <dict>
+    <key>CFBundleTypeRole</key>
+    <string>Editor</string>
+    <key>CFBundleURLSchemes</key>
+    <array>
+      <!-- Specify URL scheme to use when returning from LINE to your app. -->
+      <string>line3rdp.$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+    </array>
+  </dict>
+</array>
+<key>LSApplicationQueriesSchemes</key>
+<array>
+  <!-- Specify URL scheme to use when launching LINE from your app. -->
+  <string>lineauth2</string>
+</array>
 ```
 
 Since LINE SDK now requires iOS 10.0 or above, and it uses Cocoa Framework to provide underlying native features, you need to add these lines in the `Runner` target in the `ios/Podfile`:
