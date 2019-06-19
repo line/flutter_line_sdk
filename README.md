@@ -1,8 +1,8 @@
 # flutter_line_sdk
 
-A [Flutter] plugin that allows developers to use the native LINE SDKs with [Dart] in Flutter apps.
+A [Flutter] plugin that lets developers access LINE's native SDKs in Flutter apps with [Dart].
 
-The plugin helps you integrate LINE Login features in your app. You can redirect users to LINE or a web page to log in with their LINE credentials. Example:
+The plugin helps you integrate LINE Login features in your app. You can redirect users to LINE or a web page where they log in with their LINE credentials. Example:
 
 ```dart
 import 'package:flutter_line_sdk/flutter_line_sdk.dart';
@@ -32,13 +32,13 @@ For more examples, see the [example app](https://github.com/line/flutter_line_sd
 - Android `minSdkVersion` set to 17 or higher (Android 4.2 or later)
 - [LINE Login channel linked to your app](https://developers.line.biz/en/docs/line-login/getting-started/)
 
-To use the LINE Login channel on a mobile platform, you need some additional configuration. In the [LINE Developers console][console], go to the **App settings** tab for your LINE Login and refer to the below information.
+To access your LINE Login channel from a mobile platform, you need some extra configuration. In the [LINE Developers console][console], go to your LINE Login channel settings, and enter the below information on the **App settings** tab.
 
 ### iOS app settings
 
 | Setting | Description |
 |-------|---------|
-| iOS bundle ID |  Bundle identifier of your app. In Xcode, find it in your **Runner** project settings, on the **General** tab. Must be lowercase. For example, `com.example.app`. You can specify multiple bundle identifiers by typing each on a new line. |
+| iOS bundle ID |  Bundle identifier of your app. In Xcode, find it in your **Runner** project settings, on the **General** tab. Must be lowercase, like `com.example.app`. You can specify multiple bundle identifiers by typing each one on a new line. |
 | iOS scheme  | Set to `line3rdp.`, followed by the bundle identifier. For example, if your bundle identifier is `com.example.app`, set the iOS scheme to `line3rdp.com.example.app`. Only one iOS scheme can be specified. |
 | iOS universal link  | Optional. Set to the universal link configured for your app. For more information on how to handle the login process using a universal link, see [Universal Links support](https://developers.line.biz/en/docs/ios-sdk/swift/setting-up-project/#universal-link-support). |
 
@@ -47,7 +47,7 @@ To use the LINE Login channel on a mobile platform, you need some additional con
 | Setting | Description |
 |-------|---------|
 | Android package name | Required. Application's package name used to launch the Google Play store. |
-| Android package signature | Optional. You can set multiple signatures by typing each on a new line. |
+| Android package signature | Optional. You can set multiple signatures by typing each one on a new line. |
 | Android scheme | Optional. Custom URL scheme used to launch your app. |
 
 ## Installation
@@ -123,7 +123,7 @@ To use the package, you need to set up your channel ID. You can do this by calli
 
 This is merely an example. You can call `setup` any time you want, provided you call it exactly once, before calling any other LINE SDK methods.
 
-To help you get started with this package, we list several basic usage examples below. `flutter_line_sdk` is fully and well documented and you can find the details in our beautiful [dart style doc site](#).
+To help you get started with this package, we list several basic usage examples below. All available `flutter_line_sdk` methods are documented on the [Dart Packages][API Definitions] site.
 
 #### Login
 
@@ -224,11 +224,11 @@ Error codes and messages will vary between iOS and Android. Be sure to read the 
 
 If you believe you found a vulnerability or you have an issue related to security, please **DO NOT** open a public issue. Instead, email us at [dl_oss_dev@linecorp.com](mailto:dl_oss_dev@linecorp.com).
 
-Before contributing to this project, read [CONTRIBUTING.md](https://github.com/line/line-sdk-ios-swift/blob/master/CONTRIBUTING.md).
+Before contributing to this project, please read [CONTRIBUTING.md](https://github.com/line/line-sdk-ios-swift/blob/master/CONTRIBUTING.md).
 
 <!-- Links and references -->
-[Flutter]: #
+[Flutter]: https://flutter.dev/
 [Dart]: https://dart.dev/
-[API definitions]: #
+[API definitions]: https://pub.dev/documentation/flutter_line_sdk/latest/
 [console]: https://developers.line.biz/console/
 [Cocoa]: https://en.wikipedia.org/wiki/Cocoa_(API)
