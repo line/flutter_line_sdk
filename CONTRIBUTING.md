@@ -13,5 +13,5 @@ be fantastic to get your help with any of the following:
 ## Contributor license agreement
 
 If you want to make a pull request with a non-trivial change (not just fixing a typo), please sign the
-[Individual Contributor License Agreement)](https://cla-assistant.io/line/fullter_line_sdk).
+[Individual Contributor License Agreement)](https://cla-assistant.io/line/flutter_line_sdk).
 Please [contact us](mailto:dl_oss_dev@linecorp.com) if you need the CCLA (Corporate Contributor License Agreement).
