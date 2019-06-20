@@ -65,7 +65,7 @@ Now, the Dart part of `flutter_line_sdk` should be installed. Next, you need to 
 
 #### iOS
 
-In the `ios/Runner/Info.plist` file in your app project, insert this snippet just before the last `</dict>` tag:
+Open the file `ios/Runner/Info.plist` in a text editor and insert this snippet just before the last `</dict>` tag:
 
 ```xml
 <key>CFBundleURLTypes</key>
@@ -87,7 +87,7 @@ In the `ios/Runner/Info.plist` file in your app project, insert this snippet jus
 </array>
 ```
 
-Because LINE SDK now requires iOS 10.0 or above and uses [Cocoa] to provide underlying native features, you must add these lines in the `Runner` target in `ios/Podfile`:
+Because LINE SDK now requires iOS 10.0 or above and uses the iOS dynamic Framework to provide underlying native features, you must add these lines in the `Runner` target in `ios/Podfile`:
 
 ```diff
 target 'Runner' do
@@ -210,7 +210,7 @@ try {
 }
 ```
 
-Normally, you do not need to refresh the access token manually, because any API call in LINE SDK will attempt to refresh the access token automatically when necessary. 
+Normally, you don't need to refresh access tokens manually, because any API call in LINE SDK will try to refresh the access token automatically when necessary. 
 **We do not recommend refreshing access tokens yourself.** 
 It's generally easier, more secure, and more future-proof to let the LINE SDK manage access tokens automatically.
 
@@ -224,11 +224,12 @@ Error codes and messages will vary between iOS and Android. Be sure to read the 
 
 If you believe you found a vulnerability or you have an issue related to security, please **DO NOT** open a public issue. Instead, email us at [dl_oss_dev@linecorp.com](mailto:dl_oss_dev@linecorp.com).
 
-Before contributing to this project, please read [CONTRIBUTING.md](https://github.com/line/line-sdk-ios-swift/blob/master/CONTRIBUTING.md).
+Before contributing to this project, please read [CONTRIBUTING.md].
 
 <!-- Links and references -->
 [Flutter]: https://flutter.dev/
 [Dart]: https://dart.dev/
 [API definitions]: https://pub.dev/documentation/flutter_line_sdk/latest/
 [console]: https://developers.line.biz/console/
-[Cocoa]: https://en.wikipedia.org/wiki/Cocoa_(API)
+[Cocoa Touch]: https://en.wikipedia.org/wiki/Cocoa_Touch
+[CONTRIBUTING.md]: https://git.linecorp.com/LINE-SDK/flutter_line_sdk/blob/master/CONTRIBUTING.md
