@@ -1,9 +1,8 @@
 # flutter_line_sdk
 
-A Flutter plugin for allowing users to use the native LINE SDKs with Dart in Flutter apps.
+A [Flutter] plugin that lets developers access LINE's native SDKs in Flutter apps with [Dart].
 
-It provides a quick way to integrate LINE Login features to your app. Once installed, you can navigate your users to use 
-LINE app or a web page to login with their LINE account. A quick example usage as below:
+The plugin helps you integrate LINE Login features in your app. You can redirect users to LINE or a web page where they log in with their LINE credentials. Example:
 
 ```dart
 import 'package:flutter_line_sdk/flutter_line_sdk.dart';
@@ -25,50 +24,48 @@ void login() async {
 }
 ```
 
-For more examples, see the [example app](https://github.com/line/flutter_line_sdk/tree/master/example) and the related [API definitions](#).
+For more examples, see the [example app](https://github.com/line/flutter_line_sdk/tree/master/example) and [API definitions].
 
 ## Prerequisites
 
-- iOS 10.0 or later as the deployment target.
-- Android `minSdkVersion` set to 17 or higher (Android 4.2 or later).
+- iOS 10.0 or later as the deployment target
+- Android `minSdkVersion` set to 17 or higher (Android 4.2 or later)
+- [LINE Login channel linked to your app](https://developers.line.biz/en/docs/line-login/getting-started/)
 
-To use the LINE SDK with your Flutter app, you need to have a valid LINE Channel bounded to your app. 
-If you do not have one yet, please follow the [Getting started with LINE Login](https://developers.line.biz/en/docs/line-login/getting-started/)
-to create your channel.
+To access your LINE Login channel from a mobile platform, you need some extra configuration. In the [LINE Developers console][console], go to your LINE Login channel settings, and enter the below information on the **App settings** tab.
 
-You also need some additional setup when you want to use the channel on a mobile platform.
-Once you have created a channel, go to the "App settings" page of the console and complete the following fields.
+### iOS app settings
 
-For iOS:
+| Setting | Description |
+|-------|---------|
+| iOS bundle ID |  Bundle identifier of your app. In Xcode, find it in your **Runner** project settings, on the **General** tab. Must be lowercase, like `com.example.app`. You can specify multiple bundle identifiers by typing each one on a new line. |
+| iOS scheme  | Set to `line3rdp.`, followed by the bundle identifier. For example, if your bundle identifier is `com.example.app`, set the iOS scheme to `line3rdp.com.example.app`. Only one iOS scheme can be specified. |
+| iOS universal link  | Optional. Set to the universal link configured for your app. For more information on how to handle the login process using a universal link, see [Universal Links support](https://developers.line.biz/en/docs/ios-sdk/swift/setting-up-project/#universal-link-support). |
 
-- iOS bundle ID: Bundle identifier of your app found in the "General" tab in your "Runner" Xcode project settings. Must be lowercase. For example, `com.example.app`. You can specify multiple bundle identifiers by entering each one on a new line.
-- iOS scheme: Set to `line3rdp.` followed by the bundle identifier. For example, if your bundle identifier is `com.example.app`, set the iOS scheme to `line3rdp.com.example.app`. Only one iOS scheme can be specified.
-- iOS universal link: Optional. Set to the universal link configured for your app. For more information on how to handle the login process using a universal link, see [Universal Links support](https://developers.line.biz/en/docs/ios-sdk/swift/setting-up-project/#universal-link-support).
+### Android app settings
 
-For Android:
-
-- Android package name: Required. Application's package name used to launch the Google Play store.
-- Android package signature: Optional. You can set multiple signatures by entering each one on a new line.
-- Android scheme: Optional. Custom URL scheme used to launch your app.
+| Setting | Description |
+|-------|---------|
+| Android package name | Required. Application's package name used to launch the Google Play store. |
+| Android package signature | Optional. You can set multiple signatures by typing each one on a new line. |
+| Android scheme | Optional. Custom URL scheme used to launch your app. |
 
 ## Installation
 
 ### Adding flutter_line_sdk package
 
-Please just follow the common way to add this package to your Flutter app. You can find information on this topic in the [Using packages](https://flutter.dev/docs/development/packages-and-plugins/using-packages) page of Flutter documentation.
+Use the standard way of adding this package to your Flutter app, as described in the [Flutter documentation](https://flutter.dev/docs/development/packages-and-plugins/using-packages). The process consists of these steps:
 
-More specifically, you need to follow these steps:
+1. Open the `pubspec.yaml` file in your app folder and, under `dependencies`, add `flutter_line_sdk:`.
+2. Install it by running this in a terminal: `flutter pub get`
 
-1. Open the `pubspec.yaml` file located inside your app folder, and add `flutter_line_sdk:` under the `dependencies` section.
-2. Install it. From a terminal, run `flutter pub get`.
+Now, the Dart part of `flutter_line_sdk` should be installed. Next, you need to set up LINE SDK for iOS and Android projects, respectively.
 
-Now, the dart part of `flutter_line_sdk` should be installed. Following, you need to setup LINE SDK for iOS and Android project respectively.
-
-### Setup LINE SDK
+### Set up LINE SDK
 
 #### iOS
 
-Open the `ios/Runner/Info.plist` file in your app project with a text editor, insert the following snippet just before the last `</dict>` tag:
+Open the file `ios/Runner/Info.plist` in a text editor and insert this snippet just before the last `</dict>` tag:
 
 ```xml
 <key>CFBundleURLTypes</key>
@@ -90,7 +87,7 @@ Open the `ios/Runner/Info.plist` file in your app project with a text editor, in
 </array>
 ```
 
-Since LINE SDK now requires iOS 10.0 or above, and it uses Cocoa Framework to provide underlying native features, you need to add these lines in the `Runner` target in the `ios/Podfile`:
+Because LINE SDK now requires iOS 10.0 or above and uses the iOS dynamic Framework to provide underlying native features, you must add these lines in the `Runner` target in `ios/Podfile`:
 
 ```diff
 target 'Runner' do
@@ -100,19 +97,19 @@ target 'Runner' do
 
 #### Android
 
-No specific settings are required.
+No specific settings required.
 
 ### Importing and using
 
 #### Setup
 
-Importing `flutter_line_sdk` to any place you want to use it in your project:
+Import `flutter_line_sdk` to any place you want to use it in your project:
 
 ```dart
 import 'package:flutter_line_sdk/flutter_line_sdk.dart';
 ```
 
-You need to setup your channel ID first. For example, you can call `setup` in the `main` function:
+To use the package, you need to set up your channel ID. You can do this by calling the `setup` method, for example in the `main` function:
 
 ```diff
 - void main() => runApp(MyApp());
@@ -124,14 +121,16 @@ You need to setup your channel ID first. For example, you can call `setup` in th
 + }
 ```
 
-Or you can find any other place you'd like to call it. But remember it is required to be called once and only once before you use any other methods in LINE SDK.
+This is merely an example. You can call `setup` any time you want, provided you call it exactly once, before calling any other LINE SDK methods.
 
-To help you get started with this package quickly, we list some basic usage examples below. `flutter_line_sdk` is fully and well documented and you can find the details in our beautiful [dart style doc site](#).
+To help you get started with this package, we list several basic usage examples below. All available `flutter_line_sdk` methods are documented on the [Dart Packages][API Definitions] site.
 
 #### Login
 
-Now you are ready to let your user login with LINE. To get the login result, assign the `Future<LoginResult>` value to a variable.
-Keep in mind that wrap the invocation in a `try...on` statement and handle the error gracefully:
+Now you are ready to let your user log in with LINE.
+
+Get the login result by assigning the value of `Future<LoginResult>` to a variable.
+To handle errors gracefully, wrap the invocation in a `try...on` statement:
 
 ```dart
 void _signIn() async {
@@ -211,16 +210,26 @@ try {
 }
 ```
 
-> Normally, you do not need to refresh the access token manually because any API call in LINE SDK will attempt to 
-> refresh the access token automatically if necessary. It is **not recommended** to refresh the access tokens by yourself. 
-> Automatic access token management by the LINE SDK is usually easier and safer for future upgrading.
+Normally, you don't need to refresh access tokens manually, because any API call in LINE SDK will try to refresh the access token automatically when necessary. 
+**We do not recommend refreshing access tokens yourself.** 
+It's generally easier, more secure, and more future-proof to let the LINE SDK manage access tokens automatically.
 
 ### Error handling
 
-All APIs may throw a `PlatformException` with error `code` and a `message`. Use these information to identify an error happens inside the native SDK. Please note that the code and message of an error might varies on iOS and Android. We encourage you to read the error definition on [iOS](https://developers.line.biz/en/reference/ios-sdk-swift/Enums/LineSDKError.html) and [Android](https://developers.line.biz/en/reference/android-sdk/reference/com/linecorp/linesdk/LineApiError.html) to provide better error recovery and user experience on different platforms.
+All APIs can throw a `PlatformException` with error `code` and a `message`. Use this information to identify when an error happens inside the native SDK. 
+
+Error codes and messages will vary between iOS and Android. Be sure to read the error definition on [iOS](https://developers.line.biz/en/reference/ios-sdk-swift/Enums/LineSDKError.html) and [Android](https://developers.line.biz/en/reference/android-sdk/reference/com/linecorp/linesdk/LineApiError.html) to provide better error recovery and user experience on different platforms.
 
 ## Contributing
 
-If you believe you have discovered a vulnerability or have an issue related to security, please **DO NOT** open a public issue. Instead, send us a mail to [dl_oss_dev@linecorp.com](mailto:dl_oss_dev@linecorp.com).
+If you believe you found a vulnerability or you have an issue related to security, please **DO NOT** open a public issue. Instead, email us at [dl_oss_dev@linecorp.com](mailto:dl_oss_dev@linecorp.com).
 
-For contributing to this project, please see [CONTRIBUTING.md](https://github.com/line/line-sdk-ios-swift/blob/master/CONTRIBUTING.md).
+Before contributing to this project, please read [CONTRIBUTING.md].
+
+<!-- Links and references -->
+[Flutter]: https://flutter.dev/
+[Dart]: https://dart.dev/
+[API definitions]: https://pub.dev/documentation/flutter_line_sdk/latest/
+[console]: https://developers.line.biz/console/
+[Cocoa Touch]: https://en.wikipedia.org/wiki/Cocoa_Touch
+[CONTRIBUTING.md]: https://github.com/line/flutter_line_sdk/blob/master/CONTRIBUTING.md
