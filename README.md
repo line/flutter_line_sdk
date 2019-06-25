@@ -232,4 +232,4 @@ Before contributing to this project, please read [CONTRIBUTING.md].
 [API definitions]: https://pub.dev/documentation/flutter_line_sdk/latest/
 [console]: https://developers.line.biz/console/
 [Cocoa Touch]: https://en.wikipedia.org/wiki/Cocoa_Touch
-[CONTRIBUTING.md]: https://git.linecorp.com/LINE-SDK/flutter_line_sdk/blob/master/CONTRIBUTING.md
+[CONTRIBUTING.md]: https://github.com/line/flutter_line_sdk/blob/master/CONTRIBUTING.md
