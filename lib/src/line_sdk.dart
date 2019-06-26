@@ -19,8 +19,6 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //
 
-part of flutter_line_sdk;
-
 /// {@template error_handling}
 /// This method just redirects the work to the native LINE SDK. If any error happens during the native process,
 /// a [PlatformException] will be thrown. You can check [PlatformException.code] and [PlatformException.message]
@@ -29,6 +27,8 @@ part of flutter_line_sdk;
 /// on iOS and [LineApiError](https://developers.line.biz/en/reference/android-sdk/reference/com/linecorp/linesdk/LineApiError.html) on Android
 /// to get more information about error handling.
 /// {@endtemplate}
+
+part of flutter_line_sdk;
 
 /// A general manager class for LINE SDK Login features.
 /// 
