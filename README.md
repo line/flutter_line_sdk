@@ -229,7 +229,7 @@ Before contributing to this project, please read [CONTRIBUTING.md].
 <!-- Links and references -->
 [Flutter]: https://flutter.dev/
 [Dart]: https://dart.dev/
-[API definitions]: https://pub.dev/documentation/flutter_line_sdk/latest/
+[API definitions]: https://pub.dev/documentation/flutter_line_sdk/latest/flutter_line_sdk/flutter_line_sdk-library.html
 [console]: https://developers.line.biz/console/
 [Cocoa Touch]: https://en.wikipedia.org/wiki/Cocoa_Touch
 [CONTRIBUTING.md]: https://github.com/line/flutter_line_sdk/blob/master/CONTRIBUTING.md
