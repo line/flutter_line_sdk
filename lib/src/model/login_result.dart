@@ -21,7 +21,7 @@
 
 part of flutter_line_sdk;
 
-/// The result of a successful login which contains basic user information and access token.
+/// The result of a successful login, containing basic user information and an access token.
 class LoginResult {
   LoginResult._(this._data) {
     _accessToken = AccessToken._(_data['accessToken']);
@@ -36,21 +36,21 @@ class LoginResult {
   AccessToken _accessToken;
   UserProfile _userProfile;
 
-  /// The [AccessToken] object obtained by the login process.
+  /// The [AccessToken] object obtained during login.
   AccessToken get accessToken => _accessToken;
   List<String> get scopes => _data['scope'].split(" ");
 
-  /// The [UserProfile] object obtained during the login process. 
+  /// The [UserProfile] object obtained during login. 
   /// 
-  /// It contains the user ID, display name, and so on.
+  /// It contains the user ID, display name, and more.
   /// 
-  /// This value exists only when the "profile" scope is set in [LineSDK.login].
+  /// This object exists only if the `"profile"` scope was included in [LineSDK.login].
   UserProfile get userProfile => _userProfile;
 
-  /// Indicates that the friendship status between the user and the bot changed during the login.
+  /// Indicates that the friendship status between the user and the bot changed during login.
   /// 
-  /// This value is non-nil only if the `BotPrompt` is specified as part of the option when the
-  /// user logs in. For more information, see "Linking a bot with your LINE Login channel" at
-  /// https://developers.line.me/en/docs/line-login/web/link-a-bot/.
+  /// This value is non-nil only if `BotPrompt` was specified in [LoginOption]. For more 
+  /// information, see 
+  /// [Linking a LINE official account with your LINE Login channel](https://developers.line.me/en/docs/line-login/web/link-a-bot/).
   bool get isFriendshipStatusChanged => _data['friendshipStatusChanged'];
 }

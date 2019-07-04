@@ -21,8 +21,7 @@
 
 part of flutter_line_sdk;
 
-/// The response to a request for getting the friendship status of 
-/// the user and the bot linked to your LINE Login channel.
+/// Response to [LineSDK.getBotFriendshipStatus].
 class BotFriendshipStatus {
   BotFriendshipStatus._(this._data);
 
@@ -33,7 +32,7 @@ class BotFriendshipStatus {
 
   /// Indicates the friendship status.
   /// 
-  /// `true` if the bot is a friend of the user and the user has not blocked the bot. 
-  /// `false` if the bot is not a friend of the user or the user has blocked the bot.
+  /// `true` if the bot is a friend of the user and the user hasn't blocked the bot. 
+  /// `false` if the bot isn't a friend of the user or the user has blocked the bot.
   bool get isFriend => _data['friendFlag'];
 }

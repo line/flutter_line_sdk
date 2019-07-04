@@ -1,5 +1,5 @@
 name: flutter_line_sdk
-description: A Flutter plugin for allowing users to use the native LINE SDKs with Dart in Flutter apps.
+description: A Flutter plugin for using the LINE SDKs with Dart in Flutter apps.
 version: 1.0.0
 author: LINE Corporation <dl_line_sdk_pub@linecorp.com>
 homepage: https://developers.line.biz/
