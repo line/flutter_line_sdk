@@ -63,6 +63,7 @@ class LineSDK {
   /// 1. Specify the link URL in the LINE Developers Console
   /// 2. Prepare your server and domain to handle the URL
   /// 3. Pass the URL in [universalLink]. 
+  /// 
   /// For more about this, see the section "Universal Links support" in 
   /// [Setting up your project](https://developers.line.biz/en/docs/ios-sdk/swift/setting-up-project/). 
   /// If you don't pass a [universalLink] in this method, LINE SDK will use the traditional URL 
