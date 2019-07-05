@@ -23,17 +23,16 @@ part of flutter_line_sdk;
 
 /// Options related to LINE login process.
 class LoginOption {
-  
   /// Enable to use web authentication flow instead of LINE app-to-app authentication flow.
-  /// 
-  /// By default, LINE SDK will try to use the LINE app to log in. Set the value to `true` to use 
+  ///
+  /// By default, LINE SDK will try to use the LINE app to log in. Set the value to `true` to use
   /// the web authentication flow instead.
   bool onlyWebLogin;
 
   /// Strategy to use for displaying "add bot as friend" option on consent screen:
-  /// 
+  ///
   /// - `normal`: A button for adding the bot as a friend is displayed on the consent screen.
-  /// - `aggressive`: After the user grants the requested permissions on the consent screen, a new 
+  /// - `aggressive`: After the user grants the requested permissions on the consent screen, a new
   /// screen opens asking the user to add the bot as a friend.
   String botPrompt;
 

@@ -24,7 +24,7 @@ part of flutter_line_sdk;
 /// Response to [LineSDK.verifyAccessToken].
 class AccessTokenVerifyResult {
   AccessTokenVerifyResult._(this._data);
-  
+
   final Map<String, dynamic> _data;
 
   /// Raw data of the response in a `Map` representation.
@@ -36,7 +36,7 @@ class AccessTokenVerifyResult {
   /// The valid scopes bound to this access token.
   List<String> get scopes => _data['scope'].split(" ");
 
-  /// Number of seconds until the access token expires. 
+  /// Number of seconds until the access token expires.
   /// Counting from when the server received the request.
   num get expiresIn => _data['expires_in'];
 }

@@ -24,16 +24,17 @@ part of flutter_line_sdk;
 /// The access token stored on the user's device.
 class StoredAccessToken {
   StoredAccessToken._(this._data);
-  
+
   final Map<String, dynamic> _data;
 
   Map<String, dynamic> get data => _data;
 
   /// The access token, as a string.
   String get value => _data['access_token'];
-  /// Expiration time of the token, in seconds, **at time of creation**. 
-  /// 
-  /// This value is never updated. To get the current [expiresIn] time for a token, call 
+
+  /// Expiration time of the token, in seconds, **at time of creation**.
+  ///
+  /// This value is never updated. To get the current [expiresIn] time for a token, call
   /// `LineSDK.verifyAccessToken()`.
   num get expiresIn => _data['expires_in'];
 }

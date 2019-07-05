@@ -31,8 +31,8 @@ class BotFriendshipStatus {
   Map<String, dynamic> get data => _data;
 
   /// Indicates the friendship status.
-  /// 
-  /// `true` if the bot is a friend of the user and the user hasn't blocked the bot. 
+  ///
+  /// `true` if the bot is a friend of the user and the user hasn't blocked the bot.
   /// `false` if the bot isn't a friend of the user or the user has blocked the bot.
   bool get isFriend => _data['friendFlag'];
 }

@@ -21,26 +21,26 @@
 
 part of flutter_line_sdk;
 
-/// An access token used to access the LINE Platform. 
-/// 
-/// Most API calls to the LINE Platform require an access token as evidence of successful 
-/// authorization. A valid access token is issued after the user grants your app the 
-/// permissions that your app requests. An access token is bound to permissions (scopes) 
-/// that define which API endpoints you can access. Choose the permissions for your 
+/// An access token used to access the LINE Platform.
+///
+/// Most API calls to the LINE Platform require an access token as evidence of successful
+/// authorization. A valid access token is issued after the user grants your app the
+/// permissions that your app requests. An access token is bound to permissions (scopes)
+/// that define which API endpoints you can access. Choose the permissions for your
 /// channel in the LINE Developers site and set them in the login method used in your app.
 ///
-/// An access token expires after a certain period. [expiresIn] specifies the amount of time 
+/// An access token expires after a certain period. [expiresIn] specifies the amount of time
 /// until the token expires, counting from the moment of issue.
 ///
 /// By default, the LINE SDK stores access tokens in a secure place on the device running
 /// your app and obtains authorization when you access the LINE Platform through the
 /// framework request methods.
 ///
-/// Don't try to create an access token yourself. You can get the stored access token with 
+/// Don't try to create an access token yourself. You can get the stored access token with
 /// [LineSDK.currentAccessToken].
 class AccessToken {
   AccessToken._(this._data);
-  
+
   final Map<String, dynamic> _data;
 
   /// Raw data of the response in a `Map` representation.
@@ -53,8 +53,8 @@ class AccessToken {
   /// counting from when the server issued the token.
   num get expiresIn => _data['expires_in'];
 
-  /// The raw string value of the ID token bound to the access token. 
-  /// 
+  /// The raw string value of the ID token bound to the access token.
+  ///
   /// The value exists only if the access token is obtained with the `openID`
   /// permission.
   String get idTokenRaw => _data['id_token'];
