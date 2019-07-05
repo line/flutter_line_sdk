@@ -19,26 +19,26 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //
 
-/// A Flutter plugin for allowing users to use the native LINE SDKs with Dart in Flutter apps.
+/// A Flutter plugin for using the LINE SDKs with Dart in Flutter apps.
 /// 
-/// This package is a Dart/Flutter compatible wrapper for using the native LINE SDK Swift and 
-/// LINE SDK Android in your flutter app. To use this plugin and LINE related APIs, you need to 
-/// register a channel on [LINE Developers Site](https://developers.line.biz/en/) first and setup 
-/// everything in the LINE Developers console. 
+/// This package is a Dart/Flutter compatible wrapper for using the 
+/// [LINE SDK for iOS Swift](https://developers.line.biz/en/docs/ios-sdk/swift/overview/) and 
+/// [LINE SDK for Android](https://developers.line.biz/en/docs/android-sdk/overview/) in your 
+/// Flutter app.
+
+/// To use this plugin and LINE's APIs, you need to register and configure a channel in the 
+/// [LINE Developers console](https://developers.line.biz/console/). For details, see 
+/// [Getting started with LINE Login](https://developers.line.biz/en/docs/line-login/getting-started/).
 /// 
-/// For more, read the [Getting started with LINE Login](https://developers.line.biz/en/docs/line-login/getting-started/) 
-/// guide.
-/// 
-/// As an overview, after you install this flutter_line_sdk package, you still need to config 
-/// your Xcode Runner project as well as the Android build.gradle file with your channel i
-/// nformation. Please read the "Linking your app to your channel" section for both 
+/// After installing this flutter_line_sdk package, update your Xcode Runner project and Android 
+/// `build.gradle` file with your channel information. For details, see the "Linking your app to 
+/// your channel" section in our setup guides for 
 /// [iOS](https://developers.line.biz/en/docs/ios-sdk/swift/setting-up-project/) and 
-/// [Android](https://developers.line.biz/en/docs/android-sdk/integrate-line-login/) to setup 
-/// your project.
+/// [Android](https://developers.line.biz/en/docs/android-sdk/integrate-line-login/).
 /// 
-/// After that, you can use an `import` directive to include flutter_line_sdk to your project and 
-/// call `await LineSDK.instance.setup($channel_id);` to setup the plugin. For the most basic use case, you can 
-/// invoke the `login` method to make your users login with their LINE accounts.
+/// After that, use an `import` directive to include flutter_line_sdk in your project and call 
+/// `await LineSDK.instance.setup($channel_id);` to set up the plugin. For the most basic use case, 
+/// invoke the `login` method to prompt your users to log in with their LINE accounts.
 /// 
 library flutter_line_sdk;
 

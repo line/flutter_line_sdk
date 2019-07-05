@@ -20,47 +20,54 @@
 //
 
 /// {@template error_handling}
-/// This method just redirects the work to the native LINE SDK. If any error happens during the native process,
-/// a [PlatformException] will be thrown. You can check [PlatformException.code] and [PlatformException.message]
-/// for detail information of an error. However, since the implementation in native side is different on iOS and 
-/// Android, the error code and message could be different too. See [LineSDKError](https://developers.line.biz/en/reference/ios-sdk-swift/Enums/LineSDKError.html)
-/// on iOS and [LineApiError](https://developers.line.biz/en/reference/android-sdk/reference/com/linecorp/linesdk/LineApiError.html) on Android
-/// to get more information about error handling.
+/// This method redirects calls to the LINE SDK for the relevant native platform (iOS or Android).
+/// If an error happens in the native platform, a [PlatformException] is thrown. See
+/// [PlatformException.code] and [PlatformException.message] for error details. 
+///
+/// The LINE SDK implementation differs between iOS and Android, which means error codes and messages
+/// can also be different. For platform-specific error information, see
+/// [LineSDKError](https://developers.line.biz/en/reference/ios-sdk-swift/Enums/LineSDKError.html)
+/// (iOS) and
+/// [LineApiError](https://developers.line.biz/en/reference/android-sdk/reference/com/linecorp/linesdk/LineApiError.html)
+/// (Android).
 /// {@endtemplate}
 
 part of flutter_line_sdk;
 
-/// A general manager class for LINE SDK Login features.
+/// A general manager class for LINE SDK login features.
 /// 
-/// Don't create your own instance of this. Instead, call [LineSDK.instance] to get 
-/// a shared singleton and call other methods on it.
+/// Don't create your own instance of this class. Instead, call [LineSDK.instance] to get a shared 
+/// singleton on which you can call other methods.
 class LineSDK {
 
-  /// The method channel connected to native side of the LINE SDK.
+  /// The method channel connected to the native side of the LINE SDK.
   /// 
-  /// Normally you should not use this channel directly. Instead, call the public methods on 
-  /// this `LineSDK` class.
+  /// Don't use this channel directly. Instead, call the public methods on the [LineSDK] class.
   static const MethodChannel channel =
       const MethodChannel('com.linecorp/flutter_line_sdk');
   
   /// The shared singleton object of `LineSDK`.
   /// 
-  /// Always use this instance to interact with the login process of the LINE SDK.
+  /// Always use this instance (rather than a self-created instance) to interact with the login 
+  /// process of the LINE SDK.
   static final LineSDK instance = LineSDK._();
 
   LineSDK._();
 
-  /// Sets up the SDK with [channelId] and an optional [universalLink].
+  /// Sets up the SDK with a [channelId] and optional [universalLink].
   /// 
-  /// This method should be called once and only once, before any other methods in LineSDK.
-  /// You can find your [channelId] in the [LINE Developers Site](https://developers.line.biz/). 
+  /// This method should be called once and only once, before any other methods in [LineSDK].
+  /// Find your [channelId] in the [LINE Developers Console](https://developers.line.biz/console). 
   /// 
-  /// If you need to navigate from LINE back to your app by universal link, you also need to 
-  /// set it in the LINE Developers Site, prepare your server and domain to handle the URL, then
-  /// pass the URL in [universalLink]. For more about it, check the 
-  /// [Universal Links support](https://developers.line.biz/en/docs/ios-sdk/swift/setting-up-project/)
-  /// section in documentation. If you do not pass a [universalLink] value in this method, LINE SDK 
-  /// will use the traditional URL scheme to open your app when using the LINE app to login.
+  /// If you need to navigate from LINE back to your app via a universal link, you must also: 
+  /// 1. Specify the link URL in the LINE Developers Console
+  /// 2. Prepare your server and domain to handle the URL
+  /// 3. Pass the URL in [universalLink]. 
+  /// 
+  /// For more about this, see the section "Universal Links support" in 
+  /// [Setting up your project](https://developers.line.biz/en/docs/ios-sdk/swift/setting-up-project/). 
+  /// If you don't pass a [universalLink] in this method, LINE SDK will use the traditional URL 
+  /// scheme to open your app when logging in through LINE.
   Future<void> setup(String channelId, {String universalLink}) async {
     await channel.invokeMethod(
       'setup',
@@ -71,22 +78,26 @@ class LineSDK {
     );
   }
 
-  /// Logs in to the LINE Platform with the specified [scopes] and [option], by either opening the LINE app
-  /// for existing logged in user there or a web view if LINE app is not installed on user's device.
+  /// Logs the user into LINE with the specified [scopes] and [option], by either opening the 
+  /// LINE client for an existing logged in user, or a web view if the LINE client isn't installed 
+  /// on the user's device.
   /// 
-  /// By default, the login process will use only `"profile"` as its required scope.  If you need other scopes 
-  /// send all of them (including the default `"profile"`) as a list to [scopes]. 
+  /// By default, the login process uses only `"profile"` as its required scope. If you need 
+  /// more scopes, put the ones you want (in addition to the default `"profile"`) in [scopes] as a 
+  /// list. 
   /// 
-  /// If the value of [scopes] contains `"profile"`, the user profile will be retrieved during the login process 
-  /// and contained in the [LoginResult.userProfile] property in the result value. Otherwise, it will be null. 
+  /// If [scopes] contains `"profile"`, the user profile is returned in the result as 
+  /// [LoginResult.userProfile]. If `"profile"` is not included, the value of [LoginResult.userProfile]
+  /// will be null. 
   /// 
-  /// An access token will be issued if the user authorizes your app. This token and a refresh token will be automatically 
-  /// stored in a secured place in your app for later use. You do not need to refresh the access token manually because 
-  /// any following API calls will attempt to refresh the access token if necessary. However, if you would like to refresh 
-  /// the access token manually, use [refreshToken()].
+  /// An access token is issued if the user authorizes your app. This token, along with a refresh 
+  /// token, is automatically stored in a secure place in your app for later use. You don't need to 
+  /// refresh the access token manually. Any following API calls will try to refresh the access 
+  /// token when necessary. However, you can refresh the access token manually with [refreshToken()].
   /// 
-  /// You can control some other login behaviors, like whether only trying to login with web page or what the approch 
-  /// being used for bot prompting. To do that, create a proper [LoginOption] object and pass it to the [option] parameter.
+  /// You can control some other login behaviors, like whether to use a web page for login, or how 
+  /// to ask the user to add your bot as a friend. To do so, create a [LoginOption] object and pass 
+  /// it to the [option] parameter.
   /// 
   /// {@macro error_handling}
   Future<LoginResult> login(
@@ -115,12 +126,12 @@ class LineSDK {
 
   /// Gets the current access token in use.
   /// 
-  /// This returns a `Future<StoredAccessToken>` and the access token value in use is contained
-  /// in the result [StoredAccessToken.value].
+  /// This returns a `Future<StoredAccessToken>`, with the access token value contained in the 
+  /// result [StoredAccessToken.value]. If the user isn't logged in, it returns a `null` value as 
+  /// the [Future] result. 
   /// 
-  /// If the user is not logged in, it returns a `null` value as the [Future] result.
-  /// However, a valid [StoredAccessToken] object does not mean the access token itself is valid since it could be
-  /// expired or revoked by user from other devices or LINE app.
+  /// A valid [StoredAccessToken] object doesn't necessarily mean the access token itself is valid. 
+  /// It may have expired or been revoked by the user from another device or LINE client.
   /// 
   /// {@macro error_handling}
   Future<StoredAccessToken> get currentAccessToken async {
@@ -131,7 +142,7 @@ class LineSDK {
 
   /// Gets the user’s profile.
   /// 
-  /// To use this method, the `"profile"` scope is required.
+  /// Using this method requires the `"profile"` scope.
   /// 
   /// {@macro error_handling}
   Future<UserProfile> getProfile() async {
@@ -140,14 +151,14 @@ class LineSDK {
     return UserProfile._(json.decode(result));
   }
 
-  ///  Refreshes the access token.
+  /// Refreshes the access token.
   /// 
   /// If the token refresh process finishes successfully, the refreshed access token will be
-  /// automatically stored in user's device. You can wait for the result of this method or 
-  /// use [currentAccessToken] to get it. 
+  /// automatically stored in the user's device. You can wait for the result of this method or get
+  /// the refreshed token with [currentAccessToken]. 
   /// 
-  /// Normally, you do not need to refresh the access token manually because any API call will 
-  /// attempt to refresh the access token if necessary.
+  /// You don't need to refresh the access token manually. Any API call will attempt to refresh the 
+  /// access token when necessary.
   /// 
   /// {@macro error_handling}
   Future<AccessToken> refreshToken() async {
@@ -156,7 +167,7 @@ class LineSDK {
     return AccessToken._(json.decode(result));
   }
 
-  /// Checks whether the stored access token is valid against to LINE auth server.
+  /// Checks whether the stored access token is valid against the LINE authentication server.
   /// 
   /// {@macro error_handling}
   Future<AccessTokenVerifyResult> verifyAccessToken() async {
@@ -165,9 +176,10 @@ class LineSDK {
     return AccessTokenVerifyResult._(json.decode(result));
   }
 
-  /// Gets the friendship status of the user and the bot linked to your LINE Login channel.
+  /// Gets the friendship status between the user and the official account linked to your LINE Login 
+  /// channel.
   /// 
-  /// To use this method, the `"profile"` scope is required.
+  /// Using this method requires the `"profile"` scope.
   /// 
   /// {@macro error_handling}
   Future<BotFriendshipStatus> getBotFriendshipStatus() async {

@@ -21,16 +21,16 @@
 
 part of flutter_line_sdk;
 
-/// An access token which is used to access the LINE Platform. 
+/// An access token used to access the LINE Platform. 
 /// 
 /// Most API calls to the LINE Platform require an access token as evidence of successful 
 /// authorization. A valid access token is issued after the user grants your app the 
 /// permissions that your app requests. An access token is bound to permissions (scopes) 
-/// that define the API endpoints that you can access. Choose the permissions for your 
+/// that define which API endpoints you can access. Choose the permissions for your 
 /// channel in the LINE Developers site and set them in the login method used in your app.
 ///
-/// An access token expires after a certain period. [expiresIn] specifies the time duration 
-/// from this access token being issued until it expires.
+/// An access token expires after a certain period. [expiresIn] specifies the amount of time 
+/// until the token expires, counting from the moment of issue.
 ///
 /// By default, the LINE SDK stores access tokens in a secure place on the device running
 /// your app and obtains authorization when you access the LINE Platform through the
@@ -49,13 +49,13 @@ class AccessToken {
   /// The value of the access token.
   String get value => _data['access_token'];
 
-  /// Number of seconds until the access token expires. 
-  /// Counting from when the token issued by server.
+  /// Number of seconds until the access token expires,
+  /// counting from when the server issued the token.
   num get expiresIn => _data['expires_in'];
 
   /// The raw string value of the ID token bound to the access token. 
   /// 
-  /// The value exists only if the access token is obtained with the "openID"
+  /// The value exists only if the access token is obtained with the `openID`
   /// permission.
   String get idTokenRaw => _data['id_token'];
 
@@ -63,6 +63,6 @@ class AccessToken {
   List<String> get scopes => _data['scope'].split(" ");
 
   /// The expected authorization type when this token is used in a request
-  /// header. Fixed to "Bearer" for now.
+  /// header. Fixed to `Bearer` for now.
   String get tokenType => _data['token_type'];
 }

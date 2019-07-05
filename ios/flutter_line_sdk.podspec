@@ -1,9 +1,9 @@
 Pod::Spec.new do |s|
   s.name             = 'flutter_line_sdk'
   s.version          = '1.0.0'
-  s.summary          = 'A Flutter plugin for allowing users to use the native LINE SDKs with Dart in Flutter apps.'
+  s.summary          = 'A Flutter plugin for using the LINE SDKs with Dart in Flutter apps.'
   s.description      = <<-DESC
-A Flutter plugin for allowing users to use the native LINE SDKs with Dart in Flutter apps.
+A Flutter plugin using the LINE SDKs with Dart in Flutter apps.
                        DESC
   s.homepage         = 'https://developers.line.biz'
   s.license          = { :file => '../LICENSE' }
@@ -19,4 +19,3 @@ A Flutter plugin for allowing users to use the native LINE SDKs with Dart in Flu
 
   s.ios.deployment_target = '10.0'
 end
-
