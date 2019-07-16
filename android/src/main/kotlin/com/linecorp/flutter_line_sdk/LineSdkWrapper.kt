@@ -21,8 +21,10 @@ import com.linecorp.linesdk.unitywrapper.model.BotFriendshipStatus
 import com.linecorp.linesdk.unitywrapper.model.LoginResultForFlutter
 import com.linecorp.linesdk.unitywrapper.model.VerifyAccessTokenResult
 import io.flutter.plugin.common.MethodChannel.Result
-import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 
 class LineSdkWrapper(
@@ -33,6 +35,7 @@ class LineSdkWrapper(
     private val gson = Gson()
     private var loginRequestCode: Int = 0
     private var betaConfig: BetaConfig? = null
+    private val uiCoroutineScope: CoroutineScope = CoroutineScope(Dispatchers.Main)
 
     fun setupSdk(channelId: String) {
         runIfDebugBuild {  Log.d(TAG, "setupSdk") }
@@ -64,9 +67,7 @@ class LineSdkWrapper(
         val lineAuthenticationParams = LineAuthenticationParams.Builder()
             .scopes(Scope.convertToScopeList(scopes))
             .apply {
-                botPromptString?.let {
-                    botPrompt(LineAuthenticationParams.BotPrompt.valueOf(botPromptString))
-                }
+                botPrompt(LineAuthenticationParams.BotPrompt.valueOf(botPromptString))
             }
             .build()
 
@@ -92,8 +93,8 @@ class LineSdkWrapper(
     fun getProfile(result: Result) {
         runIfDebugBuild {  Log.d(TAG, "getProfile") }
 
-        GlobalScope.launch {
-            val lineApiResponse = lineApiClient.profile
+        uiCoroutineScope.launch {
+            val lineApiResponse = withContext(Dispatchers.IO) { lineApiClient.profile }
             if (!lineApiResponse.isSuccess) {
                 result.error(
                     lineApiResponse.responseCode.name,
@@ -154,8 +155,8 @@ class LineSdkWrapper(
     fun logout(result: Result) {
         runIfDebugBuild {  Log.d(TAG, "logout") }
 
-        GlobalScope.launch {
-            val lineApiResponse = lineApiClient.logout()
+        uiCoroutineScope.launch {
+            val lineApiResponse = withContext(Dispatchers.IO) { lineApiClient.logout() }
             if(!lineApiResponse.isSuccess) {
                 result.error(
                     lineApiResponse.responseCode.name,
@@ -169,7 +170,7 @@ class LineSdkWrapper(
     }
 
     fun getCurrentAccessToken(result: Result) {
-        GlobalScope.launch {
+        uiCoroutineScope.launch {
             val lineApiResponse = lineApiClient.currentAccessToken
             if (lineApiResponse.isSuccess) {
                 result.success(
@@ -193,8 +194,8 @@ class LineSdkWrapper(
     fun getBotFriendshipStatus(result: Result) {
         runIfDebugBuild {  Log.d(TAG, "getBotFriendshipStatus") }
 
-        GlobalScope.launch {
-            val lineApiResponse = lineApiClient.friendshipStatus
+        uiCoroutineScope.launch {
+            val lineApiResponse = withContext(Dispatchers.IO) { lineApiClient.friendshipStatus }
             if (lineApiResponse.isSuccess) {
                 result.success(
                     gson.toJson(BotFriendshipStatus(lineApiResponse.responseData.isFriend))
@@ -212,8 +213,8 @@ class LineSdkWrapper(
     fun refreshToken(result: Result) {
         runIfDebugBuild {  Log.d(TAG, "refreshToken") }
 
-        GlobalScope.launch {
-            val lineApiResponse = lineApiClient.refreshAccessToken()
+        uiCoroutineScope.launch {
+            val lineApiResponse = withContext(Dispatchers.IO) { lineApiClient.refreshAccessToken() }
             if (lineApiResponse.isSuccess) {
                 result.success(
                     gson.toJson(
@@ -236,8 +237,8 @@ class LineSdkWrapper(
     fun verifyAccessToken(result: Result) {
         runIfDebugBuild {  Log.d(TAG, "verifyAccessToken") }
 
-        GlobalScope.launch {
-            val lineApiResponse = lineApiClient.verifyToken()
+        uiCoroutineScope.launch {
+            val lineApiResponse = withContext(Dispatchers.IO) { lineApiClient.verifyToken() }
             if (lineApiResponse.isSuccess) {
                 result.success(
                     gson.toJson(
