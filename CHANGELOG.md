@@ -1,3 +1,9 @@
+## 1.0.2
+
+### Fix
+
+* Explicitly declare the main dispatcher to run coroutine on Android, which is compatible with changes in the [latest flutter](https://github.com/flutter/flutter/issues/34993). [#2](https://github.com/line/flutter_line_sdk/issues/2)
+
 ## 1.0.1
 
 ### Fix
