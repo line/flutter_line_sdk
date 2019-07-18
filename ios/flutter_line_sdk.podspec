@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'flutter_line_sdk'
-  s.version          = '1.0.2'
+  s.version          = '1.0.3'
   s.summary          = 'A Flutter plugin for using the LINE SDKs with Dart in Flutter apps.'
   s.description      = <<-DESC
 A Flutter plugin using the LINE SDKs with Dart in Flutter apps.

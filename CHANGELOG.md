@@ -1,3 +1,9 @@
+## 1.0.3
+
+### Fix
+
+* Improve reference rendering for async APIs.
+
 ## 1.0.2
 
 ### Fix
