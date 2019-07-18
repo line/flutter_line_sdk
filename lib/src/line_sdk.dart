@@ -19,19 +19,6 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //
 
-/// {@template error_handling}
-/// This method redirects calls to the LINE SDK for the relevant native platform (iOS or Android).
-/// If an error happens in the native platform, a [PlatformException] is thrown. See
-/// [PlatformException.code] and [PlatformException.message] for error details.
-///
-/// The LINE SDK implementation differs between iOS and Android, which means error codes and messages
-/// can also be different. For platform-specific error information, see
-/// [LineSDKError](https://developers.line.biz/en/reference/ios-sdk-swift/Enums/LineSDKError.html)
-/// (iOS) and
-/// [LineApiError](https://developers.line.biz/en/reference/android-sdk/reference/com/linecorp/linesdk/LineApiError.html)
-/// (Android).
-/// {@endtemplate}
-
 part of flutter_line_sdk;
 
 /// A general manager class for LINE SDK login features.
@@ -95,7 +82,18 @@ class LineSDK {
   /// to ask the user to add your bot as a friend. To do so, create a [LoginOption] object and pass
   /// it to the [option] parameter.
   ///
-  /// {@macro error_handling}
+  /// {@template error_handling}
+  /// This method redirects calls to the LINE SDK for the relevant native platform (iOS or Android).
+  /// If an error happens in the native platform, a [PlatformException] is thrown. See
+  /// [PlatformException.code] and [PlatformException.message] for error details.
+  ///
+  /// The LINE SDK implementation differs between iOS and Android, which means error codes and messages
+  /// can also be different. For platform-specific error information, see
+  /// [LineSDKError](https://developers.line.biz/en/reference/ios-sdk-swift/Enums/LineSDKError.html)
+  /// (iOS) and
+  /// [LineApiError](https://developers.line.biz/en/reference/android-sdk/reference/com/linecorp/linesdk/LineApiError.html)
+  /// (Android).
+  /// {@endtemplate}
   Future<LoginResult> login(
       {List<String> scopes = const ["profile"], LoginOption option}) async {
     String result = await channel.invokeMethod('login', <String, dynamic>{
