@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'flutter_line_sdk'
-  s.version          = '1.0.3'
+  s.version          = '1.1.0'
   s.summary          = 'A Flutter plugin for using the LINE SDKs with Dart in Flutter apps.'
   s.description      = <<-DESC
 A Flutter plugin using the LINE SDKs with Dart in Flutter apps.
@@ -12,7 +12,7 @@ A Flutter plugin using the LINE SDKs with Dart in Flutter apps.
   s.source_files = 'Classes/**/*'
   s.public_header_files = 'Classes/**/*.h'
   s.dependency 'Flutter'
-  s.dependency 'LineSDKSwift', '~> 5.0'
+  s.dependency 'LineSDKSwift', '~> 5.3'
 
   s.swift_version         = "4.2"
   s.swift_versions        = ['4.2', '5.0']
