@@ -53,4 +53,8 @@ class LoginResult {
   /// information, see
   /// [Linking a LINE official account with your LINE Login channel](https://developers.line.me/en/docs/line-login/web/link-a-bot/).
   bool get isFriendshipStatusChanged => _data['friendshipStatusChanged'];
+
+  /// The `nonce` value when requesting ID Token during login process. Use this value as a parameter when you
+  /// verify the ID Token against the LINE server. This value is `nil` if `openid` permission is not requested.
+  String get idTokenNonce => _data['IDTokenNonce'];
 }

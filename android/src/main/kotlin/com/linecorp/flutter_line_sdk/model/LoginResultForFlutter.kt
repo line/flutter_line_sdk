@@ -9,7 +9,8 @@ data class LoginResultForFlutter(
     val accessToken: AccessToken,
     val scope: String,
     val userProfile: UserProfile?,
-    val friendshipStatusChanged: Boolean
+    val friendshipStatusChanged: Boolean,
+    val IDTokenNonce: String?
 ) {
     companion object {
         fun convertLineResult(lineLoginResult: LineLoginResult): LoginResultForFlutter? {
@@ -24,7 +25,8 @@ data class LoginResultForFlutter(
                 accessToken,
                 scope,
                 lineProfile,
-                lineLoginResult.friendshipStatusChanged ?: false
+                lineLoginResult.friendshipStatusChanged ?: false,
+                lineLoginResult.nonce
             )
         }
 
