@@ -1,3 +1,9 @@
+## 1.1.0
+
+### Add
+
+* Add `idTokenNonce` to LoginResult. This value can be used against the ID token verification API as a parameter.
+
 ## 1.0.3
 
 ### Fix
