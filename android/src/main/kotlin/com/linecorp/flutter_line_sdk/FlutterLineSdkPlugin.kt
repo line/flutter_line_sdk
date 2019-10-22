@@ -11,7 +11,7 @@ class FlutterLineSdkPlugin(
     private val channel: MethodChannel,
     private val lineSdkWrapper: LineSdkWrapper
 ) : MethodCallHandler, PluginRegistry.ActivityResultListener {
-    private var loginRequestCode: Int = DEFAULT_CALLBACK_REQUEST_CODE
+    private var loginRequestCode: Int = DEFAULT_ACTIVITY_RESULT_REQUEST_CODE
 
     override fun onMethodCall(call: MethodCall, result: Result) = when (call.method) {
         "toBeta" -> run {
@@ -36,7 +36,7 @@ class FlutterLineSdkPlugin(
             val scopes = call.argument("scopes") ?: emptyList<String>()
             val isWebLogin = call.argument("onlyWebLogin") ?: false
             val botPrompt  = call.argument("botPrompt") ?: "normal"
-            loginRequestCode = call.argument<Int?>("loginRequestCode") ?: DEFAULT_CALLBACK_REQUEST_CODE
+            loginRequestCode = call.argument<Int?>("loginRequestCode") ?: DEFAULT_ACTIVITY_RESULT_REQUEST_CODE
             lineSdkWrapper.login(
                 loginRequestCode,
                 scopes = scopes,
@@ -59,7 +59,7 @@ class FlutterLineSdkPlugin(
 
     companion object {
         private const val CHANNEL_NAME = "com.linecorp/flutter_line_sdk"
-        private const val DEFAULT_CALLBACK_REQUEST_CODE = 8192
+        private const val DEFAULT_ACTIVITY_RESULT_REQUEST_CODE = 8192
 
         @JvmStatic
         fun registerWith(registrar: PluginRegistry.Registrar) {
