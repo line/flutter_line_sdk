@@ -18,6 +18,8 @@ class _HomePageState extends State<HomePage>
 
   final Set<String> _selectedScopes = Set.from(["profile"]);
 
+  final _codeEditingController = TextEditingController();
+
   @override
   bool get wantKeepAlive => true;
 
@@ -39,7 +41,7 @@ class _HomePageState extends State<HomePage>
     } on PlatformException catch (e) {
       print(e.message);
     }
-    
+
     if (!mounted) return;
 
     setState(() {
@@ -75,6 +77,12 @@ class _HomePageState extends State<HomePage>
     }
   }
 
+  @override
+  void dispose() {
+    _codeEditingController.dispose();
+    super.dispose();
+  }
+
   Widget _configCard() {
     return Card(
         child: Column(children: <Widget>[
@@ -102,7 +110,17 @@ class _HomePageState extends State<HomePage>
               ),
               Text("only Web Login"),
             ],
-          )
+          ),
+          Padding(
+            padding: EdgeInsets.only(left: 15.0, bottom: 15.0, right: 15.0),
+            child: TextField(
+              controller: _codeEditingController,
+              keyboardType: TextInputType.number,
+              decoration: new InputDecoration(
+                  hintText: 'Request Code (Optional)'
+              ),
+            ),
+          ),
         ]),
       );
   }
@@ -138,9 +156,11 @@ class _HomePageState extends State<HomePage>
 
   void _signIn() async {
     try {
+      final requestCode = int.tryParse(_codeEditingController.text);
+      final loginOption = LoginOption(_isOnlyWebLogin, "normal", requestCode: requestCode);
       final result = await LineSDK.instance.login(
           scopes: _selectedScopes.toList(),
-          option: LoginOption(_isOnlyWebLogin, "normal"));
+          option: loginOption);
       final accessToken = await LineSDK.instance.currentAccessToken;
 
       setState(() {
