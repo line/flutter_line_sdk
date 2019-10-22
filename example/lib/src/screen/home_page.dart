@@ -39,7 +39,7 @@ class _HomePageState extends State<HomePage>
     } on PlatformException catch (e) {
       print(e.message);
     }
-    
+
     if (!mounted) return;
 
     setState(() {
@@ -102,7 +102,7 @@ class _HomePageState extends State<HomePage>
               ),
               Text("only Web Login"),
             ],
-          )
+          ),
         ]),
       );
   }
@@ -138,9 +138,11 @@ class _HomePageState extends State<HomePage>
 
   void _signIn() async {
     try {
+      /// requestCode is for Android platform only, use another unique value in your application.
+      final loginOption = LoginOption(_isOnlyWebLogin, "normal", requestCode: 8192);
       final result = await LineSDK.instance.login(
           scopes: _selectedScopes.toList(),
-          option: LoginOption(_isOnlyWebLogin, "normal"));
+          option: loginOption);
       final accessToken = await LineSDK.instance.currentAccessToken;
 
       setState(() {
