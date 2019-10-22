@@ -11,8 +11,6 @@ class FlutterLineSdkPlugin(
     private val channel: MethodChannel,
     private val lineSdkWrapper: LineSdkWrapper
 ) : MethodCallHandler, PluginRegistry.ActivityResultListener {
-    private var loginRequestCode: Int = DEFAULT_ACTIVITY_RESULT_REQUEST_CODE
-
     override fun onMethodCall(call: MethodCall, result: Result) = when (call.method) {
         "toBeta" -> run {
             val channelId: String = call.argument("channelId") ?: ""
@@ -36,7 +34,7 @@ class FlutterLineSdkPlugin(
             val scopes = call.argument("scopes") ?: emptyList<String>()
             val isWebLogin = call.argument("onlyWebLogin") ?: false
             val botPrompt  = call.argument("botPrompt") ?: "normal"
-            loginRequestCode = call.argument<Int?>("loginRequestCode") ?: DEFAULT_ACTIVITY_RESULT_REQUEST_CODE
+            val loginRequestCode = call.argument<Int?>("loginRequestCode") ?: DEFAULT_ACTIVITY_RESULT_REQUEST_CODE
             lineSdkWrapper.login(
                 loginRequestCode,
                 scopes = scopes,
