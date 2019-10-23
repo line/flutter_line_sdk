@@ -1,3 +1,9 @@
+## 1.2.0
+
+### Add
+
+* A parameter for Android to specify the activity request code when login. [#4](https://github.com/line/flutter_line_sdk/issues/4)
+
 ## 1.1.0
 
 ### Add
