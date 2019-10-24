@@ -182,11 +182,7 @@ class LineSdkWrapper(
                     )
                 )
             } else {
-                result.error(
-                    lineApiResponse.responseCode.name,
-                    lineApiResponse.errorData.message,
-                    null
-                )
+                result.success(null)
             }
         }
     }
