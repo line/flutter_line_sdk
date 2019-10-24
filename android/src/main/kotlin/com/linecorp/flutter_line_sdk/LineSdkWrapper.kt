@@ -182,7 +182,7 @@ class LineSdkWrapper(
                     )
                 )
             } else {
-                result.error(null)
+                result.success(null)
             }
         }
     }
