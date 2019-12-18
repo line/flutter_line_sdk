@@ -1,3 +1,9 @@
+## 1.2.2
+
+### Fixed
+
+* An issue that example app crashes when using Flutter SDK 1.12.13. [#38464@flutter](https://github.com/flutter/flutter/pull/38464)
+
 ## 1.2.1
 
 ### Fixed
