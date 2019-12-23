@@ -3,11 +3,12 @@ package com.linecorp.linesdk.unitywrapper.model
 import com.linecorp.flutter_line_sdk.model.UserProfile
 import com.linecorp.linesdk.Scope
 import com.linecorp.linesdk.auth.LineLoginResult
-
+import com.google.gson.annotations.SerializedName
 
 data class LoginResultForFlutter(
     val accessToken: AccessToken,
     val scope: String,
+    @SerializedName("userProfile")
     val userProfile: UserProfile?,
     val friendshipStatusChanged: Boolean,
     val IDTokenNonce: String?
