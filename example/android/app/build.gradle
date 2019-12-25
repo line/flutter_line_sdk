@@ -46,7 +46,12 @@ android {
     }
 
     buildTypes {
+        debug {
+            // for proguard verification
+            //minifyEnabled true
+        }
         release {
+            minifyEnabled true
             signingConfig signingConfigs.debug
         }
     }
