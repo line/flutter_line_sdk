@@ -1,3 +1,9 @@
+## 1.2.3
+
+### Fixed
+
+* An issue that some classes are stripped unexpectedly when building with release configuration. [#10](https://github.com/line/flutter_line_sdk/issues/10)
+
 ## 1.2.2
 
 ### Fixed
