@@ -1,12 +1,12 @@
 package com.linecorp.flutter_line_sdk.model
 
+import android.support.annotation.Keep
 import com.linecorp.linesdk.LineProfile
-import com.google.gson.annotations.SerializedName
 
+@Keep
 data class UserProfile(
     val userId: String,
     val displayName: String,
-    @SerializedName("pictureUrl")
     val pictureUrl: String,
     val statusMessage: String
 ) {
