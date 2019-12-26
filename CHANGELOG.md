@@ -1,3 +1,9 @@
+## 1.2.4
+
+### Fixed
+
+* A problem that some result in model types are obfuscated when building with Release configuration on Android. [#12](https://github.com/line/flutter_line_sdk/pull/12)
+
 ## 1.2.3
 
 ### Fixed
