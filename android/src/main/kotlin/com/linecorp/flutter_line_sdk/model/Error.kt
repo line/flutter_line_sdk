@@ -1,6 +1,6 @@
 package com.linecorp.linesdk.unitywrapper.model
 
-import android.support.annotation.Keep
+import androidx.annotation.Keep
 
 
 @Keep

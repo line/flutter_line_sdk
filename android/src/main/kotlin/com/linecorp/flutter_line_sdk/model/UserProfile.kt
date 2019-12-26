@@ -1,6 +1,6 @@
 package com.linecorp.flutter_line_sdk.model
 
-import android.support.annotation.Keep
+import androidx.annotation.Keep
 import com.linecorp.linesdk.LineProfile
 
 @Keep

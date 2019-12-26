@@ -1,6 +1,6 @@
 package com.linecorp.linesdk.unitywrapper.model
 
-import android.support.annotation.Keep
+import androidx.annotation.Keep
 import com.linecorp.flutter_line_sdk.model.UserProfile
 import com.linecorp.linesdk.Scope
 import com.linecorp.linesdk.auth.LineLoginResult
