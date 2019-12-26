@@ -1,14 +1,14 @@
 package com.linecorp.linesdk.unitywrapper.model
 
+import android.support.annotation.Keep
 import com.linecorp.flutter_line_sdk.model.UserProfile
 import com.linecorp.linesdk.Scope
 import com.linecorp.linesdk.auth.LineLoginResult
-import com.google.gson.annotations.SerializedName
 
+@Keep
 data class LoginResultForFlutter(
     val accessToken: AccessToken,
     val scope: String,
-    @SerializedName("userProfile")
     val userProfile: UserProfile?,
     val friendshipStatusChanged: Boolean,
     val IDTokenNonce: String?
