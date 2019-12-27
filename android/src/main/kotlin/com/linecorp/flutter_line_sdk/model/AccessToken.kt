@@ -1,12 +1,10 @@
 package com.linecorp.linesdk.unitywrapper.model
 
-import android.support.annotation.Keep
 import com.google.gson.Gson
 import com.google.gson.annotations.SerializedName
 import com.linecorp.linesdk.auth.LineLoginResult
 
 
-@Keep
 data class AccessToken(
     @SerializedName("access_token")
     val accessToken: String,
