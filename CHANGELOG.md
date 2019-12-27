@@ -1,3 +1,9 @@
+## 1.2.5
+
+### Fixed
+
+* Remove version specified annotation. Now Android SDK can be built without problem. [#15](https://github.com/line/flutter_line_sdk/pull/15)
+
 ## 1.2.4
 
 ### Fixed
