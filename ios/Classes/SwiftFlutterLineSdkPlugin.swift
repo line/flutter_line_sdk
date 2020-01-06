@@ -100,6 +100,12 @@ enum LineChannelMethod: String {
 extension LineChannelMethod {
 
   func setup(arguments: [String: Any]?, result: @escaping FlutterResult) {
+    
+    guard !LoginManager.shared.isSetupFinished else {
+        result(nil)
+        return
+    }
+
     guard let args = arguments else {
       result(FlutterError.nilArgument)
       return
@@ -109,6 +115,7 @@ extension LineChannelMethod {
       result(FlutterError.failedArgumentField("channelId", type: String.self))
       return
     }
+
     let universalLinkURL = (args["universalLink"] as? String)
       .map { URL(string: $0) } ?? nil
     LoginManager.shared.setup(channelID: channelId, universalLinkURL: universalLinkURL)
