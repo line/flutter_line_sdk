@@ -97,7 +97,7 @@ class LineSDK {
   Future<LoginResult> login(
       {List<String> scopes = const ["profile"], LoginOption option}) async {
     String result = await channel.invokeMethod('login', <String, dynamic>{
-      'loginRequestCode' : option?.requestCode,
+      'loginRequestCode': option?.requestCode,
       'scopes': scopes,
       'onlyWebLogin': option?.onlyWebLogin,
       'botPrompt': option?.botPrompt
