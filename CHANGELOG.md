@@ -1,3 +1,9 @@
+## 1.2.6
+
+### Fixed
+
+* Hot restarting will no longer cause a connection lost on iOS simulator and device. [#17](https://github.com/line/flutter_line_sdk/pull/17)
+
 ## 1.2.5
 
 ### Fixed
