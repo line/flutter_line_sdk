@@ -1,3 +1,10 @@
+## 1.2.7
+
+### Fixes
+
+* An issue on Android that handler be called twice in some cases. [#18](https://github.com/line/flutter_line_sdk/issues/18)
+* The `AccessToken.expiresIn` now returns value of seconds on Android too. Behaviors on both iOS and Android align to the documentation. [#20](https://github.com/line/flutter_line_sdk/pull/20)
+
 ## 1.2.6
 
 ### Fixed
