@@ -173,7 +173,8 @@ class LineSdkWrapper(
                     )
                 )
             } else {
-                result.returnError(lineApiResponse)
+                // align with iOS implementation. Don't change it back to result.error()
+                result.success(null)
             }
         }
     }
