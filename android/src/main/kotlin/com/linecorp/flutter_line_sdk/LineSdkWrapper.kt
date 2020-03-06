@@ -168,7 +168,7 @@ class LineSdkWrapper(
                     gson.toJson(
                         AccessToken(
                             lineApiResponse.responseData.tokenString,
-                            (lineApiResponse.responseData.estimatedExpirationTimeMillis - System.currentTimeMillis()) / 1000
+                            lineApiResponse.responseData.expiresInMillis / 1000
                         )
                     )
                 )
