@@ -7,6 +7,7 @@ import android.util.Log
 import com.google.gson.Gson
 import com.linecorp.flutter_line_sdk.model.UserProfile
 import com.linecorp.flutter_line_sdk.util.runIfDebugBuild
+import com.linecorp.linesdk.LineApiResponse
 import com.linecorp.linesdk.LineApiResponseCode
 import com.linecorp.linesdk.Scope
 import com.linecorp.linesdk.api.LineApiClient
@@ -96,11 +97,7 @@ class LineSdkWrapper(
         uiCoroutineScope.launch {
             val lineApiResponse = withContext(Dispatchers.IO) { lineApiClient.profile }
             if (!lineApiResponse.isSuccess) {
-                result.error(
-                    lineApiResponse.responseCode.name,
-                    lineApiResponse.errorData.message,
-                    null
-                )
+                result.returnError(lineApiResponse)
             } else {
                 val profileData = lineApiResponse.responseData
                 val userProfile = UserProfile.convertLineProfile(profileData)
@@ -116,11 +113,9 @@ class LineSdkWrapper(
         if (requestCode != loginRequestCode) return false
 
         if (resultCode != Activity.RESULT_OK || intent == null) {
-            loginResult?.error(
-                resultCode.toString(),
-                "login failed",
-                null
-            )
+            loginResult?.error(resultCode.toString(), "login failed", null)
+            loginResult = null
+            return true
         }
 
         val result = LineLoginApi.getLoginResultFromIntent(intent)
@@ -158,11 +153,7 @@ class LineSdkWrapper(
         uiCoroutineScope.launch {
             val lineApiResponse = withContext(Dispatchers.IO) { lineApiClient.logout() }
             if(!lineApiResponse.isSuccess) {
-                result.error(
-                    lineApiResponse.responseCode.name,
-                    lineApiResponse.errorData.message,
-                    null
-                )
+                result.returnError(lineApiResponse)
             } else {
                 result.success(null)
             }
@@ -177,12 +168,12 @@ class LineSdkWrapper(
                     gson.toJson(
                         AccessToken(
                             lineApiResponse.responseData.tokenString,
-                            lineApiResponse.responseData.expiresInMillis
+                            lineApiResponse.responseData.expiresInMillis / 1000
                         )
                     )
                 )
             } else {
-                result.success(null)
+                result.returnError(lineApiResponse)
             }
         }
     }
@@ -197,11 +188,7 @@ class LineSdkWrapper(
                     gson.toJson(BotFriendshipStatus(lineApiResponse.responseData.isFriend))
                 )
             } else {
-                result.error(
-                    lineApiResponse.responseCode.name,
-                    lineApiResponse.errorData.message,
-                    null
-                )
+                result.returnError(lineApiResponse)
             }
         }
     }
@@ -216,16 +203,12 @@ class LineSdkWrapper(
                     gson.toJson(
                         AccessToken(
                             lineApiResponse.responseData.tokenString,
-                            lineApiResponse.responseData.expiresInMillis
+                            lineApiResponse.responseData.expiresInMillis / 1000
                         )
                     )
                 )
             } else {
-                result.error(
-                    lineApiResponse.responseCode.name,
-                    lineApiResponse.errorData.message,
-                    null
-                )
+                result.returnError(lineApiResponse)
             }
         }
     }
@@ -241,16 +224,12 @@ class LineSdkWrapper(
                         VerifyAccessTokenResult(
                             channelId,
                             Scope.join(lineApiResponse.responseData.scopes),
-                            lineApiResponse.responseData.accessToken.expiresInMillis
+                            lineApiResponse.responseData.accessToken.expiresInMillis / 1000
                         )
                     )
                 )
             } else {
-                result.error(
-                    lineApiResponse.responseCode.name,
-                    lineApiResponse.errorData.message,
-                    null
-                )
+                result.returnError(lineApiResponse)
             }
         }
     }
@@ -289,6 +268,9 @@ class LineSdkWrapper(
                 betaConfig!!.apiServerBaseUrl
             )
         }
+
+    private fun <T> Result.returnError(lineApiResponse: LineApiResponse<T>) =
+        this.error(lineApiResponse.responseCode.name, lineApiResponse.errorData.message, null)
 }
 
 data class BetaConfig(

@@ -21,7 +21,7 @@ data class AccessToken(
             val accessToken = loginResult.lineCredential?.accessToken ?: return null
             return AccessToken(
                 accessToken.tokenString,
-                accessToken.expiresInMillis,
+                accessToken.expiresInMillis  / 1000,
                 lineIdTokenString
             )
         }
