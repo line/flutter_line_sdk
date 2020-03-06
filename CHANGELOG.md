@@ -1,6 +1,12 @@
+## 1.2.8
+
+### Fixed
+
+* A regression that `getCurrentAccessToken` returns error instead of a `null` value on Android. [#22](https://github.com/line/flutter_line_sdk/pull/22)
+
 ## 1.2.7
 
-### Fixes
+### Fixed
 
 * An issue on Android that handler be called twice in some cases. [#18](https://github.com/line/flutter_line_sdk/issues/18)
 * The `AccessToken.expiresIn` now returns value of seconds on Android too. Behaviors on both iOS and Android align to the documentation. [#20](https://github.com/line/flutter_line_sdk/pull/20)
