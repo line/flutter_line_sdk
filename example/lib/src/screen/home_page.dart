@@ -77,64 +77,56 @@ class _HomePageState extends State<HomePage>
 
   Widget _configCard() {
     return Card(
-        child: Column(children: <Widget>[
-          Padding(
-            padding: EdgeInsets.all(15.0),
-            child: Text(
-              "Configurations",
-              style: Theme.of(context).textTheme.title,
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.only(left: 15.0),
-            child: _scopeListUI(),
-          ),
-          Row(
+      child: Padding(
+        padding: EdgeInsets.all(15.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Checkbox(
-                activeColor: accentColor,
-                value: _isOnlyWebLogin,
-                onChanged: (bool value) {
-                  setState(() {
-                    _isOnlyWebLogin = !_isOnlyWebLogin;
-                  });
-                },
+              _scopeListUI(),
+              SizedBox(height: 10.0,),
+              Row(
+                children: <Widget>[
+                  Checkbox(
+                    activeColor: accentColor,
+                    value: _isOnlyWebLogin,
+                    onChanged: (bool value) {
+                      setState(() {
+                        _isOnlyWebLogin = !_isOnlyWebLogin;
+                      });
+                    },
+                  ),
+                  Text("only Web Login"),
+                ],
               ),
-              Text("only Web Login"),
-            ],
-          ),
-        ]),
+            ]),
+      ),
       );
   }
 
-  Widget _scopeListUI() {
-    var widgetList = <Widget>[(Text("Scopes: "))];
-    widgetList.addAll(_scopes.map<Widget>((String scope) {
-      return Padding(
-        padding: const EdgeInsets.only(left: 4.0, right: 4.0),
-        child: ChipTheme(
-          data: ChipTheme.of(context).copyWith(brightness: Brightness.dark),
-          child: FilterChip(
-            label: Text(
-              scope,
-              style: TextStyle(color: textColor),
-            ),
-            selectedColor: accentColor,
-            selected: _selectedScopes.contains(scope),
-            onSelected: (bool value) {
-              setState(() {
-                (!_selectedScopes.contains(scope))
-                    ? _selectedScopes.add(scope)
-                    : _selectedScopes.remove(scope);
-              });
-            },
-          ),
-        ),
-      );
-    }).toList());
+  Widget _scopeListUI() => Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Text("Scopes: "),
+        Wrap(children: _scopes.map<Widget>((scope) => _buildScopeChip(scope)).toList()),
+      ]
+  );
 
-    return Row(children: widgetList);
-  }
+  Widget _buildScopeChip(String scope) => Padding(
+    padding: const EdgeInsets.symmetric(horizontal: 4.0),
+    child: ChipTheme(
+      data: ChipTheme.of(context).copyWith(brightness: Brightness.dark),
+      child: FilterChip(
+        label: Text(scope, style: TextStyle(color: textColor)),
+        selectedColor: accentColor,
+        selected: _selectedScopes.contains(scope),
+        onSelected: (_) {
+          setState(() {
+            _selectedScopes.contains(scope) ? _selectedScopes.remove(scope) : _selectedScopes.add(scope);
+          });
+        },
+      ),
+    ),
+  );
 
   void _signIn() async {
     try {
@@ -187,4 +179,5 @@ const List<String> _scopes = <String>[
   "profile",
   "openid",
   "email",
+  "customScope",
 ];
