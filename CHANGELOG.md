@@ -1,6 +1,6 @@
 ## 1.2.9
 
-### Added
+### Fixed
 
 * Now customized scope string are supported for Android. [#23](https://github.com/line/flutter_line_sdk/pull/23)
 
