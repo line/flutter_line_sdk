@@ -12,7 +12,7 @@ DEPENDENCIES:
   - flutter_line_sdk (from `.symlinks/plugins/flutter_line_sdk/ios`)
 
 SPEC REPOS:
-  trunk:
+  https://github.com/CocoaPods/Specs.git:
     - LineSDKSwift
 
 EXTERNAL SOURCES:
@@ -23,9 +23,9 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
-  flutter_line_sdk: 115eebc6edf77e74c85586e2d103ca3a7ae56764
+  flutter_line_sdk: fd51dfead0a61c5affc3717340ddc44cd0f553ce
   LineSDKSwift: 25bc89f5f08578a39ec2dcb36ee58e2f920e893c
 
 PODFILE CHECKSUM: b1aea7f7367f63dca87911da065a65de64f60847
 
-COCOAPODS: 1.8.4
+COCOAPODS: 1.9.1

@@ -58,14 +58,15 @@ class _HomePageState extends State<HomePage>
           children: <Widget>[
             _configCard(),
             Expanded(
-                child: Center(
-              child: RaisedButton(
-                textColor: textColor,
-                color: accentColor,
-                onPressed: _signIn,
-                child: Text('Sign In'),
-              ),
-            )),
+              child: Center(
+                child: RaisedButton(
+                  textColor: textColor,
+                  color: accentColor,
+                  onPressed: _signIn,
+                  child: Text('Sign In'),
+                ),
+              )
+            ),
           ],
         ),
       );
