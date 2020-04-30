@@ -1,3 +1,9 @@
+## 1.2.10
+
+### Fixed
+
+* The `pictureUrlSmall` of user profile now returns the correct smaller version of profile image now. [#25](https://github.com/line/flutter_line_sdk/pull/25)
+
 ## 1.2.9
 
 ### Fixed
