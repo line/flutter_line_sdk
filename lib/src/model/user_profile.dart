@@ -63,7 +63,7 @@ class UserProfile {
   String get pictureUrlSmall {
     final url = pictureUrl;
     if (url != null && url != '') {
-      return url + '/large';
+      return url + '/small';
     }
     return null;
   }
