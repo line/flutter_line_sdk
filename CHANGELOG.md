@@ -1,3 +1,9 @@
+## 1.2.10+1
+
+### Fixed
+
+* Update version of LineSDKSwift.
+
 ## 1.2.10
 
 ### Fixed
