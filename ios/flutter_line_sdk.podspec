@@ -12,7 +12,7 @@ A Flutter plugin using the LINE SDKs with Dart in Flutter apps.
   s.source_files = 'Classes/**/*'
   s.public_header_files = 'Classes/**/*.h'
   s.dependency 'Flutter'
-  s.dependency 'LineSDKSwift', '~> 5.3'
+  s.dependency 'LineSDKSwift', '~> 5.5'
 
   s.swift_version         = "4.2"
   s.swift_versions        = ['4.2', '5.0']

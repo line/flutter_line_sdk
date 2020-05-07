@@ -2,17 +2,17 @@ PODS:
   - Flutter (1.0.0)
   - flutter_line_sdk (1.2.10):
     - Flutter
-    - LineSDKSwift (~> 5.3)
-  - LineSDKSwift (5.4.0):
-    - LineSDKSwift/Core (= 5.4.0)
-  - LineSDKSwift/Core (5.4.0)
+    - LineSDKSwift (~> 5.5)
+  - LineSDKSwift (5.5.2):
+    - LineSDKSwift/Core (= 5.5.2)
+  - LineSDKSwift/Core (5.5.2)
 
 DEPENDENCIES:
   - Flutter (from `Flutter`)
   - flutter_line_sdk (from `.symlinks/plugins/flutter_line_sdk/ios`)
 
 SPEC REPOS:
-  https://github.com/CocoaPods/Specs.git:
+  trunk:
     - LineSDKSwift
 
 EXTERNAL SOURCES:
@@ -23,8 +23,8 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
-  flutter_line_sdk: fd51dfead0a61c5affc3717340ddc44cd0f553ce
-  LineSDKSwift: 25bc89f5f08578a39ec2dcb36ee58e2f920e893c
+  flutter_line_sdk: 6245456a6f7400c0408db453ce3a8ee28a23c412
+  LineSDKSwift: 061ee1ba11072007a31026cf1c59b1fc4a3898d6
 
 PODFILE CHECKSUM: b1aea7f7367f63dca87911da065a65de64f60847
 
