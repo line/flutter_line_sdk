@@ -65,14 +65,17 @@ class _HomePageState extends State<HomePage>
                   onPressed: _signIn,
                   child: Text('Sign In'),
                 ),
-              )
+              ),
             ),
           ],
         ),
       );
     } else {
       return UserInfoWidget(
-          userProfile: _userProfile, accessToken: _accessToken, onSignOutPressed: _signOut);
+        userProfile: _userProfile,
+        accessToken: _accessToken,
+        onSignOutPressed: _signOut,
+      );
     }
   }
 
@@ -82,60 +85,68 @@ class _HomePageState extends State<HomePage>
         padding: EdgeInsets.all(15.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              _scopeListUI(),
-              SizedBox(height: 10.0,),
-              Row(
-                children: <Widget>[
-                  Checkbox(
-                    activeColor: accentColor,
-                    value: _isOnlyWebLogin,
-                    onChanged: (bool value) {
-                      setState(() {
-                        _isOnlyWebLogin = !_isOnlyWebLogin;
-                      });
-                    },
-                  ),
-                  Text("only Web Login"),
-                ],
-              ),
-            ]),
+          children: <Widget>[
+            _scopeListUI(),
+            SizedBox(
+              height: 10.0,
+            ),
+            Row(
+              children: <Widget>[
+                Checkbox(
+                  activeColor: accentColor,
+                  value: _isOnlyWebLogin,
+                  onChanged: (bool value) {
+                    setState(() {
+                      _isOnlyWebLogin = !_isOnlyWebLogin;
+                    });
+                  },
+                ),
+                Text("only Web Login"),
+              ],
+            ),
+          ],
+        ),
       ),
-      );
+    );
   }
 
   Widget _scopeListUI() => Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Text("Scopes: "),
-        Wrap(children: _scopes.map<Widget>((scope) => _buildScopeChip(scope)).toList()),
-      ]
-  );
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Text("Scopes: "),
+          Wrap(
+            children:
+                _scopes.map<Widget>((scope) => _buildScopeChip(scope)).toList(),
+          ),
+        ],
+      );
 
   Widget _buildScopeChip(String scope) => Padding(
-    padding: const EdgeInsets.symmetric(horizontal: 4.0),
-    child: ChipTheme(
-      data: ChipTheme.of(context).copyWith(brightness: Brightness.dark),
-      child: FilterChip(
-        label: Text(scope, style: TextStyle(color: textColor)),
-        selectedColor: accentColor,
-        selected: _selectedScopes.contains(scope),
-        onSelected: (_) {
-          setState(() {
-            _selectedScopes.contains(scope) ? _selectedScopes.remove(scope) : _selectedScopes.add(scope);
-          });
-        },
-      ),
-    ),
-  );
+        padding: const EdgeInsets.symmetric(horizontal: 4.0),
+        child: ChipTheme(
+          data: ChipTheme.of(context).copyWith(brightness: Brightness.dark),
+          child: FilterChip(
+            label: Text(scope, style: TextStyle(color: textColor)),
+            selectedColor: accentColor,
+            selected: _selectedScopes.contains(scope),
+            onSelected: (_) {
+              setState(() {
+                _selectedScopes.contains(scope)
+                    ? _selectedScopes.remove(scope)
+                    : _selectedScopes.add(scope);
+              });
+            },
+          ),
+        ),
+      );
 
   void _signIn() async {
     try {
       /// requestCode is for Android platform only, use another unique value in your application.
-      final loginOption = LoginOption(_isOnlyWebLogin, "normal", requestCode: 8192);
-      final result = await LineSDK.instance.login(
-          scopes: _selectedScopes.toList(),
-          option: loginOption);
+      final loginOption =
+          LoginOption(_isOnlyWebLogin, "normal", requestCode: 8192);
+      final result = await LineSDK.instance
+          .login(scopes: _selectedScopes.toList(), option: loginOption);
       final accessToken = await LineSDK.instance.currentAccessToken;
 
       setState(() {
@@ -161,18 +172,21 @@ class _HomePageState extends State<HomePage>
 
   void _showDialog(BuildContext context, String text) {
     showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            content: Text(text),
-            actions: <Widget>[
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          content: Text(text),
+          actions: <Widget>[
             FlatButton(
               child: Text('Close'),
-              onPressed: () { Navigator.of(context).pop(); },
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
             ),
           ],
-          );
-        });
+        );
+      },
+    );
   }
 }
 

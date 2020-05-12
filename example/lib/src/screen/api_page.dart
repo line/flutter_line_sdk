@@ -23,11 +23,11 @@ class _APIPageState extends State<APIPage> {
   void _setState(Map<String, dynamic> data, PlatformException error) {
     setState(() {
       if (data != null) {
-      _result = json.encode(data);
+        _result = json.encode(data);
       } else {
         _result = "";
       }
-      
+
       if (error != null) {
         _error = "Error Code: ${error.code}\nError Message: ${error.message}";
       } else {
@@ -41,37 +41,42 @@ class _APIPageState extends State<APIPage> {
     final apis = _getAPIs();
     final isError = _error != "";
 
-    return Column(children: <Widget>[
-      Row(children: <Widget>[
-        Expanded(
-          flex: 1,
-          child: Container(
-            padding: EdgeInsets.all(16),
-            child: SingleChildScrollView(
-              child: Text(
-                isError ? _error : _result,
-                style: TextStyle(color: isError ? Colors.red : Colors.green ),
-              )
+    return Column(
+      children: <Widget>[
+        Row(
+          children: <Widget>[
+            Expanded(
+              flex: 1,
+              child: Container(
+                padding: EdgeInsets.all(16),
+                child: SingleChildScrollView(
+                  child: Text(
+                    isError ? _error : _result,
+                    style:
+                        TextStyle(color: isError ? Colors.red : Colors.green),
+                  ),
+                ),
+                color: Color.fromARGB(30, 30, 30, 30),
+                height: 200,
+              ),
             ),
-            color: Color.fromARGB(30, 30, 30, 30),
-            height: 200,
-          )
+          ],
         ),
-      ]
-      ), 
-      Expanded(
-        child: ListView.separated(
-          separatorBuilder: (BuildContext context, int index) => Divider(),
-          itemCount: apis.length,
-          itemBuilder: (context, index) {
-            return ListTile(
-              title: Text(apis[index].name),
-              onTap: () { apis[index].run(); },
-            );
-          },
-        )
-      )
-    ],
+        Expanded(
+          child: ListView.separated(
+            separatorBuilder: (BuildContext context, int index) => Divider(),
+            itemCount: apis.length,
+            itemBuilder: (context, index) {
+              return ListTile(
+                title: Text(apis[index].name),
+                onTap: () {
+                  apis[index].run();
+                },
+              );
+            },
+          ),
+        ),
+      ],
     );
   }
 
@@ -124,6 +129,6 @@ class _APIPageState extends State<APIPage> {
 class _APIItem {
   final String name;
   final Function run;
-  
+
   _APIItem(this.name, this.run);
 }
