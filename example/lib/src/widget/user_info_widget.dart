@@ -7,7 +7,7 @@ class UserInfoWidget extends StatelessWidget {
     Key key,
     this.userProfile,
     this.accessToken,
-    this.onSignOutPressed
+    this.onSignOutPressed,
   }) : super(key: key);
 
   final UserProfile userProfile;
@@ -20,19 +20,18 @@ class UserInfoWidget extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          (userProfile.pictureUrl.isNotEmpty) ?
-          Image.network(
-            userProfile.pictureUrl, 
-            width: 200, 
-            height: 200
-          ) : Icon(Icons.person),
+          userProfile.pictureUrl.isNotEmpty
+              ? Image.network(
+                  userProfile.pictureUrl,
+                  width: 200,
+                  height: 200,
+                )
+              : Icon(Icons.person),
           Text(
-            userProfile.displayName, 
-            style: Theme.of(context).textTheme.headline
+            userProfile.displayName,
+            style: Theme.of(context).textTheme.headline,
           ),
-          Text(
-            userProfile.statusMessage
-          ),
+          Text(userProfile.statusMessage),
           Container(
             child: RaisedButton(
               textColor: textColor,
@@ -40,9 +39,9 @@ class UserInfoWidget extends StatelessWidget {
               child: Text("Sign Out"),
               onPressed: onSignOutPressed,
             ),
-          )
+          ),
         ],
-      )
+      ),
     );
   }
 }

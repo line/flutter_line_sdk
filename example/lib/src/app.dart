@@ -7,8 +7,8 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-        primaryColor: Colors.green, 
-        indicatorColor: Colors.white
+        primaryColor: Colors.green,
+        indicatorColor: Colors.white,
       ),
       home: DefaultTabController(
         length: 2,
@@ -26,15 +26,15 @@ class App extends StatelessWidget {
           body: TabBarView(
             children: [
               Center(
-                child: HomePage()
+                child: HomePage(),
               ),
               Center(
-                child: APIPage()
-              )
+                child: APIPage(),
+              ),
             ],
-          )
+          ),
         ),
-      )
+      ),
     );
   }
 }
