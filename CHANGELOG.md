@@ -1,3 +1,10 @@
+## 1.2.11
+
+### Fixed
+
+* Align `minSdkVersion` of Android part to the same version (API Level 18) as the native LINE SDK Android.
+* A issue which causes example app crashing in Android versions earlier than 5.0 (API Level 21).
+
 ## 1.2.10
 
 ### Fixed
