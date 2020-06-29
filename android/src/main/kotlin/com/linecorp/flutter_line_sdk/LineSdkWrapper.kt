@@ -119,7 +119,7 @@ class LineSdkWrapper(
         }
 
         val result = LineLoginApi.getLoginResultFromIntent(intent)
-        runIfDebugBuild { Log.d(TAG, "login result:$result") }
+        //runIfDebugBuild { Log.d(TAG, "login result:$result") }
 
         when(result.responseCode) {
             LineApiResponseCode.SUCCESS -> {
