@@ -29,7 +29,7 @@ For more examples, see the [example app](https://github.com/line/flutter_line_sd
 ## Prerequisites
 
 - iOS 10.0 or later as the deployment target
-- Android `minSdkVersion` set to 17 or higher (Android 4.2 or later)
+- Android `minSdkVersion` set to 21 or higher (Android 5.0 or later)
 - [LINE Login channel linked to your app](https://developers.line.biz/en/docs/line-login/getting-started/)
 
 To access your LINE Login channel from a mobile platform, you need some extra configuration. In the [LINE Developers console][console], go to your LINE Login channel settings, and enter the below information on the **App settings** tab.
