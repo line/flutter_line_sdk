@@ -17,5 +17,9 @@ dev_dependencies:
 
 flutter:
   plugin:
-    androidPackage: com.linecorp.flutter_line_sdk
-    pluginClass: FlutterLineSdkPlugin
+    platforms:
+      android:
+        package: com.linecorp.flutter_line_sdk
+        pluginClass: FlutterLineSdkPlugin
+      ios:
+        pluginClass: FlutterLineSdkPlugin
