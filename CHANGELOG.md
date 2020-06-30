@@ -1,3 +1,13 @@
+## 1.3.0
+
+### Added
+
+* A new `idToken` field in `AccessToken` to help decoding and getting the ID Token in a dictionary format. [#33](https://github.com/line/flutter_line_sdk/pull/33)
+
+### Fixed
+
+* Now `idTokenRaw` on Android returns correct raw token string instead of a decoded JSON string, which aligns the behavior as on iOS. [#31](https://github.com/line/flutter_line_sdk/issues/31)
+
 ## 1.2.11
 
 ### Fixed
