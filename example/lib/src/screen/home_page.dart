@@ -13,6 +13,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage>
     with AutomaticKeepAliveClientMixin {
   UserProfile _userProfile;
+  String _userEmail;
   StoredAccessToken _accessToken;
   bool _isOnlyWebLogin = false;
 
@@ -73,6 +74,7 @@ class _HomePageState extends State<HomePage>
     } else {
       return UserInfoWidget(
         userProfile: _userProfile,
+        userEmail: _userEmail,
         accessToken: _accessToken,
         onSignOutPressed: _signOut,
       );
@@ -149,8 +151,12 @@ class _HomePageState extends State<HomePage>
           .login(scopes: _selectedScopes.toList(), option: loginOption);
       final accessToken = await LineSDK.instance.currentAccessToken;
 
+      final idToken = result.accessToken.idToken;
+      final userEmail = (idToken != null) ? idToken["email"] : null;
+
       setState(() {
         _userProfile = result.userProfile;
+        _userEmail = userEmail;
         _accessToken = accessToken;
       });
     } on PlatformException catch (e) {
