@@ -15,9 +15,7 @@ data class AccessToken(
 ) {
     companion object {
         fun convertFromLineLoginResult(loginResult: LineLoginResult): AccessToken? {
-            val lineIdTokenString = loginResult.lineIdToken?.let {
-                Gson().toJson(it)
-            } ?: ""
+            val lineIdTokenString = loginResult.lineIdToken?.rawString ?: ""
             val accessToken = loginResult.lineCredential?.accessToken ?: return null
             return AccessToken(
                 accessToken.tokenString,
