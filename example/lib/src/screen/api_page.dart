@@ -16,8 +16,8 @@ class _APIPageState extends State<APIPage> {
   @override
   void initState() {
     super.initState();
-    _result = "";
-    _error = "";
+    _result = '';
+    _error = '';
   }
 
   void _setState(Map<String, dynamic> data, PlatformException error) {
@@ -25,13 +25,13 @@ class _APIPageState extends State<APIPage> {
       if (data != null) {
         _result = json.encode(data);
       } else {
-        _result = "";
+        _result = '';
       }
 
       if (error != null) {
-        _error = "Error Code: ${error.code}\nError Message: ${error.message}";
+        _error = 'Error Code: ${error.code}\nError Message: ${error.message}';
       } else {
-        _error = "";
+        _error = '';
       }
     });
   }
@@ -39,7 +39,7 @@ class _APIPageState extends State<APIPage> {
   @override
   Widget build(BuildContext context) {
     final apis = _getAPIs();
-    final isError = _error != "";
+    final isError = _error != '';
 
     return Column(
       children: <Widget>[
@@ -82,7 +82,7 @@ class _APIPageState extends State<APIPage> {
 
   List<_APIItem> _getAPIs() {
     return [
-      _APIItem("Get Profile", () async {
+      _APIItem('Get Profile', () async {
         try {
           final result = await LineSDK.instance.getProfile();
           _setState(result.data, null);
@@ -90,7 +90,7 @@ class _APIPageState extends State<APIPage> {
           _setState(null, e);
         }
       }),
-      _APIItem("Get Current AccessToken", () async {
+      _APIItem('Get Current AccessToken', () async {
         try {
           final result = await LineSDK.instance.currentAccessToken;
           _setState(result.data, null);
@@ -98,7 +98,7 @@ class _APIPageState extends State<APIPage> {
           _setState(null, e);
         }
       }),
-      _APIItem("Refresh Token", () async {
+      _APIItem('Refresh Token', () async {
         try {
           final result = await LineSDK.instance.refreshToken();
           _setState(result.data, null);
@@ -106,7 +106,7 @@ class _APIPageState extends State<APIPage> {
           _setState(null, e);
         }
       }),
-      _APIItem("Verify Access Token", () async {
+      _APIItem('Verify Access Token', () async {
         try {
           final result = await LineSDK.instance.verifyAccessToken();
           _setState(result.data, null);
@@ -114,7 +114,7 @@ class _APIPageState extends State<APIPage> {
           _setState(null, e);
         }
       }),
-      _APIItem("Bot Friendship Status", () async {
+      _APIItem('Bot Friendship Status', () async {
         try {
           final result = await LineSDK.instance.getBotFriendshipStatus();
           _setState(result.data, null);

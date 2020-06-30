@@ -34,7 +34,7 @@ class AccessTokenVerifyResult {
   String get channelId => _data['client_id'];
 
   /// The valid scopes bound to this access token.
-  List<String> get scopes => _data['scope'].split(" ");
+  List<String> get scopes => _data['scope'].split(' ');
 
   /// Number of seconds until the access token expires.
   /// Counting from when the server received the request.

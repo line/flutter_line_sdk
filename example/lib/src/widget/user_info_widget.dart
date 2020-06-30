@@ -39,7 +39,7 @@ class UserInfoWidget extends StatelessWidget {
             child: RaisedButton(
               textColor: textColor,
               color: accentColor,
-              child: Text("Sign Out"),
+              child: Text('Sign Out'),
               onPressed: onSignOutPressed,
             ),
           ),

@@ -5,8 +5,8 @@ import 'src/app.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  LineSDK.instance.setup("1620019587").then((_) {
-    print("LineSDK Prepared");
+  LineSDK.instance.setup('1620019587').then((_) {
+    print('LineSDK Prepared');
   });
   runApp(App());
 }

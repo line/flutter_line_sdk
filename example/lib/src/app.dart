@@ -17,8 +17,8 @@ class App extends StatelessWidget {
             title: const Text('LINE SDK'),
             bottom: TabBar(
               tabs: [
-                Tab(text: "User"),
-                Tab(text: "API"),
+                Tab(text: 'User'),
+                Tab(text: 'API'),
               ],
               indicatorColor: null,
             ),

@@ -17,7 +17,7 @@ class _HomePageState extends State<HomePage>
   StoredAccessToken _accessToken;
   bool _isOnlyWebLogin = false;
 
-  final Set<String> _selectedScopes = Set.from(["profile"]);
+  final Set<String> _selectedScopes = Set.from(['profile']);
 
   @override
   bool get wantKeepAlive => true;
@@ -103,7 +103,7 @@ class _HomePageState extends State<HomePage>
                     });
                   },
                 ),
-                Text("only Web Login"),
+                Text('only Web Login'),
               ],
             ),
           ],
@@ -115,7 +115,7 @@ class _HomePageState extends State<HomePage>
   Widget _scopeListUI() => Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text("Scopes: "),
+          Text('Scopes: '),
           Wrap(
             children:
                 _scopes.map<Widget>((scope) => _buildScopeChip(scope)).toList(),
@@ -146,13 +146,13 @@ class _HomePageState extends State<HomePage>
     try {
       /// requestCode is for Android platform only, use another unique value in your application.
       final loginOption =
-          LoginOption(_isOnlyWebLogin, "normal", requestCode: 8192);
+          LoginOption(_isOnlyWebLogin, 'normal', requestCode: 8192);
       final result = await LineSDK.instance
           .login(scopes: _selectedScopes.toList(), option: loginOption);
       final accessToken = await LineSDK.instance.currentAccessToken;
 
       final idToken = result.accessToken.idToken;
-      final userEmail = (idToken != null) ? idToken["email"] : null;
+      final userEmail = (idToken != null) ? idToken['email'] : null;
 
       setState(() {
         _userProfile = result.userProfile;
@@ -197,8 +197,8 @@ class _HomePageState extends State<HomePage>
 }
 
 const List<String> _scopes = <String>[
-  "profile",
-  "openid",
-  "email",
-  "customScope",
+  'profile',
+  'openid',
+  'email',
+  'customScope',
 ];

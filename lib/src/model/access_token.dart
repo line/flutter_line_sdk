@@ -72,7 +72,7 @@ class AccessToken {
     if (_idToken != null) { return _idToken; }
     if (idTokenRaw == null) { return null; }
 
-    final parts = idTokenRaw.split(".");
+    final parts = idTokenRaw.split('.');
     // Malformed JWT format.
     if (parts.length != 3) { return null; }
 
@@ -86,7 +86,7 @@ class AccessToken {
   }
 
   /// The valid scopes bound to this access token.
-  List<String> get scopes => _data['scope'].split(" ");
+  List<String> get scopes => _data['scope'].split(' ');
 
   /// The expected authorization type when this token is used in a request
   /// header. Fixed to `Bearer` for now.
