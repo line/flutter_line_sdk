@@ -61,33 +61,33 @@ void main() {
   });
 
   test('setup', () async {
-    await LineSDK.instance.setup("123");
+    await LineSDK.instance.setup('123');
   });
 
   test('login', () async {
     final v = await LineSDK.instance.login();
-    expect(v.accessToken.value, "123");
+    expect(v.accessToken.value, '123');
     
     expect(v.accessToken.scopes.length, 2);
-    expect(v.accessToken.scopes.contains("profile"), true);
-    expect(v.accessToken.scopes.contains("abcd"), true);
+    expect(v.accessToken.scopes.contains('profile'), true);
+    expect(v.accessToken.scopes.contains('abcd'), true);
     
-    expect(v.userProfile.userId, "abcd");
+    expect(v.userProfile.userId, 'abcd');
   });
 
   test('user profile', () async {
     final v = await LineSDK.instance.getProfile();
-    expect(v.userId, "abcd");
+    expect(v.userId, 'abcd');
   });
 
   test('refresh token', () async {
     final v = await LineSDK.instance.refreshToken();
-    expect(v.value, "123");
+    expect(v.value, '123');
   });
 
   test('verify access token', () async {
     final v = await LineSDK.instance.verifyAccessToken();
-    expect(v.channelId, "1440057261");
+    expect(v.channelId, '1440057261');
   });
 
   test('get bot friendship status', () async {

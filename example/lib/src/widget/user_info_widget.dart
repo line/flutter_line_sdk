@@ -6,11 +6,13 @@ class UserInfoWidget extends StatelessWidget {
   const UserInfoWidget({
     Key key,
     this.userProfile,
+    this.userEmail,
     this.accessToken,
-    this.onSignOutPressed,
+    this.onSignOutPressed
   }) : super(key: key);
 
   final UserProfile userProfile;
+  final String userEmail;
   final StoredAccessToken accessToken;
   final Function onSignOutPressed;
 
@@ -31,12 +33,13 @@ class UserInfoWidget extends StatelessWidget {
             userProfile.displayName,
             style: Theme.of(context).textTheme.headline,
           ),
+          if (userEmail != null) Text(userEmail),
           Text(userProfile.statusMessage),
           Container(
             child: RaisedButton(
               textColor: textColor,
               color: accentColor,
-              child: Text("Sign Out"),
+              child: Text('Sign Out'),
               onPressed: onSignOutPressed,
             ),
           ),

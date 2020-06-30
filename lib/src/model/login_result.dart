@@ -38,7 +38,7 @@ class LoginResult {
 
   /// The [AccessToken] object obtained during login.
   AccessToken get accessToken => _accessToken;
-  List<String> get scopes => _data['scope'].split(" ");
+  List<String> get scopes => _data['scope'].split(' ');
 
   /// The [UserProfile] object obtained during login.
   ///
