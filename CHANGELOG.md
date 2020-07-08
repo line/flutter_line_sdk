@@ -3,10 +3,12 @@
 ### Added
 
 * A new `idToken` field in `AccessToken` to help decoding and getting the ID Token in a dictionary format. [#33](https://github.com/line/flutter_line_sdk/pull/33)
+* Fully support for Flutter Add to App feature by adapting the new Flutter v2 plugin model. [#34](https://github.com/line/flutter_line_sdk/pull/34)
 
 ### Fixed
 
 * Now `idTokenRaw` on Android returns correct raw token string instead of a decoded JSON string, which aligns the behavior as on iOS. [#31](https://github.com/line/flutter_line_sdk/issues/31)
+* Upgrade the `minSdkVersion` for Android platform to 21, which matches the LINE client app on the same platform.
 
 ## 1.2.11
 
