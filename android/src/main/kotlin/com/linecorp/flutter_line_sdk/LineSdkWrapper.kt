@@ -2,6 +2,7 @@ package com.linecorp.flutter_line_sdk
 
 import android.app.Activity
 import android.content.ContentValues.TAG
+import android.content.Context
 import android.content.Intent
 import android.util.Log
 import com.google.gson.Gson
@@ -28,9 +29,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 
-class LineSdkWrapper(
-    private val activity: Activity
-) {
+class LineSdkWrapper {
     private lateinit var lineApiClient: LineApiClient
     private lateinit var channelId: String
     private val gson = Gson()
@@ -38,20 +37,21 @@ class LineSdkWrapper(
     private var betaConfig: BetaConfig? = null
     private val uiCoroutineScope: CoroutineScope = CoroutineScope(Dispatchers.Main)
 
-    fun setupSdk(channelId: String) {
+    fun setupSdk(activity: Activity, channelId: String) {
         runIfDebugBuild {  Log.d(TAG, "setupSdk") }
 
         if (!this::channelId.isInitialized) {
             this.channelId = channelId
         }
 
-        lineApiClient = createLineApiClient(channelId)
+        lineApiClient = createLineApiClient(activity, channelId)
     }
 
     var loginResult: Result? = null
 
     fun login(
         loginRequestCode: Int,
+        activity: Activity,
         scopes: List<String> = listOf("profile"),
         onlyWebLogin: Boolean = false,
         botPromptString: String = "normal",
@@ -259,12 +259,12 @@ class LineSdkWrapper(
         )
     }
 
-    private fun createLineApiClient(channelId: String): LineApiClient =
+    private fun createLineApiClient(activity: Activity, channelId: String): LineApiClient =
         if (betaConfig == null) {
-            LineApiClientBuilder(activity.applicationContext, channelId).build()
+            LineApiClientBuilder(activity, channelId).build()
         } else {
             LineApiClientFactory.createLineApiClient(
-                activity.applicationContext,
+                activity,
                 channelId,
                 betaConfig!!.apiServerBaseUrl
             )

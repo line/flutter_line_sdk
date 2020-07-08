@@ -6,6 +6,7 @@ repository: https://github.com/line/flutter_line_sdk/
 
 environment:
   sdk: ">=2.1.0 <3.0.0"
+  flutter: ">=1.12.0 <2.0.0"
 
 dependencies:
   flutter:
@@ -17,5 +18,9 @@ dev_dependencies:
 
 flutter:
   plugin:
-    androidPackage: com.linecorp.flutter_line_sdk
-    pluginClass: FlutterLineSdkPlugin
+    platforms:
+      android:
+        package: com.linecorp.flutter_line_sdk
+        pluginClass: FlutterLineSdkPlugin
+      ios:
+        pluginClass: FlutterLineSdkPlugin
