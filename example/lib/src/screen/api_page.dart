@@ -10,8 +10,8 @@ class APIPage extends StatefulWidget {
 }
 
 class _APIPageState extends State<APIPage> {
-  String _result;
-  String _error;
+  String? _result;
+  String? _error;
 
   @override
   void initState() {
@@ -20,7 +20,7 @@ class _APIPageState extends State<APIPage> {
     _error = '';
   }
 
-  void _setState(Map<String, dynamic> data, PlatformException error) {
+  void _setState(Map<String, dynamic>? data, PlatformException? error) {
     setState(() {
       if (data != null) {
         _result = json.encode(data);
@@ -51,7 +51,7 @@ class _APIPageState extends State<APIPage> {
                 padding: EdgeInsets.all(16),
                 child: SingleChildScrollView(
                   child: Text(
-                    isError ? _error : _result,
+                    isError ? _error! : _result!,
                     style:
                         TextStyle(color: isError ? Colors.red : Colors.green),
                   ),
@@ -93,7 +93,7 @@ class _APIPageState extends State<APIPage> {
       _APIItem('Get Current AccessToken', () async {
         try {
           final result = await LineSDK.instance.currentAccessToken;
-          _setState(result.data, null);
+          _setState(result?.data, null);
         } on PlatformException catch (e) {
           _setState(null, e);
         }
