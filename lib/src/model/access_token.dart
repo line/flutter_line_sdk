@@ -59,20 +59,20 @@ class AccessToken {
   ///
   /// The value exists only if the access token is obtained with the `openID`
   /// permission.
-  String get idTokenRaw => _data['id_token'];
+  String? get idTokenRaw => _data['id_token'];
 
-  Map<String, dynamic> _idToken;
+  Map<String, dynamic>? _idToken;
 
   /// The `Map<String, dynamic>` representation of the received ID Token.
   /// This getter converts the received `idTokenRaw` to a dictionary format if it exists.
   /// 
   /// If you are not applying an ID Token when login, `null` is returned.
-  Map<String, dynamic> get idToken {
+  Map<String, dynamic>? get idToken {
     // Lazy variable.
     if (_idToken != null) { return _idToken; }
     if (idTokenRaw == null) { return null; }
 
-    final parts = idTokenRaw.split('.');
+    final parts = idTokenRaw!.split('.');
     // Malformed JWT format.
     if (parts.length != 3) { return null; }
 

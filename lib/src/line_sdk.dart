@@ -54,8 +54,8 @@ class LineSDK {
   /// [Setting up your project](https://developers.line.biz/en/docs/ios-sdk/swift/setting-up-project/).
   /// If you don't pass a [universalLink] in this method, LINE SDK will use the traditional URL
   /// scheme to open your app when logging in through LINE.
-  Future<void> setup(String channelId, {String universalLink}) async {
-    await channel.invokeMethod('setup', <String, String>{
+  Future<void> setup(String channelId, {String? universalLink}) async {
+    await channel.invokeMethod('setup', <String, String?>{
       'channelId': channelId,
       'universalLink': universalLink
     });
@@ -95,15 +95,13 @@ class LineSDK {
   /// (Android).
   /// {@endtemplate}
   Future<LoginResult> login(
-      {List<String> scopes = const ['profile'], LoginOption option}) async {
-    String result = await channel.invokeMethod('login', <String, dynamic>{
+      {List<String> scopes = const ['profile'], LoginOption? option}) async {
+    return await channel.invokeMethod('login', <String, dynamic>{
       'loginRequestCode': option?.requestCode,
       'scopes': scopes,
       'onlyWebLogin': option?.onlyWebLogin,
       'botPrompt': option?.botPrompt
-    });
-    if (result == null) return null;
-    return LoginResult._(json.decode(result));
+    }).then((value) => LoginResult._(json.decode(value ?? {})));
   }
 
   /// Logs out the current user by revoking the related tokens.
@@ -123,8 +121,8 @@ class LineSDK {
   /// It may have expired or been revoked by the user from another device or LINE client.
   ///
   /// {@macro error_handling}
-  Future<StoredAccessToken> get currentAccessToken async {
-    String result = await channel.invokeMethod('currentAccessToken');
+  Future<StoredAccessToken?> get currentAccessToken async {
+    String? result = await channel.invokeMethod('currentAccessToken');
     if (result == null) return null;
     return StoredAccessToken._(json.decode(result));
   }
@@ -135,9 +133,9 @@ class LineSDK {
   ///
   /// {@macro error_handling}
   Future<UserProfile> getProfile() async {
-    String result = await channel.invokeMethod('getProfile');
-    if (result == null) return null;
-    return UserProfile._(json.decode(result));
+    return await channel
+        .invokeMethod('getProfile')
+        .then((value) => UserProfile._(json.decode(value ?? {})));
   }
 
   /// Refreshes the access token.
@@ -151,18 +149,18 @@ class LineSDK {
   ///
   /// {@macro error_handling}
   Future<AccessToken> refreshToken() async {
-    String result = await channel.invokeMethod('refreshToken');
-    if (result == null) return null;
-    return AccessToken._(json.decode(result));
+    return await channel
+        .invokeMethod('refreshToken')
+        .then((value) => AccessToken._(json.decode(value ?? {})));
   }
 
   /// Checks whether the stored access token is valid against the LINE authentication server.
   ///
   /// {@macro error_handling}
   Future<AccessTokenVerifyResult> verifyAccessToken() async {
-    String result = await channel.invokeMethod('verifyAccessToken');
-    if (result == null) return null;
-    return AccessTokenVerifyResult._(json.decode(result));
+    return await channel
+        .invokeMethod('verifyAccessToken')
+        .then((value) => AccessTokenVerifyResult._(json.decode(value ?? {})));
   }
 
   /// Gets the friendship status between the user and the official account linked to your LINE Login
@@ -172,8 +170,8 @@ class LineSDK {
   ///
   /// {@macro error_handling}
   Future<BotFriendshipStatus> getBotFriendshipStatus() async {
-    String result = await channel.invokeMethod('getBotFriendshipStatus');
-    if (result == null) return null;
-    return BotFriendshipStatus._(json.decode(result));
+    return await channel
+        .invokeMethod('getBotFriendshipStatus')
+        .then((value) => BotFriendshipStatus._(json.decode(value ?? {})));
   }
 }

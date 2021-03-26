@@ -6,11 +6,8 @@ import 'package:flutter_line_sdk/flutter_line_sdk.dart';
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   group('Models', () {
-    test('access_token should be parsed correctly', () {
-      
-    });
+    test('access_token should be parsed correctly', () {});
   });
-
 
   const MethodChannel channel = MethodChannel('com.linecorp/flutter_line_sdk');
 
@@ -50,12 +47,18 @@ void main() {
   setUp(() {
     channel.setMockMethodCallHandler((MethodCall methodCall) async {
       switch (methodCall.method) {
-        case 'setup': return null;
-        case 'login': return '{"accessToken": $dummyAccessToken, "userProfile": $dummyProfile}';
-        case 'getProfile': return dummyProfile;
-        case 'refreshToken': return dummyAccessToken;
-        case 'verifyAccessToken': return dummyVerifyToken;
-        case 'getBotFriendshipStatus': return dummyGetBotFriendshipStatus;
+        case 'setup':
+          return null;
+        case 'login':
+          return '{"accessToken": $dummyAccessToken, "userProfile": $dummyProfile}';
+        case 'getProfile':
+          return dummyProfile;
+        case 'refreshToken':
+          return dummyAccessToken;
+        case 'verifyAccessToken':
+          return dummyVerifyToken;
+        case 'getBotFriendshipStatus':
+          return dummyGetBotFriendshipStatus;
       }
     });
   });
@@ -67,11 +70,11 @@ void main() {
   test('login', () async {
     final v = await LineSDK.instance.login();
     expect(v.accessToken.value, '123');
-    
+
     expect(v.accessToken.scopes.length, 2);
     expect(v.accessToken.scopes.contains('profile'), true);
     expect(v.accessToken.scopes.contains('abcd'), true);
-    
+
     expect(v.userProfile.userId, 'abcd');
   });
 

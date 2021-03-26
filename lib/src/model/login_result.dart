@@ -33,8 +33,8 @@ class LoginResult {
   /// Raw data of the response in a `Map` representation.
   Map<String, dynamic> get data => _data;
 
-  AccessToken _accessToken;
-  UserProfile _userProfile;
+  late AccessToken _accessToken;
+  late UserProfile _userProfile;
 
   /// The [AccessToken] object obtained during login.
   AccessToken get accessToken => _accessToken;
@@ -56,5 +56,5 @@ class LoginResult {
 
   /// The `nonce` value when requesting ID Token during login process. Use this value as a parameter when you
   /// verify the ID Token against the LINE server. This value is `nil` if `openid` permission is not requested.
-  String get idTokenNonce => _data['IDTokenNonce'];
+  String? get idTokenNonce => _data['IDTokenNonce'];
 }

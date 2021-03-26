@@ -39,17 +39,17 @@ class UserProfile {
   /// The status message of the current authorized user.
   ///
   /// Empty or `null` if the user hasn't set a status message.
-  String get statusMessage => _data['statusMessage'];
+  String? get statusMessage => _data['statusMessage'];
 
   /// URL of current authorized user's profile image.
   ///
   /// Empty or `null` if the user hasn't set a profile image.
-  String get pictureUrl => _data['pictureUrl'];
+  String? get pictureUrl => _data['pictureUrl'];
 
   /// URL of current authorized user's large profile image.
   ///
   /// `null` if the user hasn't set a profile image.
-  String get pictureUrlLarge {
+  String? get pictureUrlLarge {
     final url = pictureUrl;
     if (url != null && url != '') {
       return url + '/large';
@@ -60,7 +60,7 @@ class UserProfile {
   /// URL of current authorized user's small profile image.
   ///
   /// `null` if the user hasn't set a profile image.
-  String get pictureUrlSmall {
+  String? get pictureUrlSmall {
     final url = pictureUrl;
     if (url != null && url != '') {
       return url + '/small';
