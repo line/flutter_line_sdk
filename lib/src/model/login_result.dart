@@ -25,7 +25,12 @@ part of flutter_line_sdk;
 class LoginResult {
   LoginResult._(this._data) {
     _accessToken = AccessToken._(_data['accessToken']);
-    _userProfile = UserProfile._(_data['userProfile']);
+    final userData = _data['userProfile'];
+    if (userData == null) {
+      _userProfile = null;
+    } else {
+      _userProfile = UserProfile._(userData);
+    }
   }
 
   final Map<String, dynamic> _data;
@@ -34,7 +39,7 @@ class LoginResult {
   Map<String, dynamic> get data => _data;
 
   late AccessToken _accessToken;
-  late UserProfile _userProfile;
+  late UserProfile? _userProfile;
 
   /// The [AccessToken] object obtained during login.
   AccessToken get accessToken => _accessToken;
@@ -45,7 +50,7 @@ class LoginResult {
   /// It contains the user ID, display name, and more.
   ///
   /// This object exists only if the `"profile"` scope was included in [LineSDK.login].
-  UserProfile get userProfile => _userProfile;
+  UserProfile? get userProfile => _userProfile;
 
   /// Indicates that the friendship status between the user and the bot changed during login.
   ///
