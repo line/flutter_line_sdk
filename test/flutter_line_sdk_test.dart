@@ -75,7 +75,7 @@ void main() {
     expect(v.accessToken.scopes.contains('profile'), true);
     expect(v.accessToken.scopes.contains('abcd'), true);
 
-    expect(v.userProfile.userId, 'abcd');
+    expect(v.userProfile?.userId, 'abcd');
   });
 
   test('user profile', () async {
