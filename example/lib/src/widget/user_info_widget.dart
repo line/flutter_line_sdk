@@ -22,7 +22,7 @@ class UserInfoWidget extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          userProfile.pictureUrl!.isNotEmpty
+          (userProfile.pictureUrl ?? "").isNotEmpty
               ? Image.network(
                   userProfile.pictureUrl!,
                   width: 200,

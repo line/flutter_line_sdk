@@ -1,5 +1,7 @@
 # flutter_line_sdk
 
+[![build](https://github.com/line/flutter_line_sdk/actions/workflows/build.yml/badge.svg)](https://github.com/line/flutter_line_sdk/actions/workflows/build.yml)
+
 A [Flutter] plugin that lets developers access LINE's native SDKs in Flutter apps with [Dart].
 
 The plugin helps you integrate LINE Login features in your app. You can redirect users to LINE or a web page where they log in with their LINE credentials. Example:
@@ -12,9 +14,9 @@ void login() async {
         final result = await LineSDK.instance.login();
         setState(() {
             _userProfile = result.userProfile;
-            // user id -> result.userProfile.userId
-            // user name -> result.userProfile.displayName
-            // user avatar -> result.userProfile.pictureUrl
+            // user id -> result.userProfile?.userId
+            // user name -> result.userProfile?.displayName
+            // user avatar -> result.userProfile?.pictureUrl
             // etc...
         });
     } on PlatformException catch (e) {
@@ -27,6 +29,8 @@ void login() async {
 For more examples, see the [example app](https://github.com/line/flutter_line_sdk/tree/master/example) and [API definitions].
 
 ## Prerequisites
+
+From version 2.0, `flutter_line_sdk` supports [null safety](https://dart.dev/null-safety). If you are still seeking a legacy version without null safety, check [version 1.3.0](https://github.com/line/flutter_line_sdk/releases/tag/1.3.0).
 
 - iOS 10.0 or later as the deployment target
 - Android `minSdkVersion` set to 21 or higher (Android 5.0 or later)
@@ -137,21 +141,24 @@ To handle errors gracefully, wrap the invocation in a `try...on` statement:
 void _signIn() async {
   try {
     final result = await LineSDK.instance.login();
-    // user id -> result.userProfile.userId
-    // user name -> result.userProfile.displayName
-    // user avatar -> result.userProfile.pictureUrl
+    // user id -> result.userProfile?.userId
+    // user name -> result.userProfile?.displayName
+    // user avatar -> result.userProfile?.pictureUrl
   } on PlatformException catch (e) {
     _showDialog(context, e.toString());
   }
 }
 ```
 
-By default, `login` will use `["profile"]` as its scope. If you need other scopes, pass them in a list to `login`. See the [Scopes](https://developers.line.biz/en/docs/line-login/web/integrate-line-login/#scopes) documentation for more.
+By default, `login` uses `["profile"]` as its scope. In this case, when login is done, you have a `userProfile` value in login `result`. 
+If you need other scopes, pass them in a list to `login`. See the [Scopes](https://developers.line.biz/en/docs/line-login/web/integrate-line-login/#scopes) documentation for more.
 
 ```dart
 final result = await LineSDK.instance.login(
     scopes: ["profile", "openid", "email"]);
 ```
+
+> Although it might be useless, if you do not contain a `"profile"` scope, `userProfile` will be a null value.
 
 #### Logout
 
@@ -181,11 +188,14 @@ try {
 ```dart
 try {
   final result = await LineSDK.instance.currentAccessToken;
-  // acceess token -> result.value
+  // access token -> result?.value
 } on PlatformException catch (e) {
   print(e.message);
 }
 ```
+
+> If the user isn't logged in, it returns a `null`. A valid `result` of this method doesn't necessarily mean the access 
+> token itself is valid. It may have expired or been revoked by the user from another device or LINE client.
 
 #### Verify access token with LINE server
 
@@ -204,7 +214,7 @@ try {
 ```dart
 try {
   final result = await LineSDK.instance.refreshToken();
-  // acceess token -> result.value
+  // access token -> result.value
   // expires duration -> result.expiresIn
 } on PlatformException catch (e) {
   print(e.message);
@@ -223,7 +233,7 @@ Error codes and messages will vary between iOS and Android. Be sure to read the 
 
 ## Contributing
 
-If you believe you found a vulnerability or you have an issue related to security, please **DO NOT** open a public issue. Instead, email us at [dl_oss_dev@linecorp.com](mailto:dl_oss_dev@linecorp.com).
+If you believe you found a vulnerability or you have an issue related to security, please **DO NOT** open a public issue. Instead, send us an email at [dl_oss_dev@linecorp.com](mailto:dl_oss_dev@linecorp.com).
 
 Before contributing to this project, please read [CONTRIBUTING.md].
 
