@@ -181,12 +181,12 @@ class _HomePageState extends State<HomePage>
         return AlertDialog(
           content: Text(text),
           actions: <Widget>[
-            FlatButton(
-              child: Text('Close'),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
+            TextButton(
+                child: Text('Close'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                style: TextButton.styleFrom(primary: accentColor)),
           ],
         );
       },
