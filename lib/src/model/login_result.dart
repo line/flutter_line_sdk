@@ -25,7 +25,12 @@ part of flutter_line_sdk;
 class LoginResult {
   LoginResult._(this._data) {
     _accessToken = AccessToken._(_data['accessToken']);
-    _userProfile = UserProfile._(_data['userProfile']);
+    final userData = _data['userProfile'];
+    if (userData == null) {
+      _userProfile = null;
+    } else {
+      _userProfile = UserProfile._(userData);
+    }
   }
 
   final Map<String, dynamic> _data;
@@ -33,28 +38,28 @@ class LoginResult {
   /// Raw data of the response in a `Map` representation.
   Map<String, dynamic> get data => _data;
 
-  AccessToken _accessToken;
-  UserProfile _userProfile;
+  late AccessToken _accessToken;
+  late UserProfile? _userProfile;
 
   /// The [AccessToken] object obtained during login.
   AccessToken get accessToken => _accessToken;
-  List<String> get scopes => _data['scope'].split(' ');
+  List<String> get scopes => (_data['scope'] ?? "").split(' ');
 
   /// The [UserProfile] object obtained during login.
   ///
   /// It contains the user ID, display name, and more.
   ///
   /// This object exists only if the `"profile"` scope was included in [LineSDK.login].
-  UserProfile get userProfile => _userProfile;
+  UserProfile? get userProfile => _userProfile;
 
   /// Indicates that the friendship status between the user and the bot changed during login.
   ///
-  /// This value is non-nil only if `BotPrompt` was specified in [LoginOption]. For more
+  /// This value is `null` if `BotPrompt` was not specified in [LoginOption]. For more
   /// information, see
   /// [Linking a LINE official account with your LINE Login channel](https://developers.line.me/en/docs/line-login/web/link-a-bot/).
-  bool get isFriendshipStatusChanged => _data['friendshipStatusChanged'];
+  bool? get isFriendshipStatusChanged => _data['friendshipStatusChanged'];
 
   /// The `nonce` value when requesting ID Token during login process. Use this value as a parameter when you
-  /// verify the ID Token against the LINE server. This value is `nil` if `openid` permission is not requested.
-  String get idTokenNonce => _data['IDTokenNonce'];
+  /// verify the ID Token against the LINE server. This value is `null` if `openid` permission is not requested.
+  String? get idTokenNonce => _data['IDTokenNonce'];
 }

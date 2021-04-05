@@ -54,29 +54,35 @@ class AccessToken {
   num get expiresIn => _data['expires_in'];
 
   /// The raw string value of the ID token bound to the access token. It is a Base64 URL encoded string
-  /// which follows specification of JSON Web Token (JWT). If you need to access a field value in the 
-  /// ID Token, use the `idToken` getter. 
+  /// which follows specification of JSON Web Token (JWT). If you need to access a field value in the
+  /// ID Token, use the `idToken` getter.
   ///
   /// The value exists only if the access token is obtained with the `openID`
-  /// permission.
-  String get idTokenRaw => _data['id_token'];
+  /// permission. Otherwise, `null` is returned.
+  String? get idTokenRaw => _data['id_token'];
 
-  Map<String, dynamic> _idToken;
+  Map<String, dynamic>? _idToken;
 
   /// The `Map<String, dynamic>` representation of the received ID Token.
   /// This getter converts the received `idTokenRaw` to a dictionary format if it exists.
-  /// 
+  ///
   /// If you are not applying an ID Token when login, `null` is returned.
-  Map<String, dynamic> get idToken {
+  Map<String, dynamic>? get idToken {
     // Lazy variable.
-    if (_idToken != null) { return _idToken; }
-    if (idTokenRaw == null) { return null; }
+    if (_idToken != null) {
+      return _idToken;
+    }
+    if (idTokenRaw == null) {
+      return null;
+    }
 
-    final parts = idTokenRaw.split('.');
+    final parts = idTokenRaw!.split('.');
     // Malformed JWT format.
-    if (parts.length != 3) { return null; }
+    if (parts.length != 3) {
+      return null;
+    }
 
-    // dart:convert is a bit pedantic and it requires a normalized format of base 64, 
+    // dart:convert is a bit pedantic and it requires a normalized format of base 64,
     // even encoded by base 64 url.
     // https://github.com/dart-lang/sdk/issues/39510
     final normalizedPayload = base64.normalize(parts[1]);

@@ -12,9 +12,9 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage>
     with AutomaticKeepAliveClientMixin {
-  UserProfile _userProfile;
-  String _userEmail;
-  StoredAccessToken _accessToken;
+  UserProfile? _userProfile;
+  String? _userEmail;
+  StoredAccessToken? _accessToken;
   bool _isOnlyWebLogin = false;
 
   final Set<String> _selectedScopes = Set.from(['profile']);
@@ -29,8 +29,8 @@ class _HomePageState extends State<HomePage>
   }
 
   Future<void> initPlatformState() async {
-    UserProfile userProfile;
-    StoredAccessToken accessToken;
+    UserProfile? userProfile;
+    StoredAccessToken? accessToken;
 
     try {
       accessToken = await LineSDK.instance.currentAccessToken;
@@ -73,9 +73,9 @@ class _HomePageState extends State<HomePage>
       );
     } else {
       return UserInfoWidget(
-        userProfile: _userProfile,
+        userProfile: _userProfile!,
         userEmail: _userEmail,
-        accessToken: _accessToken,
+        accessToken: _accessToken!,
         onSignOutPressed: _signOut,
       );
     }
@@ -97,7 +97,7 @@ class _HomePageState extends State<HomePage>
                 Checkbox(
                   activeColor: accentColor,
                   value: _isOnlyWebLogin,
-                  onChanged: (bool value) {
+                  onChanged: (bool? value) {
                     setState(() {
                       _isOnlyWebLogin = !_isOnlyWebLogin;
                     });
