@@ -15,7 +15,7 @@ jobs:
       - uses: dart-lang/setup-dart@v1
 
       - name: Install dependencies
-        run: dart pub get
+        run: flutter pub get
 
       # Consider passing '--fatal-infos' for slightly stricter analysis.
       - name: Analyze project source
