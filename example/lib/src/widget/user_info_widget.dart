@@ -36,13 +36,13 @@ class UserInfoWidget extends StatelessWidget {
           if (userEmail != null) Text(userEmail!),
           Text(userProfile.statusMessage!),
           Container(
-            child: RaisedButton(
-              textColor: textColor,
-              color: accentColor,
-              child: Text('Sign Out'),
-              onPressed: onSignOutPressed as void Function()?,
-            ),
-          ),
+              child: ElevatedButton(
+                  child: Text('Sign Out'),
+                  onPressed: () {
+                    onSignOutPressed.call();
+                  },
+                  style: ElevatedButton.styleFrom(
+                      primary: accentColor, onPrimary: textColor))),
         ],
       ),
     );

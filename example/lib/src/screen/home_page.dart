@@ -60,13 +60,11 @@ class _HomePageState extends State<HomePage>
             _configCard(),
             Expanded(
               child: Center(
-                child: RaisedButton(
-                  textColor: textColor,
-                  color: accentColor,
-                  onPressed: _signIn,
-                  child: Text('Sign In'),
-                ),
-              ),
+                  child: ElevatedButton(
+                      child: Text('Sign In'),
+                      onPressed: _signIn,
+                      style: ElevatedButton.styleFrom(
+                          primary: accentColor, onPrimary: textColor))),
             ),
           ],
         ),
