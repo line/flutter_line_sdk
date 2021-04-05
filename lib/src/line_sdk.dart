@@ -101,7 +101,7 @@ class LineSDK {
       'scopes': scopes,
       'onlyWebLogin': option?.onlyWebLogin,
       'botPrompt': option?.botPrompt
-    }).then((value) => LoginResult._(json.decode(value ?? {})));
+    }).then((value) => LoginResult._(_decodeJson(value)));
   }
 
   /// Logs out the current user by revoking the related tokens.
@@ -124,7 +124,7 @@ class LineSDK {
   Future<StoredAccessToken?> get currentAccessToken async {
     String? result = await channel.invokeMethod('currentAccessToken');
     if (result == null) return null;
-    return StoredAccessToken._(json.decode(result));
+    return StoredAccessToken._(_decodeJson(result));
   }
 
   /// Gets the user’s profile.
@@ -135,7 +135,7 @@ class LineSDK {
   Future<UserProfile> getProfile() async {
     return await channel
         .invokeMethod('getProfile')
-        .then((value) => UserProfile._(json.decode(value ?? {})));
+        .then((value) => UserProfile._(_decodeJson(value)));
   }
 
   /// Refreshes the access token.
@@ -151,7 +151,7 @@ class LineSDK {
   Future<AccessToken> refreshToken() async {
     return await channel
         .invokeMethod('refreshToken')
-        .then((value) => AccessToken._(json.decode(value ?? {})));
+        .then((value) => AccessToken._(_decodeJson(value)));
   }
 
   /// Checks whether the stored access token is valid against the LINE authentication server.
@@ -160,7 +160,7 @@ class LineSDK {
   Future<AccessTokenVerifyResult> verifyAccessToken() async {
     return await channel
         .invokeMethod('verifyAccessToken')
-        .then((value) => AccessTokenVerifyResult._(json.decode(value ?? {})));
+        .then((value) => AccessTokenVerifyResult._(_decodeJson(value)));
   }
 
   /// Gets the friendship status between the user and the official account linked to your LINE Login
@@ -172,6 +172,14 @@ class LineSDK {
   Future<BotFriendshipStatus> getBotFriendshipStatus() async {
     return await channel
         .invokeMethod('getBotFriendshipStatus')
-        .then((value) => BotFriendshipStatus._(json.decode(value ?? {})));
+        .then((value) => BotFriendshipStatus._(_decodeJson(value)));
+  }
+
+  dynamic _decodeJson(String? source) {
+    if (source != null) {
+      return json.decode(source);
+    } else {
+      return {};
+    }
   }
 }
