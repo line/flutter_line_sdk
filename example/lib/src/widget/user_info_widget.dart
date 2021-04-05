@@ -31,18 +31,18 @@ class UserInfoWidget extends StatelessWidget {
               : Icon(Icons.person),
           Text(
             userProfile.displayName,
-            style: Theme.of(context).textTheme.headline,
+            style: Theme.of(context).textTheme.headline5,
           ),
           if (userEmail != null) Text(userEmail!),
           Text(userProfile.statusMessage!),
           Container(
-            child: RaisedButton(
-              textColor: textColor,
-              color: accentColor,
-              child: Text('Sign Out'),
-              onPressed: onSignOutPressed as void Function()?,
-            ),
-          ),
+              child: ElevatedButton(
+                  child: Text('Sign Out'),
+                  onPressed: () {
+                    onSignOutPressed.call();
+                  },
+                  style: ElevatedButton.styleFrom(
+                      primary: accentColor, onPrimary: textColor))),
         ],
       ),
     );

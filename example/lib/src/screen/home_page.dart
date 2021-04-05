@@ -60,13 +60,11 @@ class _HomePageState extends State<HomePage>
             _configCard(),
             Expanded(
               child: Center(
-                child: RaisedButton(
-                  textColor: textColor,
-                  color: accentColor,
-                  onPressed: _signIn,
-                  child: Text('Sign In'),
-                ),
-              ),
+                  child: ElevatedButton(
+                      child: Text('Sign In'),
+                      onPressed: _signIn,
+                      style: ElevatedButton.styleFrom(
+                          primary: accentColor, onPrimary: textColor))),
             ),
           ],
         ),
@@ -183,12 +181,12 @@ class _HomePageState extends State<HomePage>
         return AlertDialog(
           content: Text(text),
           actions: <Widget>[
-            FlatButton(
-              child: Text('Close'),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
+            TextButton(
+                child: Text('Close'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                style: TextButton.styleFrom(primary: accentColor)),
           ],
         );
       },
