@@ -1,3 +1,9 @@
+## 2.0.0
+
+### Added
+
+* Support for Dart null safety. [#39](https://github.com/line/flutter_line_sdk/pull/39)
+
 ## 1.3.0
 
 ### Added
