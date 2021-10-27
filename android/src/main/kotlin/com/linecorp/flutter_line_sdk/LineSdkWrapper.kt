@@ -70,7 +70,7 @@ class LineSdkWrapper {
             .scopes(Scope.convertToScopeList(scopes))
             .apply {
                 botPrompt(LineAuthenticationParams.BotPrompt.valueOf(botPromptString))
-                idTokenNonce.let { nonce(it) }
+                idTokenNonce?.let { nonce(it) }
             }
             .build()
 
