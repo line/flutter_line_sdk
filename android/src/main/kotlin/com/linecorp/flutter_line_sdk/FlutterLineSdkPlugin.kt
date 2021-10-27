@@ -63,6 +63,7 @@ class FlutterLineSdkPlugin : MethodCallHandler, PluginRegistry.ActivityResultLis
                 val scopes = call.argument("scopes") ?: emptyList<String>()
                 val isWebLogin = call.argument("onlyWebLogin") ?: false
                 val botPrompt  = call.argument("botPrompt") ?: "normal"
+                val idTokenNonce: String? = call.argument("idTokenNonce")
                 val loginRequestCode = call.argument<Int?>("loginRequestCode") ?: DEFAULT_ACTIVITY_RESULT_REQUEST_CODE
                 lineSdkWrapper.login(
                         loginRequestCode,
@@ -70,6 +71,7 @@ class FlutterLineSdkPlugin : MethodCallHandler, PluginRegistry.ActivityResultLis
                         scopes = scopes,
                         onlyWebLogin = isWebLogin,
                         botPromptString = botPrompt,
+                        idTokenNonce = idTokenNonce,
                         result = result
                 )
             }
