@@ -100,7 +100,8 @@ class LineSDK {
       'loginRequestCode': option?.requestCode,
       'scopes': scopes,
       'onlyWebLogin': option?.onlyWebLogin,
-      'botPrompt': option?.botPrompt
+      'botPrompt': option?.botPrompt,
+      'idTokenNonce': option?.idTokenNonce,
     }).then((value) => LoginResult._(_decodeJson(value)));
   }
 

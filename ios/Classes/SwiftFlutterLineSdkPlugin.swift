@@ -130,15 +130,15 @@ extension LineChannelMethod {
     }
 
     let scopes = (args["scopes"] as? [String])?.map { LoginPermission(rawValue: $0) } ?? [.profile]
-    let onlyWebLogin = (args["onlyWebLogin"] as? Bool) ?? false
-
-    var options: LoginManagerOptions = []
-    if onlyWebLogin { options = .onlyWebLogin }
-
+    
+    var parameters = LoginManager.Parameters()
+    parameters.onlyWebLogin = (args["onlyWebLogin"] as? Bool) ?? false
+    parameters.IDTokenNonce = args["idTokenNonce"] as? String
+      
     if let botPrompt = args["botPrompt"] as? String {
       switch botPrompt {
-      case "aggressive": options.insert(.botPromptAggressive)
-      case "normal": options.insert(.botPromptNormal)
+      case "aggressive": parameters.botPromptStyle = .aggressive
+      case "normal": parameters.botPromptStyle = .normal
       default: break
       }
     }
@@ -146,7 +146,7 @@ extension LineChannelMethod {
     LoginManager.shared.login(
       permissions: Set(scopes),
       in: nil,
-      options: options) { r in
+      parameters: parameters) { r in
         switch r {
         case .success(let value): result(value.json)
         case .failure(let error): result(error.flutterError)
@@ -173,7 +173,7 @@ extension LineChannelMethod {
   }
 
   func refreshToken(arguments: [String: Any]?, result: @escaping FlutterResult) {
-    API.refreshAccessToken { r in
+    API.Auth.refreshAccessToken { r in
       switch r {
       case .success(let value): result(value.json)
       case .failure(let error): result(error.flutterError)
@@ -182,7 +182,7 @@ extension LineChannelMethod {
   }
 
   func verifyAccessToken(arguments: [String: Any]?, result: @escaping FlutterResult) {
-    API.verifyAccessToken { r in
+    API.Auth.verifyAccessToken { r in
       switch r {
       case .success(let value): result(value.json)
       case .failure(let error): result(error.flutterError)
