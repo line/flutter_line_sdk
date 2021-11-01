@@ -42,6 +42,12 @@ class LoginOption {
   /// Request code that LINE login activity will be called with.
   int requestCode;
 
+  /// Sets the nonce value for ID token verification. This value is used when requesting user authorization
+  /// with `.openID` permission to prevent replay attacks to your backend server. If not set, LINE SDK will
+  /// generate a random value as the token nonce. Whether set or not, LINE SDK verifies against the nonce value
+  /// in received ID token locally.
+  String? idTokenNonce;
+
   LoginOption(this.onlyWebLogin, this.botPrompt,
       {this.requestCode = DEFAULT_ACTIVITY_RESULT_REQUEST_CODE});
 }
