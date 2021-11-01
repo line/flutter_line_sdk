@@ -1,3 +1,9 @@
+## 2.1.0
+
+### Added
+
+* A new `idTokenNonce` in `LoginOption` to allow a customize nonce set in the ID token. You can use it to implement the [Secure Login](https://developers.line.biz/zh-hant/docs/line-login/secure-login-process/#using-openid-to-register-new-users) in guide.
+
 ## 2.0.0
 
 ### Added
