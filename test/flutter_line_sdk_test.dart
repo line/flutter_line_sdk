@@ -59,6 +59,8 @@ void main() {
           return dummyVerifyToken;
         case 'getBotFriendshipStatus':
           return dummyGetBotFriendshipStatus;
+        default:
+          return null;
       }
     });
   });

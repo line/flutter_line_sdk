@@ -42,8 +42,7 @@ To access your LINE Login channel from a mobile platform, you need some extra co
 
 | Setting | Description |
 |-------|---------|
-| iOS bundle ID |  Bundle identifier of your app. In Xcode, find it in your **Runner** project settings, on the **General** tab. Must be lowercase, like `com.example.app`. You can specify multiple bundle identifiers by typing each one on a new line. |
-| iOS scheme  | Set to `line3rdp.`, followed by the bundle identifier. For example, if your bundle identifier is `com.example.app`, set the iOS scheme to `line3rdp.com.example.app`. Only one iOS scheme can be specified. |
+| iOS bundle ID | Required. Bundle identifier of your app. In Xcode, find it in your **Runner** project settings, on the **General** tab. Must be lowercase, like `com.example.app`. You can specify multiple bundle identifiers by typing each one on a new line. |
 | iOS universal link  | Optional. Set to the universal link configured for your app. For more information on how to handle the login process using a universal link, see [Universal Links support](https://developers.line.biz/en/docs/ios-sdk/swift/setting-up-project/#universal-link-support). |
 
 ### Android app settings
@@ -101,7 +100,7 @@ target 'Runner' do
 
 #### Android
 
-No specific settings required.
+No specific settings are required.
 
 ### Importing and using
 
