@@ -103,7 +103,7 @@ class AccessToken {
   /// with you. Both "openid" and "email" scopes are required to get the user email.
   ///
   /// If you are not applying an ID Token when login, or the user does not set
-  /// the email for the LINE account, or the user refused to granted your access,
+  /// the email for the LINE account, or the user refuses to grant your access,
   /// `null` is returned.
   String get email => idToken?['email'];
 }
