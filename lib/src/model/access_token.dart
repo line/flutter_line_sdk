@@ -97,4 +97,13 @@ class AccessToken {
   /// The expected authorization type when this token is used in a request
   /// header. Fixed to `Bearer` for now.
   String get tokenType => _data['token_type'];
+
+  /// The email address set by the user. This value only exists when `idToken` is
+  /// valid and the user has set the email address in LINE and agreed to share it
+  /// with you. Both "openid" and "email" scopes are required to get the user email.
+  ///
+  /// If you are not applying an ID Token when login, or the user does not set
+  /// the email for the LINE account, or the user refuses to grant your access,
+  /// `null` is returned.
+  String? get email => idToken?['email'];
 }
