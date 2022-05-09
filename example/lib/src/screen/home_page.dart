@@ -150,7 +150,7 @@ class _HomePageState extends State<HomePage>
       final accessToken = await LineSDK.instance.currentAccessToken;
 
       final idToken = result.accessToken.idToken;
-      final userEmail = (idToken != null) ? idToken['email'] : null;
+      final userEmail = result.accessToken.email;
 
       setState(() {
         _userProfile = result.userProfile;
@@ -167,6 +167,7 @@ class _HomePageState extends State<HomePage>
       await LineSDK.instance.logout();
       setState(() {
         _userProfile = null;
+        _userEmail = null;
         _accessToken = null;
       });
     } on PlatformException catch (e) {
