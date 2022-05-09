@@ -149,7 +149,6 @@ class _HomePageState extends State<HomePage>
           .login(scopes: _selectedScopes.toList(), option: loginOption);
       final accessToken = await LineSDK.instance.currentAccessToken;
 
-      final idToken = result.accessToken.idToken;
       final userEmail = result.accessToken.email;
 
       setState(() {
