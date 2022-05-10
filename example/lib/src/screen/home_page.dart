@@ -128,6 +128,7 @@ class _HomePageState extends State<HomePage>
           child: FilterChip(
             label: Text(scope, style: TextStyle(color: textColor)),
             selectedColor: accentColor,
+            backgroundColor: secondaryBackgroundColor,
             selected: _selectedScopes.contains(scope),
             onSelected: (_) {
               setState(() {
@@ -194,9 +195,4 @@ class _HomePageState extends State<HomePage>
   }
 }
 
-const List<String> _scopes = <String>[
-  'profile',
-  'openid',
-  'email',
-  'customScope',
-];
+const List<String> _scopes = <String>['profile', 'openid', 'email'];

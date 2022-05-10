@@ -1,3 +1,13 @@
+## 2.2.0
+
+### Added
+
+* Now you can get the user email address through the `email` getter in `AccessToken` once the user grant you the permission. [#58](https://github.com/line/flutter_line_sdk/pull/58)
+
+### Fixed
+
+* Modernize project settings and upgrade Dark SDK version.
+
 ## 2.1.0
 
 ### Added
