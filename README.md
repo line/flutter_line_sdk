@@ -154,7 +154,10 @@ If you need other scopes, pass them in a list to `login`. See the [Scopes](https
 
 ```dart
 final result = await LineSDK.instance.login(
-    scopes: ["profile", "openid", "email"]);
+    scopes: ["profile", "openid", "email"]
+);
+// user email, if user set it in LINE and granted your request.
+final userEmail = result.accessToken.email;
 ```
 
 > Although it might be useless, if you do not contain a `"profile"` scope, `userProfile` will be a null value.
