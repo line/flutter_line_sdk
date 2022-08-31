@@ -64,7 +64,7 @@ class _HomePageState extends State<HomePage>
                       child: Text('Sign In'),
                       onPressed: _signIn,
                       style: ElevatedButton.styleFrom(
-                          primary: accentColor, onPrimary: textColor))),
+                          backgroundColor: accentColor, foregroundColor: textColor))),
             ),
           ],
         ),
@@ -187,7 +187,7 @@ class _HomePageState extends State<HomePage>
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
-                style: TextButton.styleFrom(primary: accentColor)),
+                style: TextButton.styleFrom(foregroundColor: accentColor)),
           ],
         );
       },

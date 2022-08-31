@@ -42,7 +42,7 @@ class UserInfoWidget extends StatelessWidget {
                     onSignOutPressed.call();
                   },
                   style: ElevatedButton.styleFrom(
-                      primary: accentColor, onPrimary: textColor))),
+                      backgroundColor: accentColor, foregroundColor: textColor))),
         ],
       ),
     );
