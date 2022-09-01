@@ -34,7 +34,7 @@ class UserInfoWidget extends StatelessWidget {
             style: Theme.of(context).textTheme.headline5,
           ),
           if (userEmail != null) Text(userEmail!),
-          Text(userProfile.statusMessage!),
+          if (userProfile.statusMessage != null) Text(userProfile.statusMessage!),
           Container(
               child: ElevatedButton(
                   child: Text('Sign Out'),
@@ -42,7 +42,7 @@ class UserInfoWidget extends StatelessWidget {
                     onSignOutPressed.call();
                   },
                   style: ElevatedButton.styleFrom(
-                      primary: accentColor, onPrimary: textColor))),
+                      backgroundColor: accentColor, foregroundColor: textColor))),
         ],
       ),
     );
