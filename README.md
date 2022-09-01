@@ -94,7 +94,11 @@ Because LINE SDK now requires iOS 10.0 or above to provide underlying native fea
 
 ```diff
 target 'Runner' do
-+  platform :ios, '10.0'
++ platform :ios, '10.0'
+
+  use_frameworks!
+  use_modular_headers!
+  ...
 ```
 
 #### Android
