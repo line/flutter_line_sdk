@@ -1,3 +1,13 @@
+## 2.3.0
+
+### Added
+
+* Add support for building as static library in the hosting project. By default Flutter uses plugins as framework on iOS, but you are now also free to remove `use_framework!` in Flutter's Podfile and LINE SDK won't compliant about it anymore. [#62](https://github.com/line/flutter_line_sdk/pull/62)
+
+### Fixed
+
+* An issue in the example app that crashes when the user is not setting a valid status message. [#63](https://github.com/line/flutter_line_sdk/pull/63)
+
 ## 2.2.0
 
 ### Added
