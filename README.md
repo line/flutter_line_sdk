@@ -90,12 +90,15 @@ Open the file `ios/Runner/Info.plist` in a text editor and insert this snippet j
 </array>
 ```
 
-Because LINE SDK now requires iOS 10.0 or above and uses the iOS dynamic Framework to provide underlying native features, you must add these lines in the `Runner` target in `ios/Podfile`:
+Because LINE SDK now requires iOS 10.0 or above to provide underlying native features, you must add this line in the `Runner` target in `ios/Podfile`:
 
 ```diff
 target 'Runner' do
-+  use_frameworks!
-+  platform :ios, '10.0'
++ platform :ios, '10.0'
+
+  use_frameworks!
+  use_modular_headers!
+  ...
 ```
 
 #### Android
