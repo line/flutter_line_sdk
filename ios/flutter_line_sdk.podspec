@@ -17,5 +17,5 @@ A Flutter plugin using the LINE SDKs with Dart in Flutter apps.
   s.swift_version         = "4.2"
   s.swift_versions        = ['4.2', '5.0']
 
-  s.ios.deployment_target = '10.0'
+  s.ios.deployment_target = '11.0'
 end

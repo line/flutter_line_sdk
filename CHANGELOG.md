@@ -1,3 +1,7 @@
+## 2.3.1
+
+* Algin the deploy target of iOS with LINE SDK Swift to iOS 11.0. This allows the LINE Flutter SDK continue to compile with the latest LINE SDK. [#65](https://github.com/line/flutter_line_sdk/issues/65)
+
 ## 2.3.0
 
 ### Added
