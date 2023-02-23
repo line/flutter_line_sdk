@@ -2,7 +2,7 @@ group 'com.linecorp.flutter_line_sdk'
 version '1.0-SNAPSHOT'
 
 buildscript {
-    ext.kotlin_version = '1.5.32'
+    ext.kotlin_version = '1.7.21'
     repositories {
         google()
         jcenter()
