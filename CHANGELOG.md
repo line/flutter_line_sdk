@@ -1,3 +1,9 @@
+## 2.3.2
+
+### Fixed
+
+* Upgrade Kotlin version and compile SDK version for Android native part. [73](https://github.com/line/flutter_line_sdk/pull/73)
+
 ## 2.3.1
 
 ### Fixed
