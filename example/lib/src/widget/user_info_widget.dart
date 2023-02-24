@@ -31,7 +31,7 @@ class UserInfoWidget extends StatelessWidget {
               : Icon(Icons.person),
           Text(
             userProfile.displayName,
-            style: Theme.of(context).textTheme.headline5,
+            style: Theme.of(context).textTheme.headlineSmall,
           ),
           if (userEmail != null) Text(userEmail!),
           if (userProfile.statusMessage != null) Text(userProfile.statusMessage!),
