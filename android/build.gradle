@@ -5,7 +5,7 @@ buildscript {
     ext.kotlin_version = '1.7.21'
     repositories {
         google()
-        jcenter()
+        mavenCentral()
     }
 
     dependencies {
@@ -19,7 +19,7 @@ buildscript {
 rootProject.allprojects {
     repositories {
         google()
-        jcenter()
+        mavenCentral()
     }
 }
 
@@ -43,7 +43,9 @@ android {
 }
 
 dependencies {
-    implementation 'com.linecorp.linesdk:linesdk:5.4.1'
+    implementation('com.linecorp.linesdk:linesdk:5.8.1') {
+        exclude group: 'androidx.lifecycle', module: 'lifecycle-viewmodel-ktx'
+    }
     implementation 'com.google.code.gson:gson:2.8.5'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.0.1"
