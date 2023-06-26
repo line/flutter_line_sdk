@@ -1,8 +1,15 @@
+## 2.3.3
+
+### Fixed
+
+* The deprecated `jcenter` repository is removed from the Android part. Now this project uses the latest native LINE SDK on `mavenCentral`. [#80](https://github.com/line/flutter_line_sdk/pull/80)
+* Loosen the environment requirement of `dart` SDK to contain dart 3.x. [#82](https://github.com/line/flutter_line_sdk/pull/82)
+
 ## 2.3.2
 
 ### Fixed
 
-* Upgrade Kotlin version and compile SDK version for Android native part. [73](https://github.com/line/flutter_line_sdk/pull/73)
+* Upgrade Kotlin version and compile SDK version for Android native part. [#73](https://github.com/line/flutter_line_sdk/pull/73)
 
 ## 2.3.1
 
