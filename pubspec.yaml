@@ -5,7 +5,7 @@ homepage: https://developers.line.biz/
 repository: https://github.com/line/flutter_line_sdk/
 
 environment:
-  sdk: '>=2.12.0 <3.0.0'
+  sdk: '>=2.12.0 <4.0.0'
   flutter: ">=1.12.0"
 
 dependencies:
