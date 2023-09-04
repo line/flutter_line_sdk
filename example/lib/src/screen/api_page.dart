@@ -114,7 +114,7 @@ class _APIPageState extends State<APIPage> {
           _setState(null, e);
         }
       }),
-      _APIItem('Bot Friendship Status', () async {
+      _APIItem('Official Account Friendship Status', () async {
         try {
           final result = await LineSDK.instance.getBotFriendshipStatus();
           _setState(result.data, null);

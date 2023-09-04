@@ -32,7 +32,7 @@ class BotFriendshipStatus {
 
   /// Indicates the friendship status.
   ///
-  /// `true` if the bot is a friend of the user and the user hasn't blocked the bot.
-  /// `false` if the bot isn't a friend of the user or the user has blocked the bot.
+  /// `true` if the LINE Official Account is a friend of the user and the user hasn't blocked it.
+  /// `false` if the LINE Official Account isn't a friend of the user or the user has blocked it.
   bool get isFriend => _data['friendFlag'];
 }
