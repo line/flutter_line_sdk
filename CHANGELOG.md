@@ -1,3 +1,9 @@
+## 2.3.4
+
+### Fixed
+
+* Some terminology that is used in API references for legal purposes.
+
 ## 2.3.3
 
 ### Fixed
