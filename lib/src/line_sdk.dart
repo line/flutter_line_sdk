@@ -79,8 +79,8 @@ class LineSDK {
   /// token when necessary. However, you can refresh the access token manually with [refreshToken()].
   ///
   /// You can control some other login behaviors, like whether to use a web page for login, or how
-  /// to ask the user to add your bot as a friend. To do so, create a [LoginOption] object and pass
-  /// it to the [option] parameter.
+  /// to ask the user to add your LINE Official Account as a friend. To do so, create a [LoginOption]
+  /// object and pass it to the [option] parameter.
   ///
   /// {@template error_handling}
   /// This method redirects calls to the LINE SDK for the relevant native platform (iOS or Android).

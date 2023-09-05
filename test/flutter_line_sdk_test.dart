@@ -95,7 +95,7 @@ void main() {
     expect(v.channelId, '1440057261');
   });
 
-  test('get bot friendship status', () async {
+  test('get LINE Official Account friendship status', () async {
     final v = await LineSDK.instance.getBotFriendshipStatus();
     expect(v.isFriend, true);
   });

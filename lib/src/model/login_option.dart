@@ -32,11 +32,11 @@ class LoginOption {
   /// the web authentication flow instead.
   bool onlyWebLogin;
 
-  /// Strategy to use for displaying "add bot as friend" option on consent screen:
+  /// Strategy to use for displaying "add the LINE Official Account as friend" option on consent screen:
   ///
-  /// - `normal`: A button for adding the bot as a friend is displayed on the consent screen.
+  /// - `normal`: A button for adding the LINE Official Account as a friend is displayed on the consent screen.
   /// - `aggressive`: After the user grants the requested permissions on the consent screen, a new
-  /// screen opens asking the user to add the bot as a friend.
+  /// screen opens asking the user to add the LINE Official Account as a friend.
   String botPrompt;
 
   /// Request code that LINE login activity will be called with.
