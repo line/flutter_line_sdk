@@ -1,3 +1,10 @@
+## 2.3.5
+
+### Fixed
+
+* Update license holder name in all source code files. Now LY Corporation is the license holder of LINE SDK Swift. The license content and terms itself is not changed so you can still use the SDK under the same condition as before. [#86](https://github.com/line/flutter_line_sdk/pull/86)
+* Increase the minimum deploy version to iOS 13.0 and Android API Level 24 (Android 7.0) to match modern development requirements.
+
 ## 2.3.4
 
 ### Fixed

@@ -32,8 +32,8 @@ For more examples, see the [example app](https://github.com/line/flutter_line_sd
 
 From version 2.0, `flutter_line_sdk` supports [null safety](https://dart.dev/null-safety). If you are still seeking a legacy version without null safety, check [version 1.3.0](https://github.com/line/flutter_line_sdk/releases/tag/1.3.0).
 
-- iOS 10.0 or later as the deployment target
-- Android `minSdkVersion` set to 21 or higher (Android 5.0 or later)
+- iOS 13.0 or later as the deployment target
+- Android `minSdkVersion` set to 24 or higher (Android 7.0 or later)
 - [LINE Login channel linked to your app](https://developers.line.biz/en/docs/line-login/getting-started/)
 
 To access your LINE Login channel from a mobile platform, you need some extra configuration. In the [LINE Developers console][console], go to your LINE Login channel settings, and enter the below information on the **App settings** tab.
@@ -90,11 +90,11 @@ Open the file `ios/Runner/Info.plist` in a text editor and insert this snippet j
 </array>
 ```
 
-Because LINE SDK now requires iOS 10.0 or above to provide underlying native features, you must add this line in the `Runner` target in `ios/Podfile`:
+Because LINE SDK now requires iOS 13.0 or above to provide underlying native features, you must add this line in the `Runner` target in `ios/Podfile`:
 
 ```diff
 target 'Runner' do
-+ platform :ios, '10.0'
++ platform :ios, '13.0'
 
   use_frameworks!
   use_modular_headers!
