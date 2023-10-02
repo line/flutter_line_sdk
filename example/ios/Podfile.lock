@@ -1,6 +1,6 @@
 PODS:
   - Flutter (1.0.0)
-  - flutter_line_sdk (2.3.2):
+  - flutter_line_sdk (2.3.5):
     - Flutter
     - LineSDKSwift (~> 5.3)
   - LineSDKSwift (5.9.0):
@@ -23,9 +23,9 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
-  flutter_line_sdk: ec4b8b8ea31a7a373e3e2f7c11f46ad0f3c6135a
+  flutter_line_sdk: fc7a2b0a187a756a28392b211b93245fc7da329b
   LineSDKSwift: 97d6306ca17ae41520f29eb5dff4077dd81f08b2
 
-PODFILE CHECKSUM: 286cd794da909470ef132faa2b6b4260996f1599
+PODFILE CHECKSUM: cb7a516197ca76f65d1513c33c456d3d343ded6d
 
 COCOAPODS: 1.12.1
