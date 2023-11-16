@@ -103,7 +103,24 @@ target 'Runner' do
 
 #### Android
 
-No specific settings are required.
+To ensure compatibility with the latest features, you need to update the `minSdk` version in your app's `build.gradle` file to `24` or higher. 
+
+Here's how you can do it:
+
+1. Open your app's `build.gradle` file.
+2. Locate the `android` block, and within it, find the `defaultConfig` block.
+3. In the `defaultConfig` block, replace the current `minSdk` value with `24`.
+
+Here's a diff to show what your changes might look like:
+
+```diff
+android {
+    defaultConfig {
+-        minSdk flutter.minSdkVersion
++        minSdk 24
+    }
+}
+```
 
 ### Importing and using
 
