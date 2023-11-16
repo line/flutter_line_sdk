@@ -1,3 +1,9 @@
+## 2.3.6
+
+### Fixed
+
+* Upgrade the wrapped Android LINE SDK version. Algin its `minSdk` and `compileSdk` to the native SDK. [#87](https://github.com/line/flutter_line_sdk/pull/87/files)
+
 ## 2.3.5
 
 ### Fixed
