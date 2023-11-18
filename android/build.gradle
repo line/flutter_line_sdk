@@ -27,7 +27,8 @@ apply plugin: 'kotlin-android'
 
 android {
     compileSdk 33
-
+    namespace "com.linecorp.flutter_line_sdk"
+    
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
     }
@@ -36,6 +37,17 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles 'consumer-proguard-rules.pro'
     }
+
+    compileOptions {
+        coreLibraryDesugaringEnabled true
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = '18'
+    }
+
     lintOptions {
         disable 'InvalidPackage'
     }
