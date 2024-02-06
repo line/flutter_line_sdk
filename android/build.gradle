@@ -44,6 +44,7 @@ android {
 dependencies {
     implementation('com.linecorp.linesdk:linesdk:5.9.1') {
         exclude group: 'androidx.lifecycle', module: 'lifecycle-viewmodel-ktx'
+        exclude group: 'androidx.lifecycle', module: 'lifecycle-extensions'
     }
     implementation 'com.google.code.gson:gson:2.8.5'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
