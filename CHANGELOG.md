@@ -1,3 +1,9 @@
+## 2.3.7
+
+### Fixes
+
+* Exclude "lifecycle-extensions" of AndroidX from the plugin. This solves some conflicts when building with other plugins. [#94](https://github.com/line/flutter_line_sdk/pull/94)
+
 ## 2.3.6
 
 ### Fixed

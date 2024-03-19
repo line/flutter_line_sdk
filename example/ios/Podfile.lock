@@ -1,6 +1,6 @@
 PODS:
   - Flutter (1.0.0)
-  - flutter_line_sdk (2.3.6):
+  - flutter_line_sdk (2.3.7):
     - Flutter
     - LineSDKSwift (~> 5.3)
   - LineSDKSwift (5.9.0):
