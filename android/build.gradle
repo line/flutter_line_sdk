@@ -26,7 +26,9 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 
 android {
-    namespace 'com.linecorp.flutter_line_sdk'
+    if (project.android.hasProperty('namespace')) {
+        namespace 'com.linecorp.flutter_line_sdk'
+    }
     compileSdk 33
 
     sourceSets {
