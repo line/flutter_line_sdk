@@ -1,3 +1,9 @@
+## 2.3.8
+
+### Fixes
+
+* A build issue of mismatching between the required language version for newer Flutter versions and the plugin. Now the plugin is compatible with the latest Flutter versions. [#103](https://github.com/line/flutter_line_sdk/pull/103)
+
 ## 2.3.7
 
 ### Fixes
