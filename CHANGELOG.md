@@ -1,12 +1,12 @@
 ## 2.3.8
 
-### Fixes
+### Fixed
 
 * A build issue of mismatching between the required language version for newer Flutter versions and the plugin. Now the plugin is compatible with the latest Flutter versions. [#103](https://github.com/line/flutter_line_sdk/pull/103)
 
 ## 2.3.7
 
-### Fixes
+### Fixed
 
 * Exclude "lifecycle-extensions" of AndroidX from the plugin. This solves some conflicts when building with other plugins. [#94](https://github.com/line/flutter_line_sdk/pull/94)
 
