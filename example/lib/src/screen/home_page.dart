@@ -60,11 +60,15 @@ class _HomePageState extends State<HomePage>
             _configCard(),
             Expanded(
               child: Center(
-                  child: ElevatedButton(
-                      child: Text('Sign In'),
-                      onPressed: _signIn,
-                      style: ElevatedButton.styleFrom(
-                          backgroundColor: accentColor, foregroundColor: textColor))),
+                child: ElevatedButton(
+                  child: Text('Sign In'),
+                  onPressed: _signIn,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: accentColor,
+                    foregroundColor: textColor,
+                  ),
+                ),
+              ),
             ),
           ],
         ),
@@ -144,10 +148,15 @@ class _HomePageState extends State<HomePage>
   void _signIn() async {
     try {
       /// requestCode is for Android platform only, use another unique value in your application.
-      final loginOption =
-          LoginOption(_isOnlyWebLogin, 'normal', requestCode: 8192);
-      final result = await LineSDK.instance
-          .login(scopes: _selectedScopes.toList(), option: loginOption);
+      final loginOption = LoginOption(
+        _isOnlyWebLogin,
+        'normal',
+        requestCode: 8192,
+      );
+      final result = await LineSDK.instance.login(
+        scopes: _selectedScopes.toList(),
+        option: loginOption,
+      );
       final accessToken = await LineSDK.instance.currentAccessToken;
 
       final userEmail = result.accessToken.email;
@@ -183,11 +192,14 @@ class _HomePageState extends State<HomePage>
           content: Text(text),
           actions: <Widget>[
             TextButton(
-                child: Text('Close'),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                style: TextButton.styleFrom(foregroundColor: accentColor)),
+              child: Text('Close'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              style: TextButton.styleFrom(
+                foregroundColor: accentColor,
+              ),
+            ),
           ],
         );
       },

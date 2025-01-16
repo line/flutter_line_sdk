@@ -3,13 +3,13 @@ import 'package:flutter_line_sdk/flutter_line_sdk.dart';
 import '../theme.dart';
 
 class UserInfoWidget extends StatelessWidget {
-  const UserInfoWidget(
-      {Key? key,
-      required this.userProfile,
-      this.userEmail,
-      required this.accessToken,
-      required this.onSignOutPressed})
-      : super(key: key);
+  const UserInfoWidget({
+    Key? key,
+    required this.userProfile,
+    this.userEmail,
+    required this.accessToken,
+    required this.onSignOutPressed,
+  }) : super(key: key);
 
   final UserProfile userProfile;
   final String? userEmail;
@@ -34,15 +34,20 @@ class UserInfoWidget extends StatelessWidget {
             style: Theme.of(context).textTheme.headlineSmall,
           ),
           if (userEmail != null) Text(userEmail!),
-          if (userProfile.statusMessage != null) Text(userProfile.statusMessage!),
+          if (userProfile.statusMessage != null)
+            Text(userProfile.statusMessage!),
           Container(
-              child: ElevatedButton(
-                  child: Text('Sign Out'),
-                  onPressed: () {
-                    onSignOutPressed.call();
-                  },
-                  style: ElevatedButton.styleFrom(
-                      backgroundColor: accentColor, foregroundColor: textColor))),
+            child: ElevatedButton(
+              child: Text('Sign Out'),
+              onPressed: () {
+                onSignOutPressed.call();
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: accentColor,
+                foregroundColor: textColor,
+              ),
+            ),
+          ),
         ],
       ),
     );
