@@ -19,7 +19,7 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //
 
-part of flutter_line_sdk;
+part of '../../flutter_line_sdk.dart';
 
 /// Response to [LineSDK.getBotFriendshipStatus].
 class BotFriendshipStatus {

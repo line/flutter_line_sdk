@@ -19,7 +19,7 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //
 
-part of flutter_line_sdk;
+part of '../../flutter_line_sdk.dart';
 
 /// The access token stored on the user's device.
 class StoredAccessToken {
