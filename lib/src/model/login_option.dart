@@ -48,6 +48,9 @@ class LoginOption {
   /// in received ID token locally.
   String? idTokenNonce;
 
-  LoginOption(this.onlyWebLogin, this.botPrompt,
-      {this.requestCode = DEFAULT_ACTIVITY_RESULT_REQUEST_CODE});
+  LoginOption(
+    this.onlyWebLogin,
+    this.botPrompt, {
+    this.requestCode = DEFAULT_ACTIVITY_RESULT_REQUEST_CODE,
+  });
 }

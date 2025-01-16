@@ -54,10 +54,13 @@ class LineSDK {
   /// [Setting up your project](https://developers.line.biz/en/docs/ios-sdk/swift/setting-up-project/).
   /// If you don't pass a [universalLink] in this method, LINE SDK will use the traditional URL
   /// scheme to open your app when logging in through LINE.
-  Future<void> setup(String channelId, {String? universalLink}) async {
+  Future<void> setup(
+    String channelId, {
+    String? universalLink,
+  }) async {
     await channel.invokeMethod('setup', <String, String?>{
       'channelId': channelId,
-      'universalLink': universalLink
+      'universalLink': universalLink,
     });
   }
 
@@ -94,8 +97,10 @@ class LineSDK {
   /// [LineApiError](https://developers.line.biz/en/reference/android-sdk/reference/com/linecorp/linesdk/LineApiError.html)
   /// (Android).
   /// {@endtemplate}
-  Future<LoginResult> login(
-      {List<String> scopes = const ['profile'], LoginOption? option}) async {
+  Future<LoginResult> login({
+    List<String> scopes = const ['profile'],
+    LoginOption? option,
+  }) async {
     return await channel.invokeMethod('login', <String, dynamic>{
       'loginRequestCode': option?.requestCode,
       'scopes': scopes,
