@@ -5,8 +5,10 @@ import 'package:flutter/services.dart';
 import 'package:flutter_line_sdk/flutter_line_sdk.dart';
 
 class APIPage extends StatefulWidget {
+  const APIPage({Key? key}) : super(key: key);
+
   @override
-  _APIPageState createState() => _APIPageState();
+  State<StatefulWidget> createState() => _APIPageState();
 }
 
 class _APIPageState extends State<APIPage> {
@@ -48,23 +50,25 @@ class _APIPageState extends State<APIPage> {
             Expanded(
               flex: 1,
               child: Container(
-                padding: EdgeInsets.all(16),
+                padding: const EdgeInsets.all(16),
+                color: const Color.fromARGB(30, 30, 30, 30),
+                height: 200,
                 child: SingleChildScrollView(
                   child: Text(
                     isError ? _error! : _result!,
-                    style:
-                        TextStyle(color: isError ? Colors.red : Colors.green),
+                    style: TextStyle(
+                      color: isError ? Colors.red : Colors.green,
+                    ),
                   ),
                 ),
-                color: Color.fromARGB(30, 30, 30, 30),
-                height: 200,
               ),
             ),
           ],
         ),
         Expanded(
           child: ListView.separated(
-            separatorBuilder: (BuildContext context, int index) => Divider(),
+            separatorBuilder: (BuildContext context, int index) =>
+                const Divider(),
             itemCount: apis.length,
             itemBuilder: (context, index) {
               return ListTile(

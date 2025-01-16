@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_line_sdk/flutter_line_sdk.dart';
@@ -6,8 +7,10 @@ import '../theme.dart';
 import '../widget/user_info_widget.dart';
 
 class HomePage extends StatefulWidget {
+  const HomePage({Key? key}) : super(key: key);
+
   @override
-  _HomePageState createState() => _HomePageState();
+  State<StatefulWidget> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage>
@@ -17,7 +20,7 @@ class _HomePageState extends State<HomePage>
   StoredAccessToken? _accessToken;
   bool _isOnlyWebLogin = false;
 
-  final Set<String> _selectedScopes = Set.from(['profile']);
+  final Set<String> _selectedScopes = {'profile'};
 
   @override
   bool get wantKeepAlive => true;
@@ -38,7 +41,9 @@ class _HomePageState extends State<HomePage>
         userProfile = await LineSDK.instance.getProfile();
       }
     } on PlatformException catch (e) {
-      print(e.message);
+      if (kDebugMode) {
+        print(e.message);
+      }
     }
 
     if (!mounted) return;
@@ -60,11 +65,15 @@ class _HomePageState extends State<HomePage>
             _configCard(),
             Expanded(
               child: Center(
-                  child: ElevatedButton(
-                      child: Text('Sign In'),
-                      onPressed: _signIn,
-                      style: ElevatedButton.styleFrom(
-                          backgroundColor: accentColor, foregroundColor: textColor))),
+                child: ElevatedButton(
+                  onPressed: _signIn,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: accentColor,
+                    foregroundColor: textColor,
+                  ),
+                  child: const Text('Sign In'),
+                ),
+              ),
             ),
           ],
         ),
@@ -82,14 +91,12 @@ class _HomePageState extends State<HomePage>
   Widget _configCard() {
     return Card(
       child: Padding(
-        padding: EdgeInsets.all(15.0),
+        padding: const EdgeInsets.all(15.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             _scopeListUI(),
-            SizedBox(
-              height: 10.0,
-            ),
+            const SizedBox(height: 10.0),
             Row(
               children: <Widget>[
                 Checkbox(
@@ -101,7 +108,7 @@ class _HomePageState extends State<HomePage>
                     });
                   },
                 ),
-                Text('only Web Login'),
+                const Text('only Web Login'),
               ],
             ),
           ],
@@ -113,7 +120,7 @@ class _HomePageState extends State<HomePage>
   Widget _scopeListUI() => Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text('Scopes: '),
+          const Text('Scopes: '),
           Wrap(
             children:
                 _scopes.map<Widget>((scope) => _buildScopeChip(scope)).toList(),
@@ -126,7 +133,7 @@ class _HomePageState extends State<HomePage>
         child: ChipTheme(
           data: ChipTheme.of(context).copyWith(brightness: Brightness.dark),
           child: FilterChip(
-            label: Text(scope, style: TextStyle(color: textColor)),
+            label: Text(scope, style: const TextStyle(color: textColor)),
             selectedColor: accentColor,
             backgroundColor: secondaryBackgroundColor,
             selected: _selectedScopes.contains(scope),
@@ -158,6 +165,7 @@ class _HomePageState extends State<HomePage>
         _accessToken = accessToken;
       });
     } on PlatformException catch (e) {
+      if (!mounted) return;
       _showDialog(context, e.toString());
     }
   }
@@ -171,7 +179,9 @@ class _HomePageState extends State<HomePage>
         _accessToken = null;
       });
     } on PlatformException catch (e) {
-      print(e.message);
+      if (kDebugMode) {
+        print(e.message);
+      }
     }
   }
 
@@ -183,11 +193,12 @@ class _HomePageState extends State<HomePage>
           content: Text(text),
           actions: <Widget>[
             TextButton(
-                child: Text('Close'),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                style: TextButton.styleFrom(foregroundColor: accentColor)),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              style: TextButton.styleFrom(foregroundColor: accentColor),
+              child: const Text('Close'),
+            ),
           ],
         );
       },

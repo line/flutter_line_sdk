@@ -24,7 +24,7 @@ part of flutter_line_sdk;
 /// Options related to LINE login process.
 class LoginOption {
   /// Default request code that LINE login activity (in Android Platform) will be called with.
-  static const int DEFAULT_ACTIVITY_RESULT_REQUEST_CODE = 8192;
+  static const int DEFAULT_ACTIVITY_RESULT_REQUEST_CODE = 8192; // ignore: constant_identifier_names
 
   /// Enable to use web authentication flow instead of LINE app-to-app authentication flow.
   ///
@@ -48,6 +48,9 @@ class LoginOption {
   /// in received ID token locally.
   String? idTokenNonce;
 
-  LoginOption(this.onlyWebLogin, this.botPrompt,
-      {this.requestCode = DEFAULT_ACTIVITY_RESULT_REQUEST_CODE});
+  LoginOption(
+    this.onlyWebLogin,
+    this.botPrompt, {
+    this.requestCode = DEFAULT_ACTIVITY_RESULT_REQUEST_CODE,
+  });
 }

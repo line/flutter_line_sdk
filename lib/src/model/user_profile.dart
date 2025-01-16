@@ -52,7 +52,7 @@ class UserProfile {
   String? get pictureUrlLarge {
     final url = pictureUrl;
     if (url != null && url != '') {
-      return url + '/large';
+      return '$url/large';
     }
     return null;
   }
@@ -63,7 +63,7 @@ class UserProfile {
   String? get pictureUrlSmall {
     final url = pictureUrl;
     if (url != null && url != '') {
-      return url + '/small';
+      return '$url/small';
     }
     return null;
   }

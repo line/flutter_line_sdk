@@ -30,7 +30,7 @@ class LineSDK {
   ///
   /// Don't use this channel directly. Instead, call the public methods on the [LineSDK] class.
   static const MethodChannel channel =
-      const MethodChannel('com.linecorp/flutter_line_sdk');
+      MethodChannel('com.linecorp/flutter_line_sdk');
 
   /// The shared singleton object of `LineSDK`.
   ///
