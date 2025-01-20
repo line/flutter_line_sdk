@@ -9,8 +9,7 @@ A Flutter plugin using the LINE SDKs with Dart in Flutter apps.
   s.license          = { :file => '../LICENSE' }
   s.author           = { 'LINE' => 'dl_linesdk_cocoapods@linecorp.com' }
   s.source           = { :path => '.' }
-  s.source_files = 'Classes/**/*'
-  s.public_header_files = 'Classes/**/*.h'
+  s.source_files = 'flutter_line_sdk/Sources/flutter_line_sdk/**/*.swift'
   s.dependency 'Flutter'
   s.dependency 'LineSDKSwift', '~> 5.3'
 
