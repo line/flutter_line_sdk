@@ -19,7 +19,7 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //
 
-part of flutter_line_sdk;
+part of '../../flutter_line_sdk.dart';
 
 /// The user profile used in LineSDK.
 class UserProfile {
@@ -52,7 +52,7 @@ class UserProfile {
   String? get pictureUrlLarge {
     final url = pictureUrl;
     if (url != null && url != '') {
-      return url + '/large';
+      return '$url/large';
     }
     return null;
   }
@@ -63,7 +63,7 @@ class UserProfile {
   String? get pictureUrlSmall {
     final url = pictureUrl;
     if (url != null && url != '') {
-      return url + '/small';
+      return '$url/small';
     }
     return null;
   }

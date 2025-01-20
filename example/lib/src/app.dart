@@ -4,6 +4,9 @@ import 'screen/api_page.dart';
 import 'screen/home_page.dart';
 
 class App extends StatelessWidget {
+  const App({Key? key}) : super(key: key);
+
+  @override
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
@@ -15,7 +18,7 @@ class App extends StatelessWidget {
         child: Scaffold(
           appBar: AppBar(
             title: const Text('LINE SDK'),
-            bottom: TabBar(
+            bottom: const TabBar(
               tabs: [
                 Tab(text: 'User'),
                 Tab(text: 'API'),
@@ -23,7 +26,7 @@ class App extends StatelessWidget {
               indicatorColor: null,
             ),
           ),
-          body: TabBarView(
+          body: const TabBarView(
             children: [
               Center(
                 child: HomePage(),

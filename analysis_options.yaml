@@ -1,0 +1,15 @@
+include: package:flutter_lints/flutter.yaml
+
+analyzer:
+exclude:
+- '**/*.g.dart'
+- '**/*.freezed.dart'
+
+linter:
+rules:
+- always_specify_types
+- prefer_final_fields
+- prefer_const_constructors
+- avoid_print
+- public_member_api_docs
+- unnecessary_this

@@ -19,7 +19,7 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //
 
-part of flutter_line_sdk;
+part of '../flutter_line_sdk.dart';
 
 /// A general manager class for LINE SDK login features.
 ///
@@ -30,7 +30,7 @@ class LineSDK {
   ///
   /// Don't use this channel directly. Instead, call the public methods on the [LineSDK] class.
   static const MethodChannel channel =
-      const MethodChannel('com.linecorp/flutter_line_sdk');
+      MethodChannel('com.linecorp/flutter_line_sdk');
 
   /// The shared singleton object of `LineSDK`.
   ///
