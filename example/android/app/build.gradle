@@ -27,7 +27,7 @@ if (flutterVersionName == null) {
 
 android {
     namespace 'com.linecorp.linesdk.sample'
-    compileSdk 33
+    compileSdk 34
 
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'

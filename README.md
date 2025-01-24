@@ -90,7 +90,12 @@ Open the file `ios/Runner/Info.plist` in a text editor and insert this snippet j
 </array>
 ```
 
-Because LINE SDK now requires iOS 13.0 or above to provide underlying native features, you must add this line in the `Runner` target in `ios/Podfile`:
+Because LINE SDK now requires iOS 13.0 or above to provide underlying native features, while the default deployment 
+target of Flutter is 12.0, you must set the deployment target to 13.0 or higher. 
+
+##### CocoaPods integration
+
+If you are using CocoaPods in your project, add this line in the `Runner` target in `ios/Podfile`:
 
 ```diff
 target 'Runner' do
@@ -100,6 +105,10 @@ target 'Runner' do
   use_modular_headers!
   ...
 ```
+
+##### Swift Package Manager integration
+
+If you are using Swift Package Manager in your project, open the project and [increase the **Minimum Deployments**](https://docs.flutter.dev/packages-and-plugins/swift-package-manager/for-app-developers#how-to-use-a-swift-package-manager-flutter-plugin-that-requires-a-higher-os-version) of your app's target to 13.0.
 
 #### Android
 

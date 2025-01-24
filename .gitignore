@@ -15,3 +15,5 @@ example/.flutter-plugins-dependencies
 example/ios/Flutter/.last_build_id
 example/ios/Flutter/Flutter.podspec
 /pubspec.lock
+ios/flutter_line_sdk/.build/
+.swiftpm/
