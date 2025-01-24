@@ -1,3 +1,13 @@
+## 2.4.0
+
+### Added
+
+* Swift Package Manager integration. Now you can add this package [as a Swift Package](https://docs.flutter.dev/packages-and-plugins/swift-package-manager/for-app-developers) on iOS. [#117](https://github.com/line/flutter_line_sdk/pull/117)
+
+### Fixed
+
+* Integrate Flutter lints. Update and follow linter rules to improve code quality. [#115](https://github.com/line/flutter_line_sdk/pull/115)
+
 ## 2.3.8
 
 ### Fixed
