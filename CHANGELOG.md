@@ -1,3 +1,9 @@
+## 2.5.0
+
+### Removed
+
+* The old & deprecated `PluginRegistry` symbols (which belong to Flutter Android Plugin v1) are removed from the plugin system. This may cause compilation issues if you're using the old v1 plugin system in later Flutter versions. [#119](https://github.com/line/flutter_line_sdk/pull/119)
+
 ## 2.4.0
 
 ### Added
