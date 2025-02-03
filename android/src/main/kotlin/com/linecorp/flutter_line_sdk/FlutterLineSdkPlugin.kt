@@ -22,49 +22,34 @@ class FlutterLineSdkPlugin : MethodCallHandler, FlutterPlugin, ActivityAware {
     override fun onMethodCall(call: MethodCall, result: Result) {
         when (call.method) {
             "toBeta" -> run {
-                val channelId: String = call.argument("channelId") ?: ""
-                val openDiscoveryIdDocumentUrl: String = call.argument("openDiscoveryIdDocumentUrl") ?: ""
-                val apiServerBaseUrl: String = call.argument("apiServerBaseUrl") ?: ""
-                val webLoginPageUrl: String = call.argument("webLoginPageUrl") ?: ""
+                val channelId = call.argument<String>("channelId").orEmpty()
+                val openDiscoveryIdDocumentUrl = call.argument<String>("openDiscoveryIdDocumentUrl").orEmpty()
+                val apiServerBaseUrl = call.argument<String>("apiServerBaseUrl").orEmpty()
+                val webLoginPageUrl = call.argument<String>("webLoginPageUrl").orEmpty()
                 lineSdkWrapper.setupBetaConfig(
-                        channelId,
-                        openDiscoveryIdDocumentUrl,
-                        apiServerBaseUrl,
-                        webLoginPageUrl
+                    channelId,
+                    openDiscoveryIdDocumentUrl,
+                    apiServerBaseUrl,
+                    webLoginPageUrl
                 )
                 result.success(null)
             }
             "setup" -> {
-                val channelId: String = call.argument<String?>("channelId").orEmpty()
-                val activity = activity
-                if  (activity == null) {
-                    result.error(
-                        "no_activity_found",
-                        "There is no valid Activity found to present LINE SDK Login screen.",
-                        null
-                    )
-                    return
+                withActivity(result) { activity ->
+                    val channelId = call.argument<String>("channelId").orEmpty()
+                    lineSdkWrapper.setupSdk(activity, channelId)
+                    result.success(null)
                 }
-                lineSdkWrapper.setupSdk(activity, channelId)
-                result.success(null)
             }
             "login" -> {
-                val activity = this.activity
-                if (activity == null) {
-                    result.error(
-                        "no_activity_found",
-                        "There is no valid Activity found to present LINE SDK Login screen.",
-                        null
-                    )
-                    return
-                }
-
-                val scopes = call.argument("scopes") ?: emptyList<String>()
-                val isWebLogin = call.argument("onlyWebLogin") ?: false
-                val botPrompt  = call.argument("botPrompt") ?: "normal"
-                val idTokenNonce: String? = call.argument("idTokenNonce")
-                val loginRequestCode = call.argument<Int?>("loginRequestCode") ?: DEFAULT_ACTIVITY_RESULT_REQUEST_CODE
-                lineSdkWrapper.login(
+                withActivity(result) { activity ->
+                    val scopes = call.argument<List<String>>("scopes").orEmpty()
+                    val isWebLogin = call.argument<Boolean>("onlyWebLogin") ?: false
+                    val botPrompt = call.argument<String>("botPrompt") ?: "normal"
+                    val idTokenNonce = call.argument<String>("idTokenNonce")
+                    val loginRequestCode = call.argument<Int>("loginRequestCode") 
+                        ?: DEFAULT_ACTIVITY_RESULT_REQUEST_CODE
+                    lineSdkWrapper.login(
                         loginRequestCode,
                         activity,
                         scopes = scopes,
@@ -72,7 +57,8 @@ class FlutterLineSdkPlugin : MethodCallHandler, FlutterPlugin, ActivityAware {
                         botPromptString = botPrompt,
                         idTokenNonce = idTokenNonce,
                         result = result
-                )
+                    )
+                }
             }
             "getProfile" -> lineSdkWrapper.getProfile(result)
             "currentAccessToken" -> lineSdkWrapper.getCurrentAccessToken(result)
@@ -84,12 +70,26 @@ class FlutterLineSdkPlugin : MethodCallHandler, FlutterPlugin, ActivityAware {
         }
     }
 
+    private fun withActivity(result: Result, block: (Activity) -> Unit) {
+        val activity = this.activity
+        if (activity == null) {
+            result.error(
+                "no_activity_found",
+                "There is no valid Activity found to present LINE SDK Login screen.",
+                null
+            )
+            return
+        }
+        block(activity)
+    }
+
     override fun onAttachedToEngine(binding: FlutterPlugin.FlutterPluginBinding) {
         onAttachedToEngine(binding.binaryMessenger)
     }
 
     override fun onDetachedFromEngine(binding: FlutterPlugin.FlutterPluginBinding) {
-        methodChannel = null;
+        methodChannel?.setMethodCallHandler(null)
+        methodChannel = null
     }
 
     override fun onAttachedToActivity(binding: ActivityPluginBinding) {
@@ -122,7 +122,7 @@ class FlutterLineSdkPlugin : MethodCallHandler, FlutterPlugin, ActivityAware {
 
     private fun onAttachedToEngine(messenger: BinaryMessenger) {
         methodChannel = MethodChannel(messenger, CHANNEL_NAME)
-        methodChannel!!.setMethodCallHandler(this)
+        methodChannel?.setMethodCallHandler(this)
     }
 
     companion object {
