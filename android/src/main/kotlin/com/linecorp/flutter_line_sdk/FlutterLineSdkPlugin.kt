@@ -6,13 +6,12 @@ import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
-import io.flutter.plugin.common.PluginRegistry
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.embedding.engine.plugins.activity.ActivityAware
 import io.flutter.embedding.engine.plugins.activity.ActivityPluginBinding
 import io.flutter.plugin.common.BinaryMessenger
 
-class FlutterLineSdkPlugin : MethodCallHandler, PluginRegistry.ActivityResultListener, FlutterPlugin, ActivityAware {
+class FlutterLineSdkPlugin : MethodCallHandler, FlutterPlugin, ActivityAware {
 
     private var methodChannel: MethodChannel? = null
     private val lineSdkWrapper = LineSdkWrapper()
@@ -109,18 +108,15 @@ class FlutterLineSdkPlugin : MethodCallHandler, PluginRegistry.ActivityResultLis
         unbindActivityBinding()
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, intent: Intent?): Boolean =
-        lineSdkWrapper.handleActivityResult(requestCode, resultCode, intent)
-
     private fun bindActivityBinding(binding: ActivityPluginBinding) {
         this.activity = binding.activity
         this.activityBinding = binding
-        addActivityResultListener(binding)
+        binding.addActivityResultListener(lineSdkWrapper::handleActivityResult)
     }
 
     private fun unbindActivityBinding() {
-        activityBinding?.removeActivityResultListener(this)
-        this.activity = null;
+        activityBinding?.removeActivityResultListener(lineSdkWrapper::handleActivityResult)
+        this.activity = null
         this.activityBinding = null
     }
 
@@ -129,25 +125,8 @@ class FlutterLineSdkPlugin : MethodCallHandler, PluginRegistry.ActivityResultLis
         methodChannel!!.setMethodCallHandler(this)
     }
 
-    private fun addActivityResultListener(activityBinding: ActivityPluginBinding) {
-        activityBinding.addActivityResultListener(this)
-    }
-
-    private fun addActivityResultListener(registrar: PluginRegistry.Registrar) {
-        registrar.addActivityResultListener(this)
-    }
-
     companion object {
         private const val CHANNEL_NAME = "com.linecorp/flutter_line_sdk"
         private const val DEFAULT_ACTIVITY_RESULT_REQUEST_CODE = 8192
-
-        @JvmStatic
-        fun registerWith(registrar: PluginRegistry.Registrar) {
-            FlutterLineSdkPlugin().apply {
-                onAttachedToEngine(registrar.messenger())
-                activity = registrar.activity()
-                addActivityResultListener(registrar)
-            }
-        }
     }
 }
