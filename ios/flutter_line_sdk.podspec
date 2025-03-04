@@ -9,8 +9,8 @@ Swift.
   s.homepage         = 'https://developers.line.biz'
   s.license          = { :type => 'Apache', :file => '../LICENSE' }
   s.author           = { 'LINE' => 'dl_linesdk_cocoapods@linecorp.com' }
-  s.source           = { :http => 'file:' + __dir__ }
-  s.source_files = 'flutter_line_sdk/Sources/flutter_line_sdk/**/*.swift'
+  s.source           = { :http => 'https://github.com/line/flutter_line_sdk' }
+  s.source_files     = 'flutter_line_sdk/Sources/flutter_line_sdk/**/*.swift'
   s.dependency 'Flutter'
   s.dependency 'LineSDKSwift', '~> 5.3'
 
