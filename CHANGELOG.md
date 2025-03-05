@@ -1,3 +1,9 @@
+## 2.5.1
+
+### Fixed
+
+* A stable `source` field in Podspec file. It avoids the checksum mismatch issue when building the iOS part on difference machines. [#122](https://github.com/line/flutter_line_sdk/pull/122)
+
 ## 2.5.0
 
 ### Removed
