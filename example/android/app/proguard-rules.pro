@@ -1,0 +1,3 @@
+-keepattributes SourceFile,LineNumberTable
+-renamesourcefileattribute SourceFile
+-dontwarn com.linecorp.linesdk.BR
