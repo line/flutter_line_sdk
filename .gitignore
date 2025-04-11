@@ -17,3 +17,5 @@ example/ios/Flutter/Flutter.podspec
 /pubspec.lock
 ios/flutter_line_sdk/.build/
 .swiftpm/
+
+**/.cxx/
