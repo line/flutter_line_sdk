@@ -1,5 +1,4 @@
 group 'com.linecorp.flutter_line_sdk'
-version '1.0-SNAPSHOT'
 
 buildscript {
     ext.kotlin_version = '1.7.21'
@@ -12,7 +11,6 @@ buildscript {
         classpath 'com.android.tools.build:gradle:7.3.1'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
-
 }
 
 rootProject.allprojects {
@@ -39,10 +37,12 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles 'consumer-proguard-rules.pro'
     }
+    buildFeatures {
+        buildConfig true
+    }
     lintOptions {
         disable 'InvalidPackage'
     }
-
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
