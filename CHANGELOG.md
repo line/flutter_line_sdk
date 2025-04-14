@@ -1,3 +1,9 @@
+## 2.5.2
+
+### Fixed
+
+* Update default build settings for Android. Now the build should run in a more stable way. [#126](https://github.com/line/flutter_line_sdk/pull/126)
+
 ## 2.5.1
 
 ### Fixed
