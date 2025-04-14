@@ -12,7 +12,6 @@ if (localPropertiesFile.exists()) {
     }
 }
 
-
 def flutterVersionCode = localProperties.getProperty('flutter.versionCode')
 if (flutterVersionCode == null) {
     flutterVersionCode = '1'
@@ -23,11 +22,9 @@ if (flutterVersionName == null) {
     flutterVersionName = '1.0'
 }
 
-
-
 android {
     namespace 'com.linecorp.linesdk.sample'
-    compileSdk 34
+    compileSdk 35
 
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
@@ -40,7 +37,7 @@ android {
     defaultConfig {
         applicationId "com.linecorp.linesdk.sample"
         minSdk 24
-        targetSdk 31
+        targetSdk 35
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -63,6 +60,11 @@ android {
         }
         release {
             minifyEnabled true
+            shrinkResources true
+            proguardFiles(
+                    getDefaultProguardFile("proguard-android-optimize.txt"),
+                    "proguard-rules.pro"
+            )
             signingConfig signingConfigs.debug
         }
     }
