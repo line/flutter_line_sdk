@@ -12,7 +12,7 @@ let package = Package(
         .library(name: "flutter-line-sdk", targets: ["flutter_line_sdk"])
     ],
     dependencies: [
-        .package(url: "https://github.com/line/line-sdk-ios-swift.git", from: "5.3.0")
+        .package(url: "https://github.com/line/line-sdk-ios-swift.git", from: "5.13.0")
     ],
     targets: [
         .target(
