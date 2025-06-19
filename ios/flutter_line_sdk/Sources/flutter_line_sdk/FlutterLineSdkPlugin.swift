@@ -27,7 +27,7 @@ public class FlutterLineSdkPlugin: NSObject, FlutterPlugin {
     open url: URL,
     options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool
   {
-    return LoginManager.shared.application(application, open: url, options: options)
+    return LoginManager.shared.nonisolatedApplication(application, open: url, options: options)
   }
 
   public func application(
@@ -35,7 +35,7 @@ public class FlutterLineSdkPlugin: NSObject, FlutterPlugin {
     continue userActivity: NSUserActivity,
     restorationHandler: @escaping ([Any]) -> Void) -> Bool
   {
-    return LoginManager.shared.application(application, open: userActivity.webpageURL)
+    return LoginManager.shared.nonisolatedApplication(application, open: userActivity.webpageURL)
   }
 }
 
@@ -122,6 +122,7 @@ extension LineChannelMethod {
     result(nil)
   }
 
+  @MainActor
   func login(arguments: [String: Any]?, result: @escaping FlutterResult) {
 
     guard let args = arguments else {
