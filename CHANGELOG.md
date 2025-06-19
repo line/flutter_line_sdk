@@ -1,3 +1,9 @@
+## 2.6.0
+
+### Added
+
+* Upgrade the iOS native LINE SDK to version 5.13.0. This version includes the Swift Concurrency support and compatible with the latest SDKs. [#129](https://github.com/line/flutter_line_sdk/pull/129)
+
 ## 2.5.2
 
 ### Fixed
