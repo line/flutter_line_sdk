@@ -12,7 +12,7 @@ Swift.
   s.source           = { :http => 'https://github.com/line/flutter_line_sdk' }
   s.source_files     = 'flutter_line_sdk/Sources/flutter_line_sdk/**/*.swift'
   s.dependency 'Flutter'
-  s.dependency 'LineSDKSwift', '~> 5.3'
+  s.dependency 'LineSDKSwift', '~> 5.13'
 
   s.swift_version         = "4.2"
   s.swift_versions        = ['4.2', '5.0']
