@@ -57,10 +57,11 @@ To access your LINE Login channel from a mobile platform, you need some extra co
 
 ### Adding flutter_line_sdk package
 
-Use the standard way of adding this package to your Flutter app, as described in the [Flutter documentation](https://flutter.dev/docs/development/packages-and-plugins/using-packages). The process consists of these steps:
+Use the standard way of adding this package to your Flutter app, as described in the [Flutter documentation](https://flutter.dev/docs/development/packages-and-plugins/using-packages):
 
-1. Open the `pubspec.yaml` file in your app folder and, under `dependencies`, add `flutter_line_sdk:`.
-2. Install it by running this in a terminal: `flutter pub get`
+```sh
+flutter pub add flutter_line_sdk
+```
 
 Now, the Dart part of `flutter_line_sdk` should be installed. Next, you need to set up LINE SDK for iOS and Android projects, respectively.
 

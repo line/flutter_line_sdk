@@ -1,3 +1,9 @@
+## 2.6.1
+
+### Fixed
+
+* A compiling issue on iOS when using CocoaPods to setup the plugin. This is caused by the incompatible Swift language version is used. [#131](https://github.com/line/flutter_line_sdk/pull/131)
+
 ## 2.6.0
 
 ### Added
