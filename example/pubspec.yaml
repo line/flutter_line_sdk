@@ -1,7 +1,7 @@
 name: flutter_line_sdk_example
 description: Demonstrates how to use the flutter_line_sdk plugin.
 publish_to: 'none'
-version: 2.6.1+294
+version: 2.6.2+299
 
 environment:
   sdk: '>=2.12.0 <4.0.0'

@@ -1,3 +1,9 @@
+## 2.6.2
+
+### Fixed
+
+* Upgrade LINE SDK Android version to solve a potential issue related to obfuscation. [#133](https://github.com/line/flutter_line_sdk/pull/133)
+
 ## 2.6.1
 
 ### Fixed
