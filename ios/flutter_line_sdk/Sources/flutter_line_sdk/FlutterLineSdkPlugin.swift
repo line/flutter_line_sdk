@@ -9,6 +9,9 @@ public class FlutterLineSdkPlugin: NSObject, FlutterPlugin {
     let instance = FlutterLineSdkPlugin()
     registrar.addMethodCallDelegate(instance, channel: channel)
     registrar.addApplicationDelegate(instance)
+    if #available(iOS 13.0, *) {
+      registrar.addSceneDelegate(instance)
+    }
   }
 
   public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
@@ -36,6 +39,29 @@ public class FlutterLineSdkPlugin: NSObject, FlutterPlugin {
     restorationHandler: @escaping ([Any]) -> Void) -> Bool
   {
     return LoginManager.shared.nonisolatedApplication(application, open: userActivity.webpageURL)
+  }
+
+  // MARK: - UIScene lifecycle (Flutter 3.38+)
+
+  @available(iOS 13.0, *)
+  public func scene(
+    _ scene: UIScene,
+    openURLContexts URLContexts: Set<UIOpenURLContext>
+  ) -> Bool {
+    for context in URLContexts {
+      if LoginManager.shared.nonisolatedApplication(.shared, open: context.url) {
+        return true
+      }
+    }
+    return false
+  }
+
+  @available(iOS 13.0, *)
+  public func scene(
+    _ scene: UIScene,
+    continue userActivity: NSUserActivity
+  ) -> Bool {
+    return LoginManager.shared.nonisolatedApplication(.shared, open: userActivity.webpageURL)
   }
 }
 
