@@ -2,7 +2,7 @@
 
 ### Added
 
-* Add UIScene lifecycle support for the iOS plugin. This ensures the LINE login callback works correctly when the host app adopts the UIScene-based lifecycle (required by Apple post-iOS 26). The plugin now registers both `UIApplicationDelegate` and `FlutterSceneLifeCycleDelegate` callbacks for full backward compatibility. [#136](https://github.com/line/flutter_line_sdk/issues/136)
+* Add UIScene lifecycle support for the iOS plugin. This ensures the LINE login callback works correctly when the host app adopts the UIScene-based lifecycle (required by Apple post-iOS 26). The plugin now registers both `UIApplicationDelegate` and `FlutterSceneLifeCycleDelegate` callbacks for full backward compatibility. [#137](https://github.com/line/flutter_line_sdk/pull/137)
 
 ### Changed
 
