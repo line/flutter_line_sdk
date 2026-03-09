@@ -40,7 +40,7 @@
 /// `await LineSDK.instance.setup($channel_id);` to set up the plugin. For the most basic use case,
 /// invoke the `login` method to prompt your users to log in with their LINE accounts.
 ///
-library flutter_line_sdk;
+library;
 
 import 'dart:async';
 import 'dart:convert';
