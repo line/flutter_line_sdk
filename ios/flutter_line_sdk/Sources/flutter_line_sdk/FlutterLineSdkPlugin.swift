@@ -3,6 +3,9 @@ import UIKit
 
 import LineSDK
 
+@available(iOS 13.0, *)
+extension FlutterLineSdkPlugin: FlutterSceneLifeCycleDelegate {}
+
 public class FlutterLineSdkPlugin: NSObject, FlutterPlugin {
   public static func register(with registrar: FlutterPluginRegistrar) {
     let channel = FlutterMethodChannel(name: "com.linecorp/flutter_line_sdk", binaryMessenger: registrar.messenger())
