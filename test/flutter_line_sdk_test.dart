@@ -46,23 +46,23 @@ void main() {
   setUp(() {
     TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
         .setMockMethodCallHandler(channel, (MethodCall methodCall) async {
-      switch (methodCall.method) {
-        case 'setup':
-          return null;
-        case 'login':
-          return '{"accessToken": $dummyAccessToken, "userProfile": $dummyProfile}';
-        case 'getProfile':
-          return dummyProfile;
-        case 'refreshToken':
-          return dummyAccessToken;
-        case 'verifyAccessToken':
-          return dummyVerifyToken;
-        case 'getBotFriendshipStatus':
-          return dummyGetBotFriendshipStatus;
-        default:
-          return null;
-      }
-    });
+          switch (methodCall.method) {
+            case 'setup':
+              return null;
+            case 'login':
+              return '{"accessToken": $dummyAccessToken, "userProfile": $dummyProfile}';
+            case 'getProfile':
+              return dummyProfile;
+            case 'refreshToken':
+              return dummyAccessToken;
+            case 'verifyAccessToken':
+              return dummyVerifyToken;
+            case 'getBotFriendshipStatus':
+              return dummyGetBotFriendshipStatus;
+            default:
+              return null;
+          }
+        });
   });
 
   test('setup', () async {
@@ -73,9 +73,9 @@ void main() {
     final v = await LineSDK.instance.login();
     expect(v.accessToken.value, '123');
 
-    expect(v.accessToken.scopes.length, 2);
-    expect(v.accessToken.scopes.contains('profile'), true);
-    expect(v.accessToken.scopes.contains('abcd'), true);
+    expect(v.accessToken.scopes?.length, 2);
+    expect(v.accessToken.scopes?.contains('profile'), true);
+    expect(v.accessToken.scopes?.contains('abcd'), true);
 
     expect(v.userProfile?.userId, 'abcd');
   });

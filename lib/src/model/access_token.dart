@@ -47,11 +47,11 @@ class AccessToken {
   Map<String, dynamic> get data => _data;
 
   /// The value of the access token.
-  String get value => _data['access_token'];
+  String? get value => _data['access_token'];
 
   /// Number of seconds until the access token expires,
   /// counting from when the server issued the token.
-  num get expiresIn => _data['expires_in'];
+  num? get expiresIn => _data['expires_in'];
 
   /// The raw string value of the ID token bound to the access token. It is a Base64 URL encoded string
   /// which follows specification of JSON Web Token (JWT). If you need to access a field value in the
@@ -92,11 +92,11 @@ class AccessToken {
   }
 
   /// The valid scopes bound to this access token.
-  List<String> get scopes => _data['scope'].split(' ');
+  List<String>? get scopes => (_data['scope'] as String?)?.split(' ');
 
   /// The expected authorization type when this token is used in a request
   /// header. Fixed to `Bearer` for now.
-  String get tokenType => _data['token_type'];
+  String? get tokenType => _data['token_type'];
 
   /// The email address set by the user. This value only exists when `idToken` is
   /// valid and the user has set the email address in LINE and agreed to share it
