@@ -1,3 +1,9 @@
+## 2.7.1
+
+### Fixed
+
+* Bump minimum LINE SDK iOS dependency to 5.16.0 to fix Xcode 26 compilation errors caused by Swift 6 strict concurrency checks. [#140](https://github.com/line/flutter_line_sdk/issues/140)
+
 ## 2.7.0
 
 ### Added
