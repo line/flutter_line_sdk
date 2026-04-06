@@ -92,7 +92,8 @@ class AccessToken {
   }
 
   /// The valid scopes bound to this access token.
-  List<String> get scopes => _data['scope'].split(' ');
+  List<String> get scopes =>
+      (_data['scope'] as String?)?.split(' ') ?? <String>[];
 
   /// The expected authorization type when this token is used in a request
   /// header. Fixed to `Bearer` for now.
