@@ -1,3 +1,9 @@
+## 2.7.2
+
+### Fixed
+
+* Fix crash when scope or token type is absent from access token response data. [#145](https://github.com/line/flutter_line_sdk/pull/145)
+
 ## 2.7.1
 
 ### Fixed
