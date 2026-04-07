@@ -99,7 +99,7 @@ If any check fails, report the error and stop. Do NOT proceed with committing br
 Create a single commit with all version-bump changes:
 
 ```bash
-git add pubspec.yaml ios/flutter_line_sdk.podspec example/pubspec.yaml CHANGELOG.md
+git add pubspec.yaml ios/flutter_line_sdk.podspec example/pubspec.yaml example/pubspec.lock CHANGELOG.md
 git commit -m "Bump version to $VERSION"
 ```
 
