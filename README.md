@@ -32,6 +32,7 @@ For more examples, see the [example app](https://github.com/line/flutter_line_sd
 
 From version 2.0, `flutter_line_sdk` supports [null safety](https://dart.dev/null-safety). If you are still seeking a legacy version without null safety, check [version 1.3.0](https://github.com/line/flutter_line_sdk/releases/tag/1.3.0).
 
+- Flutter 3.44.0 or later. Version 3.0 relies on Flutter's [built-in Kotlin support](https://docs.flutter.dev/release/breaking-changes/migrate-to-built-in-kotlin) for Android builds; if your project is still on an older Flutter version, use `flutter_line_sdk` 2.x instead.
 - iOS 13.0 or later as the deployment target
 - Android `minSdkVersion` set to 24 or higher (Android 7.0 or later)
 - [LINE Login channel linked to your app](https://developers.line.biz/en/docs/line-login/getting-started/)

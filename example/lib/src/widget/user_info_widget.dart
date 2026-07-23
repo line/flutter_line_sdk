@@ -4,12 +4,12 @@ import '../theme.dart';
 
 class UserInfoWidget extends StatelessWidget {
   const UserInfoWidget({
-    Key? key,
+    super.key,
     required this.userProfile,
     this.userEmail,
     required this.accessToken,
     required this.onSignOutPressed,
-  }) : super(key: key);
+  });
 
   final UserProfile userProfile;
   final String? userEmail;
@@ -23,11 +23,7 @@ class UserInfoWidget extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           (userProfile.pictureUrl ?? "").isNotEmpty
-              ? Image.network(
-                  userProfile.pictureUrl!,
-                  width: 200,
-                  height: 200,
-                )
+              ? Image.network(userProfile.pictureUrl!, width: 200, height: 200)
               : const Icon(Icons.person),
           Text(
             userProfile.displayName,

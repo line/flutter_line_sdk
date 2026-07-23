@@ -7,7 +7,7 @@ import '../theme.dart';
 import '../widget/user_info_widget.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+  const HomePage({super.key});
 
   @override
   State<StatefulWidget> createState() => _HomePageState();
@@ -118,43 +118,49 @@ class _HomePageState extends State<HomePage>
   }
 
   Widget _scopeListUI() => Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          const Text('Scopes: '),
-          Wrap(
-            children:
-                _scopes.map<Widget>((scope) => _buildScopeChip(scope)).toList(),
-          ),
-        ],
-      );
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: <Widget>[
+      const Text('Scopes: '),
+      Wrap(
+        children: _scopes
+            .map<Widget>((scope) => _buildScopeChip(scope))
+            .toList(),
+      ),
+    ],
+  );
 
   Widget _buildScopeChip(String scope) => Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 4.0),
-        child: ChipTheme(
-          data: ChipTheme.of(context).copyWith(brightness: Brightness.dark),
-          child: FilterChip(
-            label: Text(scope, style: const TextStyle(color: textColor)),
-            selectedColor: accentColor,
-            backgroundColor: secondaryBackgroundColor,
-            selected: _selectedScopes.contains(scope),
-            onSelected: (_) {
-              setState(() {
-                _selectedScopes.contains(scope)
-                    ? _selectedScopes.remove(scope)
-                    : _selectedScopes.add(scope);
-              });
-            },
-          ),
-        ),
-      );
+    padding: const EdgeInsets.symmetric(horizontal: 4.0),
+    child: ChipTheme(
+      data: ChipTheme.of(context).copyWith(brightness: Brightness.dark),
+      child: FilterChip(
+        label: Text(scope, style: const TextStyle(color: textColor)),
+        selectedColor: accentColor,
+        backgroundColor: secondaryBackgroundColor,
+        selected: _selectedScopes.contains(scope),
+        onSelected: (_) {
+          setState(() {
+            _selectedScopes.contains(scope)
+                ? _selectedScopes.remove(scope)
+                : _selectedScopes.add(scope);
+          });
+        },
+      ),
+    ),
+  );
 
   void _signIn() async {
     try {
       /// requestCode is for Android platform only, use another unique value in your application.
-      final loginOption =
-          LoginOption(_isOnlyWebLogin, 'normal', requestCode: 8192);
-      final result = await LineSDK.instance
-          .login(scopes: _selectedScopes.toList(), option: loginOption);
+      final loginOption = LoginOption(
+        _isOnlyWebLogin,
+        'normal',
+        requestCode: 8192,
+      );
+      final result = await LineSDK.instance.login(
+        scopes: _selectedScopes.toList(),
+        option: loginOption,
+      );
       final accessToken = await LineSDK.instance.currentAccessToken;
 
       final userEmail = result.accessToken.email;

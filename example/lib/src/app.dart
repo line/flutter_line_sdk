@@ -4,16 +4,14 @@ import 'screen/api_page.dart';
 import 'screen/home_page.dart';
 
 class App extends StatelessWidget {
-  const App({Key? key}) : super(key: key);
+  const App({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
         primaryColor: Colors.green,
-        tabBarTheme: const TabBarThemeData(
-          indicatorColor: Colors.white,
-        ),
+        tabBarTheme: const TabBarThemeData(indicatorColor: Colors.white),
       ),
       home: DefaultTabController(
         length: 2,
@@ -30,12 +28,8 @@ class App extends StatelessWidget {
           ),
           body: const TabBarView(
             children: [
-              Center(
-                child: HomePage(),
-              ),
-              Center(
-                child: APIPage(),
-              ),
+              Center(child: HomePage()),
+              Center(child: APIPage()),
             ],
           ),
         ),
