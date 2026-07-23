@@ -5,7 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_line_sdk/flutter_line_sdk.dart';
 
 class APIPage extends StatefulWidget {
-  const APIPage({Key? key}) : super(key: key);
+  const APIPage({super.key});
 
   @override
   State<StatefulWidget> createState() => _APIPageState();

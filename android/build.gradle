@@ -1,14 +1,14 @@
 group 'com.linecorp.flutter_line_sdk'
 
 buildscript {
-    ext.kotlin_version = '1.7.21'
+    ext.kotlin_version = '2.3.20'
     repositories {
         google()
         mavenCentral()
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.3.1'
+        classpath 'com.android.tools.build:gradle:9.0.1'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
@@ -22,16 +22,11 @@ rootProject.allprojects {
 
 apply plugin: 'com.android.library'
 
-def agpMajor = com.android.Version.ANDROID_GRADLE_PLUGIN_VERSION.tokenize('.')[0] as int
-if (agpMajor < 9) {
-    apply plugin: 'kotlin-android'
-}
-
 android {
     if (project.android.hasProperty('namespace')) {
         namespace 'com.linecorp.flutter_line_sdk'
     }
-    compileSdk 33
+    compileSdk 36
 
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
@@ -48,14 +43,17 @@ android {
         disable 'InvalidPackage'
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
+}
 
-    if (agpMajor < 9) {
-        kotlinOptions {
-            jvmTarget = '1.8'
-        }
+// The Kotlin Gradle plugin is applied by Flutter itself (built-in Kotlin,
+// available since Flutter 3.44). Applying it here again would trigger the
+// KGP deprecation warning and break under AGP 9+.
+kotlin {
+    compilerOptions {
+        jvmTarget = org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17
     }
 }
 
@@ -65,7 +63,6 @@ dependencies {
         exclude group: 'androidx.lifecycle', module: 'lifecycle-extensions'
     }
     implementation 'com.google.code.gson:gson:2.8.5'
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.0.1"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.0.1"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.1"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.8.1"
 }
