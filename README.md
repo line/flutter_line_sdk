@@ -95,9 +95,15 @@ Open the file `ios/Runner/Info.plist` in a text editor and insert this snippet j
 Because LINE SDK now requires iOS 15.0 or above to provide underlying native features, while the default deployment 
 target of Flutter is 13.0, you must set the deployment target to 15.0 or higher. 
 
-##### CocoaPods integration
+##### Swift Package Manager integration (default)
 
-If you are using CocoaPods in your project, add this line in the `Runner` target in `ios/Podfile`:
+Following Flutter's official direction, Swift Package Manager is the default way of managing iOS native dependencies since Flutter 3.44, and it is the integration path this plugin primarily targets. The bundled example app uses Swift Package Manager exclusively and cannot be built with Swift Package Manager opted out.
+
+Open the project and [increase the **Minimum Deployments**](https://docs.flutter.dev/packages-and-plugins/swift-package-manager/for-app-developers#how-to-use-a-swift-package-manager-flutter-plugin-that-requires-a-higher-os-version) of your app's target to 15.0.
+
+##### CocoaPods integration (maintenance mode)
+
+CocoaPods integration keeps working and remains supported, but it is in maintenance mode, in line with [Flutter's own plan for CocoaPods](https://docs.flutter.dev/packages-and-plugins/swift-package-manager/for-plugin-authors). If your project has opted out of Swift Package Manager, add this line in the `Runner` target in `ios/Podfile`:
 
 ```diff
 target 'Runner' do
@@ -107,10 +113,6 @@ target 'Runner' do
   use_modular_headers!
   ...
 ```
-
-##### Swift Package Manager integration
-
-If you are using Swift Package Manager in your project, open the project and [increase the **Minimum Deployments**](https://docs.flutter.dev/packages-and-plugins/swift-package-manager/for-app-developers#how-to-use-a-swift-package-manager-flutter-plugin-that-requires-a-higher-os-version) of your app's target to 15.0.
 
 #### Android
 
