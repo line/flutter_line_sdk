@@ -6,19 +6,21 @@ import PackageDescription
 let package = Package(
     name: "flutter_line_sdk",
     platforms: [
-        .iOS("13.0"),
+        .iOS("15.0"),
     ],
     products: [
         .library(name: "flutter-line-sdk", targets: ["flutter_line_sdk"])
     ],
     dependencies: [
-        .package(url: "https://github.com/line/line-sdk-ios-swift.git", from: "5.13.0")
+        .package(url: "https://github.com/line/line-sdk-ios-swift.git", from: "5.17.0"),
+        .package(name: "FlutterFramework", path: "../FlutterFramework")
     ],
     targets: [
         .target(
             name: "flutter_line_sdk",
             dependencies: [
-                .product(name: "LineSDK", package: "line-sdk-ios-swift")
+                .product(name: "LineSDK", package: "line-sdk-ios-swift"),
+                .product(name: "FlutterFramework", package: "FlutterFramework")
             ],
             resources: []
         )
