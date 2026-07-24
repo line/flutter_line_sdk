@@ -1,3 +1,14 @@
+## 3.0.0
+
+This major release aligns the plugin with the current Flutter toolchain. It now requires **Flutter 3.44.0 / Dart 3.12.0 or later**, **iOS 15.0+**, and an AGP 9 era Android toolchain. If your project is still on an older Flutter version, keep using `flutter_line_sdk` 2.x.
+
+### Changed
+
+* **[Breaking]** Require Flutter 3.44.0 / Dart 3.12.0 or later. [#150](https://github.com/line/flutter_line_sdk/pull/150)
+* **[Breaking]** Android: migrate to Flutter's built-in Kotlin. The plugin no longer applies the Kotlin Gradle Plugin by itself, which removes the KGP deprecation warning and fixes app builds under AGP 9. The toolchain is aligned with the Flutter 3.44 templates (AGP 9.0.1, Kotlin 2.3.20, Gradle 9.1.0, compileSdk 36, Java 17). [#150](https://github.com/line/flutter_line_sdk/pull/150) [#148](https://github.com/line/flutter_line_sdk/issues/148)
+* **[Breaking]** iOS: raise the minimum deployment target to 15.0 (Xcode 27 only supports building for iOS 15.0 or later) and depend on LINE SDK iOS 5.17. [#152](https://github.com/line/flutter_line_sdk/pull/152)
+* iOS: add the `FlutterFramework` dependency to the plugin's Swift package following the Flutter 3.44 plugin-author guideline, removing the warning printed on every iOS build. Swift Package Manager is now the default integration path, with CocoaPods support in maintenance mode. [#152](https://github.com/line/flutter_line_sdk/pull/152)
+
 ## 2.7.2
 
 ### Fixed
