@@ -40,8 +40,8 @@ class _APIPageState extends State<APIPage> {
 
   @override
   Widget build(BuildContext context) {
-    final apis = _getAPIs();
-    final isError = _error != '';
+    final List<_APIItem> apis = _getAPIs();
+    final bool isError = _error != '';
 
     return Column(
       children: <Widget>[
@@ -70,7 +70,7 @@ class _APIPageState extends State<APIPage> {
             separatorBuilder: (BuildContext context, int index) =>
                 const Divider(),
             itemCount: apis.length,
-            itemBuilder: (context, index) {
+            itemBuilder: (BuildContext context, int index) {
               return ListTile(
                 title: Text(apis[index].name),
                 onTap: () {
@@ -85,10 +85,10 @@ class _APIPageState extends State<APIPage> {
   }
 
   List<_APIItem> _getAPIs() {
-    return [
+    return <_APIItem>[
       _APIItem('Get Profile', () async {
         try {
-          final result = await LineSDK.instance.getProfile();
+          final UserProfile result = await LineSDK.instance.getProfile();
           _setState(result.data, null);
         } on PlatformException catch (e) {
           _setState(null, e);
@@ -96,7 +96,8 @@ class _APIPageState extends State<APIPage> {
       }),
       _APIItem('Get Current AccessToken', () async {
         try {
-          final result = await LineSDK.instance.currentAccessToken;
+          final StoredAccessToken? result =
+              await LineSDK.instance.currentAccessToken;
           _setState(result?.data, null);
         } on PlatformException catch (e) {
           _setState(null, e);
@@ -104,7 +105,7 @@ class _APIPageState extends State<APIPage> {
       }),
       _APIItem('Refresh Token', () async {
         try {
-          final result = await LineSDK.instance.refreshToken();
+          final AccessToken result = await LineSDK.instance.refreshToken();
           _setState(result.data, null);
         } on PlatformException catch (e) {
           _setState(null, e);
@@ -112,7 +113,8 @@ class _APIPageState extends State<APIPage> {
       }),
       _APIItem('Verify Access Token', () async {
         try {
-          final result = await LineSDK.instance.verifyAccessToken();
+          final AccessTokenVerifyResult result = await LineSDK.instance
+              .verifyAccessToken();
           _setState(result.data, null);
         } on PlatformException catch (e) {
           _setState(null, e);
@@ -120,7 +122,8 @@ class _APIPageState extends State<APIPage> {
       }),
       _APIItem('Official Account Friendship Status', () async {
         try {
-          final result = await LineSDK.instance.getBotFriendshipStatus();
+          final BotFriendshipStatus result = await LineSDK.instance
+              .getBotFriendshipStatus();
           _setState(result.data, null);
         } on PlatformException catch (e) {
           _setState(null, e);

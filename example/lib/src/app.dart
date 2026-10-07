@@ -19,7 +19,7 @@ class App extends StatelessWidget {
           appBar: AppBar(
             title: const Text('LINE SDK'),
             bottom: const TabBar(
-              tabs: [
+              tabs: <Widget>[
                 Tab(text: 'User'),
                 Tab(text: 'API'),
               ],
@@ -27,7 +27,7 @@ class App extends StatelessWidget {
             ),
           ),
           body: const TabBarView(
-            children: [
+            children: <Widget>[
               Center(child: HomePage()),
               Center(child: APIPage()),
             ],

@@ -21,7 +21,7 @@ class UserInfoWidget extends StatelessWidget {
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
+        children: <Widget>[
           (userProfile.pictureUrl ?? "").isNotEmpty
               ? Image.network(userProfile.pictureUrl!, width: 200, height: 200)
               : const Icon(Icons.person),

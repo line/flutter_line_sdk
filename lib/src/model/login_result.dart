@@ -25,7 +25,7 @@ part of '../../flutter_line_sdk.dart';
 class LoginResult {
   LoginResult._(this._data) {
     _accessToken = AccessToken._(_data['accessToken']);
-    final userData = _data['userProfile'];
+    final dynamic userData = _data['userProfile'];
     if (userData == null) {
       _userProfile = null;
     } else {
@@ -43,6 +43,8 @@ class LoginResult {
 
   /// The [AccessToken] object obtained during login.
   AccessToken get accessToken => _accessToken;
+
+  /// The permissions that the user granted during login.
   List<String> get scopes => (_data['scope'] ?? "").split(' ');
 
   /// The [UserProfile] object obtained during login.

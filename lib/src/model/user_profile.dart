@@ -50,7 +50,7 @@ class UserProfile {
   ///
   /// `null` if the user hasn't set a profile image.
   String? get pictureUrlLarge {
-    final url = pictureUrl;
+    final String? url = pictureUrl;
     if (url != null && url != '') {
       return '$url/large';
     }
@@ -61,7 +61,7 @@ class UserProfile {
   ///
   /// `null` if the user hasn't set a profile image.
   String? get pictureUrlSmall {
-    final url = pictureUrl;
+    final String? url = pictureUrl;
     if (url != null && url != '') {
       return '$url/small';
     }

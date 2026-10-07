@@ -20,7 +20,7 @@ class _HomePageState extends State<HomePage>
   StoredAccessToken? _accessToken;
   bool _isOnlyWebLogin = false;
 
-  final Set<String> _selectedScopes = {'profile'};
+  final Set<String> _selectedScopes = <String>{'profile'};
 
   @override
   bool get wantKeepAlive => true;
@@ -123,7 +123,7 @@ class _HomePageState extends State<HomePage>
       const Text('Scopes: '),
       Wrap(
         children: _scopes
-            .map<Widget>((scope) => _buildScopeChip(scope))
+            .map<Widget>((String scope) => _buildScopeChip(scope))
             .toList(),
       ),
     ],
@@ -152,18 +152,19 @@ class _HomePageState extends State<HomePage>
   void _signIn() async {
     try {
       /// requestCode is for Android platform only, use another unique value in your application.
-      final loginOption = LoginOption(
+      final LoginOption loginOption = LoginOption(
         _isOnlyWebLogin,
         'normal',
         requestCode: 8192,
       );
-      final result = await LineSDK.instance.login(
+      final LoginResult result = await LineSDK.instance.login(
         scopes: _selectedScopes.toList(),
         option: loginOption,
       );
-      final accessToken = await LineSDK.instance.currentAccessToken;
+      final StoredAccessToken? accessToken =
+          await LineSDK.instance.currentAccessToken;
 
-      final userEmail = result.accessToken.email;
+      final String? userEmail = result.accessToken.email;
 
       setState(() {
         _userProfile = result.userProfile;

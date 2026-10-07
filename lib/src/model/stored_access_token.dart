@@ -27,6 +27,7 @@ class StoredAccessToken {
 
   final Map<String, dynamic> _data;
 
+  /// Raw data of the stored token in a `Map` representation.
   Map<String, dynamic> get data => _data;
 
   /// The access token, as a string.

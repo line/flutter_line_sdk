@@ -1,0 +1,6 @@
+include: ../analysis_options.yaml
+
+linter:
+  rules:
+    # The example app is not a public API.
+    public_member_api_docs: false

@@ -76,7 +76,7 @@ class AccessToken {
       return null;
     }
 
-    final parts = idTokenRaw!.split('.');
+    final List<String> parts = idTokenRaw!.split('.');
     // Malformed JWT format.
     if (parts.length != 3) {
       return null;
@@ -85,8 +85,8 @@ class AccessToken {
     // dart:convert is a bit pedantic and it requires a normalized format of base 64,
     // even encoded by base 64 url.
     // https://github.com/dart-lang/sdk/issues/39510
-    final normalizedPayload = base64.normalize(parts[1]);
-    final jsonPayload = utf8.decode(base64Url.decode(normalizedPayload));
+    final String normalizedPayload = base64.normalize(parts[1]);
+    final String jsonPayload = utf8.decode(base64Url.decode(normalizedPayload));
     _idToken = jsonDecode(jsonPayload);
     return _idToken;
   }

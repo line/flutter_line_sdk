@@ -10,7 +10,7 @@ void main() {
 
   const MethodChannel channel = MethodChannel('com.linecorp/flutter_line_sdk');
 
-  const dummyAccessToken = """
+  const String dummyAccessToken = """
     {
       "access_token":"123",
       "refresh_token":"abc",
@@ -20,7 +20,7 @@ void main() {
       "expires_in":2592000
     }
   """;
-  const dummyProfile = """
+  const String dummyProfile = """
     {
       "userId":"abcd",
       "displayName":"Brown",
@@ -29,7 +29,7 @@ void main() {
     }
   """;
 
-  const dummyVerifyToken = """
+  const String dummyVerifyToken = """
     {
       "scope":"profile",
       "client_id":"1440057261",
@@ -37,7 +37,7 @@ void main() {
     }
   """;
 
-  const dummyGetBotFriendshipStatus = """
+  const String dummyGetBotFriendshipStatus = """
     {
       "friendFlag": true
     }
@@ -70,7 +70,7 @@ void main() {
   });
 
   test('login', () async {
-    final v = await LineSDK.instance.login();
+    final LoginResult v = await LineSDK.instance.login();
     expect(v.accessToken.value, '123');
 
     expect(v.accessToken.scopes.length, 2);
@@ -81,22 +81,24 @@ void main() {
   });
 
   test('user profile', () async {
-    final v = await LineSDK.instance.getProfile();
+    final UserProfile v = await LineSDK.instance.getProfile();
     expect(v.userId, 'abcd');
   });
 
   test('refresh token', () async {
-    final v = await LineSDK.instance.refreshToken();
+    final AccessToken v = await LineSDK.instance.refreshToken();
     expect(v.value, '123');
   });
 
   test('verify access token', () async {
-    final v = await LineSDK.instance.verifyAccessToken();
+    final AccessTokenVerifyResult v = await LineSDK.instance
+        .verifyAccessToken();
     expect(v.channelId, '1440057261');
   });
 
   test('get LINE Official Account friendship status', () async {
-    final v = await LineSDK.instance.getBotFriendshipStatus();
+    final BotFriendshipStatus v = await LineSDK.instance
+        .getBotFriendshipStatus();
     expect(v.isFriend, true);
   });
 

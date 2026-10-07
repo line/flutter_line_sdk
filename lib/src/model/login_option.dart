@@ -49,6 +49,7 @@ class LoginOption {
   /// in received ID token locally.
   String? idTokenNonce;
 
+  /// Creates a [LoginOption] with the given web login flag and bot prompt.
   LoginOption(
     this.onlyWebLogin,
     this.botPrompt, {
