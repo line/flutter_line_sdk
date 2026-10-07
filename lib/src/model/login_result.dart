@@ -52,11 +52,12 @@ class LoginResult {
   /// This object exists only if the `"profile"` scope was included in [LineSDK.login].
   UserProfile? get userProfile => _userProfile;
 
-  /// Indicates that the friendship status between the user and the LINE Official Account changed during login.
+  /// Indicates whether the friendship status between the user and the LINE Official Account
+  /// changed during login.
   ///
-  /// This value is `null` if `BotPrompt` was not specified in [LoginOption]. For more
-  /// information, see
-  /// [Linking a LINE official account with your LINE Login channel](https://developers.line.me/en/docs/line-login/web/link-a-bot/).
+  /// This value may be `null` if the login response does not include friendship status
+  /// change information. For more information, see
+  /// [Add a LINE Official Account as a friend when logged in](https://developers.line.biz/en/docs/line-login/link-a-bot/).
   bool? get isFriendshipStatusChanged => _data['friendshipStatusChanged'];
 
   /// The `nonce` value when requesting ID Token during login process. Use this value as a parameter when you

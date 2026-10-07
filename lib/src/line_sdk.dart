@@ -83,6 +83,9 @@ class LineSDK {
   /// to ask the user to add your LINE Official Account as a friend. To do so, create a [LoginOption]
   /// object and pass it to the [option] parameter.
   ///
+  /// If [option] is omitted, the [LoginOption.botPrompt] value defaults to `normal`.
+  /// Explicitly setting it to `normal` or `aggressive` uses the specified value.
+  ///
   /// {@template error_handling}
   /// This method redirects calls to the LINE SDK for the relevant native platform (iOS or Android).
   /// If an error happens in the native platform, a [PlatformException] is thrown. See

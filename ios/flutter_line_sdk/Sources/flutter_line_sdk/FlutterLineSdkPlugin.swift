@@ -165,12 +165,10 @@ extension LineChannelMethod {
     parameters.onlyWebLogin = (args["onlyWebLogin"] as? Bool) ?? false
     parameters.IDTokenNonce = args["idTokenNonce"] as? String
       
-    if let botPrompt = args["botPrompt"] as? String {
-      switch botPrompt {
-      case "aggressive": parameters.botPromptStyle = .aggressive
-      case "normal": parameters.botPromptStyle = .normal
-      default: break
-      }
+    switch (args["botPrompt"] as? String) ?? "normal" {
+    case "aggressive": parameters.botPromptStyle = .aggressive
+    case "normal": parameters.botPromptStyle = .normal
+    default: break
     }
 
     LoginManager.shared.login(

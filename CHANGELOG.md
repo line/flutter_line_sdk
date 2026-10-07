@@ -1,3 +1,9 @@
+## Unreleased
+
+### Changed
+
+* iOS: use `normal` as the default bot prompt value when `LoginOption` is omitted, matching Android. As a result, `LoginResult.isFriendshipStatusChanged` may contain friendship status change information returned by the LINE Platform.
+
 ## 3.0.0
 
 This major release aligns the plugin with the current Flutter toolchain. It now requires **Flutter 3.44.0 / Dart 3.12.0 or later**, **iOS 15.0+**, and an AGP 9 era Android toolchain. If your project is still on an older Flutter version, keep using `flutter_line_sdk` 2.x.
