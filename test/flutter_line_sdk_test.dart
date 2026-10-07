@@ -46,23 +46,23 @@ void main() {
   setUp(() {
     TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
         .setMockMethodCallHandler(channel, (MethodCall methodCall) async {
-      switch (methodCall.method) {
-        case 'setup':
-          return null;
-        case 'login':
-          return '{"accessToken": $dummyAccessToken, "userProfile": $dummyProfile}';
-        case 'getProfile':
-          return dummyProfile;
-        case 'refreshToken':
-          return dummyAccessToken;
-        case 'verifyAccessToken':
-          return dummyVerifyToken;
-        case 'getBotFriendshipStatus':
-          return dummyGetBotFriendshipStatus;
-        default:
-          return null;
-      }
-    });
+          switch (methodCall.method) {
+            case 'setup':
+              return null;
+            case 'login':
+              return '{"accessToken": $dummyAccessToken, "userProfile": $dummyProfile}';
+            case 'getProfile':
+              return dummyProfile;
+            case 'refreshToken':
+              return dummyAccessToken;
+            case 'verifyAccessToken':
+              return dummyVerifyToken;
+            case 'getBotFriendshipStatus':
+              return dummyGetBotFriendshipStatus;
+            default:
+              return null;
+          }
+        });
   });
 
   test('setup', () async {

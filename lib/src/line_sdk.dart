@@ -29,8 +29,9 @@ class LineSDK {
   /// The method channel connected to the native side of the LINE SDK.
   ///
   /// Don't use this channel directly. Instead, call the public methods on the [LineSDK] class.
-  static const MethodChannel channel =
-      MethodChannel('com.linecorp/flutter_line_sdk');
+  static const MethodChannel channel = MethodChannel(
+    'com.linecorp/flutter_line_sdk',
+  );
 
   /// The shared singleton object of `LineSDK`.
   ///
@@ -57,7 +58,7 @@ class LineSDK {
   Future<void> setup(String channelId, {String? universalLink}) async {
     await channel.invokeMethod('setup', <String, String?>{
       'channelId': channelId,
-      'universalLink': universalLink
+      'universalLink': universalLink,
     });
   }
 
@@ -94,15 +95,19 @@ class LineSDK {
   /// [LineApiError](https://developers.line.biz/en/reference/android-sdk/reference/com/linecorp/linesdk/LineApiError.html)
   /// (Android).
   /// {@endtemplate}
-  Future<LoginResult> login(
-      {List<String> scopes = const ['profile'], LoginOption? option}) async {
-    return await channel.invokeMethod('login', <String, dynamic>{
-      'loginRequestCode': option?.requestCode,
-      'scopes': scopes,
-      'onlyWebLogin': option?.onlyWebLogin,
-      'botPrompt': option?.botPrompt,
-      'idTokenNonce': option?.idTokenNonce,
-    }).then((value) => LoginResult._(_decodeJson(value)));
+  Future<LoginResult> login({
+    List<String> scopes = const ['profile'],
+    LoginOption? option,
+  }) async {
+    return await channel
+        .invokeMethod('login', <String, dynamic>{
+          'loginRequestCode': option?.requestCode,
+          'scopes': scopes,
+          'onlyWebLogin': option?.onlyWebLogin,
+          'botPrompt': option?.botPrompt,
+          'idTokenNonce': option?.idTokenNonce,
+        })
+        .then((value) => LoginResult._(_decodeJson(value)));
   }
 
   /// Logs out the current user by revoking the related tokens.
