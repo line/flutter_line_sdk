@@ -6,6 +6,6 @@ data class VerifyAccessTokenResult(
     @SerializedName("client_id")
     val channelId: String,
     val scope: String,
-    @SerializedName("expire_in")
+    @SerializedName("expires_in")
     val expireIn: Long
 )
