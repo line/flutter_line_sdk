@@ -58,7 +58,7 @@ kotlin {
 }
 
 dependencies {
-    implementation('com.linecorp.linesdk:linesdk:5.11.1') {
+    implementation('com.linecorp.linesdk:linesdk:5.13.0') {
         exclude group: 'androidx.lifecycle', module: 'lifecycle-viewmodel-ktx'
         exclude group: 'androidx.lifecycle', module: 'lifecycle-extensions'
     }
